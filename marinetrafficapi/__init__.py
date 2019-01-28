@@ -1,0 +1,1 @@
+from marinetrafficapi.client import Client as MarineTrafficApi
