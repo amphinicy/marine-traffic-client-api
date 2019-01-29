@@ -6,7 +6,7 @@
 <p>Works on python 3.x.</p>
 
 ```
-pip install marine-traffic-client-api
+pip install Marine-Traffic-API
 ```
 
 <h3>Usage</h3>

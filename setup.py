@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.1.1',
+    version='0.1.2',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
