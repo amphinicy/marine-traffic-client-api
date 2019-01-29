@@ -1,49 +1,110 @@
-from datetime import datetime
-from typing import Union, List
+from typing import Union, List, Any
 
-from marinetrafficapi.paging import Paging
+from marinetrafficapi.fields import (NumberField, TextField,
+                                     LinestringField, BooleanField,
+                                     DatetimeField, RealNumberField,
+                                     Field)
 
 
 class Model(object):
     """Abstract model class."""
 
+    def __init__(self, item: Any):
+        self.item = item
+
     @classmethod
-    def process(cls, data: list) -> Union[object, List[object]]:
+    def process(cls, data: list) -> List[object]:
         """Transform raw data into models."""
 
-        return [cls(*item) for item in data]
+        model_list = []
 
-    def convert_bool(self, value: Union['1', '0']) -> bool:
-        """Convert 1 or 0 to True or False."""
+        for item in data:
+            model_object = cls(item)
 
-        if value == '1':
-            return True
-        else:
-            return False
+            for model_property in cls.__dict__:
+                property_object = getattr(model_object,
+                                          model_property)
 
-    def convert_linestring(self, data: str) -> Union[None, list]:
-        """Convert LINESTRING to list."""
+                if isinstance(property_object, Field):
+                    property_object.convert_item(model_object)
+                    setattr(model_object, model_property,
+                            property_object.data)
 
-        if not data:
-            return None
-        return data[12:-1].split(' ')
+            model_list.append(model_object)
 
-    """def convert_datetime(self, date_time):
-        try:
-            dt = date_time.split(' ')
-            d = dt[0].split('/')
-            t = dt[1].split(':')
-            return datetime(int(d[2]), int(d[1]), int(d[0]), int(t[0]), int(t[1]), int(t[2]))
-        except:
-            return date_time"""
+        return model_list
 
 
 class Route(Model):
     """Receive a list of available routes and distances
-    from a specific point to a port or from port to port"""
+    from a specific point to a port or from port to port."""
 
-    def __init__(self, *item):
-        self.distance = int(item[0])
-        self.panama = self.convert_bool(item[1])
-        self.suez = self.convert_bool(item[2])
-        self.final_path = self.convert_linestring(item[3] or None)
+    distance = NumberField(index='DISTANCE',
+                           desc="The Distance (in NM) between the specified point "
+                                "or port to the destination port")
+
+    panama = BooleanField(index='PANAMA',
+                          desc="Whether the vessel route passes via the Panama canal")
+
+    suez = BooleanField(index='SUEZ',
+                        desc="Whether the vessel route passes via the Suez canal")
+
+    final_path = LinestringField(index='FINAL_PATH',
+                                 desc="Route/Waypoints as Linestring "
+                                      "Geometry in WKT - Well-Known Text")
+
+
+class VesselPosition(Model):
+    """Get all vessel historical positions for a specific period of time."""
+
+    mmsi = NumberField(index='MMSI',
+                       desc="Maritime Mobile Service Identity - a nine-digit number "
+                            "sent in digital form over a radio frequency that identifies "
+                            "the vessel's transmitter station")
+
+    status = NumberField(index='STATUS',
+                         desc="The AIS Navigational Status of the subject vessel as "
+                              "input by the vessel's crew - more. There might be "
+                              "discrepancies with the vessel's detail page when vessel "
+                              "speed is near zero (0) knots.")
+
+    speed = NumberField(index='SPEED',
+                        desc="The speed (in knots x10) that the subject vessel is "
+                             "reporting according to AIS transmissions")
+
+    longitude = RealNumberField(index='LON',
+                                desc="A geographic coordinate that specifies the "
+                                     "east-west position of the vessel on the "
+                                     "Earth's surface")
+
+    latitude = RealNumberField(index='LAT',
+                               desc="a geographic coordinate that specifies the "
+                                    "north-south position of the vessel on the "
+                                    "Earth's surface")
+
+    course = NumberField(index='COURSE',
+                         desc="The course (in degrees) that the subject vessel is "
+                              "reporting according to AIS transmissions")
+
+    heading = NumberField(index='HEADING',
+                          desc="The heading (in degrees) that the subject vessel is "
+                               "reporting according to AIS transmissions")
+
+    timestamp = DatetimeField(index='TIMESTAMP',
+                              desc="The date and time (in UTC) that the subject vessel's "
+                                   "position was recorded by MarineTraffic")
+
+    ship_id = NumberField(index='SHIP_ID',
+                          desc="A uniquely assigned ID by MarineTraffic "
+                               "for the subject vessel")
+
+    wind_angle = NumberField(index='WIND_ANGLE',
+                             desc="The current angle of the wind in the subject area "
+                                  "(in degrees, compared to True North)")
+
+    wind_speed = NumberField(index='WIND_SPEED',
+                             desc="The current wind speed in the subject area (in knots)")
+
+    wind_temp = NumberField(index='WIND_TEMP',
+                            desc="The current temperature of the wind in the "
+                                 "subject area (in Celsius degrees)")

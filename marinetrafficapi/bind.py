@@ -51,7 +51,7 @@ def bind_request(**request_data) -> 'callable':
                     self.parameters['query'][key] = value  # str(value).encode('utf-8')
                 elif key in self.query_parameters.keys():
                     self.parameters['query'][self.query_parameters[key]] = \
-                        str(value).encode('utf-8')
+                        value  # str(value).encode('utf-8')
 
             # transform all True and False param to 1 and 0
             for key, value in self.parameters['query'].items():
@@ -64,7 +64,7 @@ def bind_request(**request_data) -> 'callable':
             for value in path_params:
                 self.parameters['path'].append(value.encode('utf-8'))
 
-        def _prepare_request(self) -> str:
+        def _prepare_url(self) -> str:
             """
             Prepares url and query parameters for the request
             :return: Tuple with two elements, url and query parameters
@@ -141,7 +141,7 @@ def bind_request(**request_data) -> 'callable':
             :return: Return value from self._process_response()
             """
 
-            url = self._prepare_request()
+            url = self._prepare_url()
             status_code, response = self._do_request(url)
             return self._process_response(status_code, response)
 
@@ -150,11 +150,18 @@ def bind_request(**request_data) -> 'callable':
         Binded method for API calls
         :path_params: list of path parameters
         :query_params: dict of query parameters
-        :return: Return value from ApiRequest.call()
+        :return: Return value from ApiRequest.call() or ApiRequest
+        object for testing purposes.
         """
 
         with Debug(client=client) as debug:
             request = ApiRequest(client, debug, *path_params, **query_params)
-            return request.call()
+
+            if query_params.get('test'):
+                # for testing purposes only
+                del query_params['test']
+                return request
+            else:
+                return request.call()
 
     return call
