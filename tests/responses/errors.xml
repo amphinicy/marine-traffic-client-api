@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSE>
+    <STATUS>
+        <ERROR CODE="12" DESCRIPTION="TEST ERROR"/>
+    </STATUS>
+</RESPONSE>

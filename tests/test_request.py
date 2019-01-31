@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from marinetrafficapi.client import Client
@@ -7,13 +8,26 @@ class TestRequest(unittest.TestCase):
 
     def setUp(self):
         self._api_key = '_api_key_'
-        self._request = Client(self._api_key).routes(test=True,
-                                                     port_start_id=1,
-                                                     port_target_id=10,
-                                                     include_alternatives=True,
-                                                     include_in_land=False)
+        self._base_url = 'https://services.marinetraffic.com/en/api/exportroutes/_api_key_'
+        self._url = self._base_url + '/msgtype:extended/protocol:jsono/port_start_id:1/' \
+                                     'port_target_id:10/includealternatives:1/includeinland:0'
+        self.fake_ok_response_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'tests', 'responses', 'routes_ok.json'
+        )
+        self._request_params = {
+            'port_start_id': 1,
+            'port_target_id': 10,
+            'include_alternatives': True,
+            'include_in_land': False
+        }
 
     def test_set_parameters(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path)\
+            .routes(**self._request_params)
+
         parameters = {
             'query': {
                 'msgtype': 'extended',
@@ -23,25 +37,14 @@ class TestRequest(unittest.TestCase):
                 'includealternatives': '1',
                 'includeinland': '0'
             },
-            'path': []
+            'path': [self._base_url]
         }
-        self.assertEqual(self._request.parameters, parameters)
+        self.assertEqual(request.api_reguest.parameters, parameters)
 
-    def test_prepare_request(self):
-        url = 'https://services.marinetraffic.com/en/api/exportroutes/_api_key_/msgtype:extended/protocol:jsono/port_start_id:1/port_target_id:10/includealternatives:1/includeinland:0'
-        self.assertEqual(self._request._prepare_url(), url)
+    def test_prepare_url(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path)\
+            .routes(**self._request_params)
 
-    def test_errors(self):
-        response = {
-            'errors': [
-                {
-                    'code': '12',
-                    'detail': 'TEST ERROR'
-                }
-            ]
-        }
-
-        with self.assertRaises(Exception) as context:
-            self._request._process_response(200, response)
-
-        self.assertTrue('Request errors: code 12: TEST ERROR' in str(context.exception))
+        self.assertEqual(request.api_reguest.url, self._url)

@@ -4,3 +4,7 @@ class MarineTrafficClientApiException(Exception):
 
 class MarineTrafficRequestApiException(Exception):
 	pass
+
+
+class MarineTrafficFormatterException(Exception):
+	pass

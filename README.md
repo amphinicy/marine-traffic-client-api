@@ -23,8 +23,13 @@ routes = api.routes(port_start_id=1,
                     include_alternatives=True, 
                     include_in_land=True)
 
-# iterate over the routes
-for route in routes:
+# Data could be fetched in 3 different ways:
+routes.raw_data  # raw data from api call
+routes.formatted_data  # json, xml (lxml etree) or csv (pandas csv) formatted
+routes.models  # list of Client models representing the data
+
+# iterate over the route models
+for route in routes.models:
 	route.distance
 	route.panama
 	route.suez
@@ -35,8 +40,8 @@ vessel_positions = api.vessel_track(period='daily',
                                     days=3, 
                                     mmsi=241486000)
 
-# iterate over positions
-for position in vessel_positions:
+# iterate over position models
+for position in vessel_positions.models:
 	position.mmsi
 	position.status
 	position.speed

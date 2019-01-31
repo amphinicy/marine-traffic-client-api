@@ -1,9 +1,10 @@
 import requests
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from marinetrafficapi.debug import Debug
-from marinetrafficapi.models import Model
+from marinetrafficapi.formatter import FormatterFactory
 from marinetrafficapi.exceptions import MarineTrafficRequestApiException
+from marinetrafficapi.reponse import Response
 
 if TYPE_CHECKING:
     from marinetrafficapi.client import Client
@@ -20,11 +21,13 @@ def bind_request(**request_data) -> 'callable':
         method = request_data.get('method', 'GET')
         query_parameters = request_data.get('query_parameters')
         default_parameters = request_data.get('default_parameters')
+        fake_response_path = request_data.get('fake_response_path')
 
         def __init__(self, client: 'Client', debug: 'Debug',
                      *path_params, **query_params):
             client.request = self
 
+            self.url = None
             self.debug = debug
             self.client = client
             self.parameters = {'query': {}, 'path': []}
@@ -67,7 +70,7 @@ def bind_request(**request_data) -> 'callable':
         def _prepare_url(self) -> str:
             """
             Prepares url and query parameters for the request
-            :return: Tuple with two elements, url and query parameters
+            :return: URL
             """
 
             url_parts = {
@@ -98,70 +101,75 @@ def bind_request(**request_data) -> 'callable':
 
         def _do_request(self, url: str) -> (int, dict):
             """
-            Makes the request to BlaBlaCar Api servers
+            Makes the request to Marine Traffic Api servers
             :url: Url for the request
-            :params: Query parameters
             :return: Tuple with two elements, status code and content
             """
 
-            if self.method == 'GET':
+            if self.client.fake_response_path:
+                with open(self.client.fake_response_path, 'r') as f:
+                    return 200, f.read()
+
+            elif self.method == 'GET':
                 response = requests.get(url)
                 self.debug.ok('response_object', response)
-                return response.status_code, response.json()
+                return response.status_code, response.text
+
             else:
                 # For future POST, PUT, DELETE requests
                 return 404, {}
 
-        def _process_response(self, status_code: int, response: dict) -> 'Model':
+        def _process_response(self, status_code: int, response: str) -> 'Response':
             """
             Process response using models
             :status_code: Response status code
             :response: Content
-            :return: Model with the data from the response
+            :return: Response object
             """
 
-            if 'errors' in response:
+            formatter = FormatterFactory(self.parameters['query']['protocol'])\
+                .get_formatter()
+
+            response = Response(response, status_code, formatter, self)
+
+            error_response = response.to_list
+            if 'errors' in error_response:
+                # error responses have status_code 200 instead of 5xx
+
                 self.debug.error('status_code', status_code)
-                self.debug.error('response', response)
+                self.debug.error('response', error_response)
 
                 msg = 'Request errors: {}'.format(''.join(
                     ['code {}: {}'.format(error['code'], error['detail'])
-                     for error in response['errors']]))
+                     for error in error_response['errors']]))
 
                 raise MarineTrafficRequestApiException(msg)
             else:
                 self.debug.ok('status_code', status_code)
-                self.debug.ok('response', response)
+                self.debug.ok('response', response.raw_data)
 
-            return self.model.process(response)
+            return response
 
-        def call(self):
+        def call(self) -> 'Response':
             """
             Makes the API call
             :return: Return value from self._process_response()
             """
 
-            url = self._prepare_url()
-            status_code, response = self._do_request(url)
+            self.url = self._prepare_url()
+            status_code, response = self._do_request(self.url)
             return self._process_response(status_code, response)
 
-    def call(client, *path_params, **query_params):
+    def call(client, *path_params, **query_params) -> 'Response':
         """
         Binded method for API calls
         :path_params: list of path parameters
         :query_params: dict of query parameters
-        :return: Return value from ApiRequest.call() or ApiRequest
-        object for testing purposes.
+        :return: Return value from ApiRequest.call()
         """
 
         with Debug(client=client) as debug:
             request = ApiRequest(client, debug, *path_params, **query_params)
-
-            if query_params.get('test'):
-                # for testing purposes only
-                del query_params['test']
-                return request
-            else:
-                return request.call()
+            return request.call()
 
     return call

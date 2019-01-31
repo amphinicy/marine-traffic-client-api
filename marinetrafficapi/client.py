@@ -10,12 +10,14 @@ class Client(object):
     base_path = '/api'
     protocol = 'https'
 
-    def __init__(self, api_key=None, debug=False):
+    def __init__(self, api_key: str = None, debug: bool = False,
+                 fake_response_path: str = None):
         if not api_key:
             raise MarineTrafficRequestApiException('API key missing!')
 
         self.api_key = api_key
         self.debug = debug
+        self.fake_response_path = fake_response_path
 
     routes = bind_request(
         api_path='/exportroutes',
@@ -66,7 +68,7 @@ class Client(object):
     )
 
     vessel_track = bind_request(
-        api_path='/exportvesseltrack/v:2',
+        api_path='/exportvesseltrack',
         model=VesselPosition,
         query_parameters={
             # The number of days, starting from the time of request and going backwards,
@@ -108,6 +110,7 @@ class Client(object):
             'protocol': 'protocol'
         },
         default_parameters={
+            'v': '2',
             'msgtype': 'extended',
             'protocol': 'jsono'
         }

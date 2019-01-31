@@ -100,6 +100,7 @@ class LinestringField(Field):
 
         coordinates = []
         for coordinate in data[12:-1].split(','):
-            coordinates.append(tuple(coordinate.strip().split(' ')))
+            coordinates.append(
+                tuple(map(float, coordinate.strip().split(' '))))
 
         return coordinates

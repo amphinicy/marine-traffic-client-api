@@ -1,9 +1,8 @@
-from typing import Union, List, Any
+from typing import List, Any
 
-from marinetrafficapi.fields import (NumberField, TextField,
-                                     LinestringField, BooleanField,
-                                     DatetimeField, RealNumberField,
-                                     Field)
+from marinetrafficapi.fields import (NumberField, LinestringField,
+                                     BooleanField, DatetimeField,
+                                     RealNumberField, Field)
 
 
 class Model(object):
