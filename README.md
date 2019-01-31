@@ -21,11 +21,12 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 routes = api.routes(port_start_id=1, 
                     port_target_id=10, 
                     include_alternatives=True, 
-                    include_in_land=True)
+                    include_in_land=True,
+                    protocol='json'|'jsono'|'csv'|'xml')
 
 # Data could be fetched in 3 different ways:
-routes.raw_data  # raw data from api call
-routes.formatted_data  # json, xml (lxml etree) or csv (pandas csv) formatted
+routes.raw_data  # raw data from api call (json, csv or xml)
+routes.formatted_data  # data list
 routes.models  # list of Client models representing the data
 
 # iterate over the route models
