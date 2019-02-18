@@ -1,9 +1,20 @@
 language: python
+
 python:
   - "3.6"
+
 branches:
   only:
   - master
+
 script:
   - pip install .
   - pytest -vvv
+
+deploy:
+  provider: pypi
+  user: "arrrlo"
+  password:
+    secure: "AohxOXTgfg0H7EnN5q/o3qu8o3syz0QO9pVDLkC2w+WVVd6F/IOrg1olEqzFX08KhlRx3eRQ6MeLky3/aD8sw5s3L50kSH8uZWQBYZrP+00hPEoCTsxmZYlacJUiqjgA0dxMpFUypAP5j8FJ7/1Zroq4VtWNZliENjdILhja8IWE14o1MxHl6sdgEIyfuy61iQ6VOBwqgW4W4cFgcxCe1WoHsNp5vfTHESiVheHg+8ji3rGV3P6huvuzm0Gc1zlVTxAi6gL3V2AY3BcXFGxDvaSo8uRmGiiJuSYt3uIYpvOECZgqi2qIvjE4RS0DTLnI1kiNmXobkDD7UhNiYv9bpgSlHR3PO1ce4AaFsMuH8HvN0SMhXGUCQngAZAlaq/HAS0ztgJ+Kf4eE/wcJLS1Ihccy3H7sVWerp2LqPBRK+3vPHIoNwvFrYkTUSzIXMJ3Dijua2SqwKeuA677cv/BXTFpll+NAWGk3UGcgf+5N39ZSlBkIqr+hzXzvi8yqbRh5vn4yawbkMX/lngvj+cNzSwKoqkpDQ6MH4FUnOoFpZLe5NRHYBmYECdYX0mlK0E3ZdZjy1g5lLiepCjk+EUk5GDHrKR8Tff2UzE361uWqIwVHta2yWw0YGPgzsreztTDzMyBeVaOvC5ImvkHCFFPPXJziSbDSWwTAMzY6KXN+0Dw="
+  on:
+    branch: master
