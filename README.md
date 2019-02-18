@@ -18,6 +18,23 @@ from marinetrafficapi import MarineTrafficApi
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 ```
 
+<h3>Default params</h3>
+
+```python
+response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # default is jsono
+                                   msg_type='simple'|'extended') # default is simple
+
+# protocol and msg_type are call params 
+# that could be used in any api call. 
+# json protocol is not supported by models, for now.
+# extended msg_type returns a lot more data but cost 
+# a lot more api credits as well.
+
+response.raw_data  # raw data from api call (json, csv or xml)
+response.formatted_data  # data list
+response.models  # list of Client models representing the data
+```
+
 <h3>Vessels Positions</h3>
 
 <h4>[PS01] Vessel History Track</h4>
@@ -99,15 +116,10 @@ for vessel in vessels.models:
 <h4>[VI03] Port Distance and Routes</h4>
 
 ```python
-routes = api.routes(port_start_id=1, 
-                    port_target_id=10, 
-                    include_alternatives=True, 
-                    include_in_land=True,
-                    protocol='json'|'jsono'|'csv'|'xml')
-
-routes.raw_data  # raw data from api call (json, csv or xml)
-routes.formatted_data  # data list
-routes.models  # list of Client models representing the data
+routes = api.port_distances_and_routes(port_start_id=1, 
+                                       port_target_id=10, 
+                                       include_alternatives=True, 
+                                       include_in_land=True)
 
 for route in routes.models:
 	route.distance
