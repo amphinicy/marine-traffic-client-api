@@ -5,4 +5,5 @@ branches:
   only:
   - master
 script:
+  - pip install .
   - pytest -vvv
