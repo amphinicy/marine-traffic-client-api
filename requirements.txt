@@ -1,0 +1,5 @@
+click~=6.7
+lxml>=4.3.0
+ujson>=1.35
+requests~=2.20.0
+pytest
