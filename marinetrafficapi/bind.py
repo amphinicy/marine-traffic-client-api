@@ -50,10 +50,14 @@ def bind_request(**request_data) -> 'callable':
             for key, value in query_params.items():
                 if value is None:
                     continue
-                if key in self.query_parameters.values():
+
+                query_params = self.query_parameters.get_params()
+
+                if key in query_params.values():
                     self.parameters['query'][key] = value  # str(value).encode('utf-8')
-                elif key in self.query_parameters.keys():
-                    self.parameters['query'][self.query_parameters[key]] = \
+
+                elif key in query_params.keys():
+                    self.parameters['query'][query_params[key]] = \
                         value  # str(value).encode('utf-8')
 
             # transform all True and False param to 1 and 0

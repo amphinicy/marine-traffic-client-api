@@ -62,7 +62,7 @@ class TestResponse(unittest.TestCase):
         request = Client(
             self._api_key,
             fake_response_path=self.fake_ok_response_path_json)\
-            .routes(**self._request_params)
+            .port_distances_and_routes(**self._request_params)
 
         self.assertEqual(request.formatted_data, self._test_response)
 
@@ -75,7 +75,7 @@ class TestResponse(unittest.TestCase):
         request = Client(
             self._api_key,
             fake_response_path=self.fake_ok_response_path_csv)\
-            .routes(protocol='csv', **self._request_params)
+            .port_distances_and_routes(protocol='csv', **self._request_params)
 
         self.assertEqual(request.formatted_data, self._test_response)
 
@@ -88,7 +88,7 @@ class TestResponse(unittest.TestCase):
         request = Client(
             self._api_key,
             fake_response_path=self.fake_ok_response_path_xml)\
-            .routes(protocol='xml', **self._request_params)
+            .port_distances_and_routes(protocol='xml', **self._request_params)
 
         self.assertEqual(request.formatted_data, self._test_response)
 
@@ -102,7 +102,7 @@ class TestResponse(unittest.TestCase):
             Client(
                 self._api_key,
                 fake_response_path=self.fake_error_response_path_json)\
-                .routes(**self._request_params)
+                .port_distances_and_routes(**self._request_params)
 
         self.assertTrue('Request errors: code 12: TEST ERROR' in str(context.exception))
 
@@ -111,7 +111,7 @@ class TestResponse(unittest.TestCase):
             Client(
                 self._api_key,
                 fake_response_path=self.fake_error_response_path_csv)\
-                .routes(protocol='csv', **self._request_params)
+                .port_distances_and_routes(protocol='csv', **self._request_params)
 
         self.assertTrue('Request errors: code 12: TEST ERROR' in str(context.exception))
 
@@ -120,6 +120,6 @@ class TestResponse(unittest.TestCase):
             Client(
                 self._api_key,
                 fake_response_path=self.fake_error_response_path_xml)\
-                .routes(protocol='xml', **self._request_params)
+                .port_distances_and_routes(protocol='xml', **self._request_params)
 
         self.assertTrue('Request errors: code 12: TEST ERROR' in str(context.exception))
