@@ -4,3 +4,5 @@ python:
 branches:
   only:
   - master
+script:
+  - pytest -vvv
