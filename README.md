@@ -1,6 +1,7 @@
 <h1>Marine Traffic API Client Python Library</h1>
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
+[![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
 
 <h3>Installation</h3>
 <p>Works on python 3.x.</p>
