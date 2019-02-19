@@ -6,46 +6,46 @@ from typing import AnyStr, Any, Dict, Union, Type, List
 
 
 class Formatter:
-    """"""
+    """Main formatter class."""
 
     def __init__(self):
         pass
 
     def _format(self, data: AnyStr) -> Any:
-        """"""
+        """Format method in formatter classes."""
 
         return data
 
     def format(self, data: AnyStr) -> Any:
-        """"""
+        """Main format method."""
 
         return self._format(data)
 
     def _to_list(self, data: AnyStr) -> List:
-        """"""
+        """To list method in formatter classes."""
 
         return data
 
     def to_list(self, data: AnyStr) -> List:
-        """"""
+        """Main to list method."""
 
         return self._to_list(data)
 
 
 class Json(Formatter):
-    """"""
+    """JSON data formatter class."""
 
     def _format(self, data: AnyStr) -> Dict:
-        """"""
+        """Transform raw data from server into python native type."""
 
         return ujson.loads(data)
 
 
 class Csv(Formatter):
-    """"""
+    """CSV data formatter class."""
 
     def _format(self, data: AnyStr) -> Union[List, Dict]:
-        """"""
+        """Transform raw data from server into python native type."""
 
         data = list(csv.reader(StringIO(data)))
 
@@ -54,7 +54,7 @@ class Csv(Formatter):
         if data[0][0].startswith('ERROR_'):
             # errors are pure txt message,
             # nothing like csv.
-            # trying to follow the error message
+            # trying to follow the same error message
             # structure from json error response.
 
             csv_data = {
@@ -88,10 +88,10 @@ class Csv(Formatter):
 
 
 class Xml(Formatter):
-    """"""
+    """XML data formatter class."""
 
     def _format(self, data: AnyStr) -> Union[List, Dict]:
-        """"""
+        """Transform raw data from server into python native type."""
 
         data = etree.fromstring(data.encode('utf-8'))
 
@@ -101,7 +101,7 @@ class Xml(Formatter):
             if list(list(data)[0])[0].tag == 'ERROR':
                 # error message does not follow
                 # same structure as data message.
-                # trying to follow the error message
+                # trying to follow the same error message
                 # structure from json error response.
 
                 attribs = list(list(data)[0])[0].attrib
@@ -120,6 +120,7 @@ class Xml(Formatter):
 
 
 class FormatterFactory:
+    """Formatter factory class."""
 
     formatters = {
         'json': Json,
@@ -132,6 +133,6 @@ class FormatterFactory:
         self._name = name
 
     def get_formatter(self) -> Union[Type[Json], Type[Xml], Type[Csv], None]:
-        """"""
+        """Get the formatter class using string key."""
 
         return FormatterFactory.formatters.get(self._name)

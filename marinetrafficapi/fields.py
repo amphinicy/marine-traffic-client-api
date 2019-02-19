@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Union, List, TYPE_CHECKING
+from typing import Any, Union, List, TYPE_CHECKING, Tuple
 
 if TYPE_CHECKING:
     from marinetrafficapi.models import Model
@@ -8,44 +8,50 @@ if TYPE_CHECKING:
 class Field:
     """Abstract field class."""
 
-    def __init__(self, index: Union[int, str], desc: str = None):
+    def __init__(self, index: Union[int, str],
+                 desc: str = None, **kwargs):
         self._index = index
         self._desc = desc
+        self._kwargs = kwargs
 
         self.data = None
 
     def convert_item(self, model: 'Model') -> None:
         """Convert item to desired item type"""
 
-        if True:#try:
+        try:
             self.data = model.item[self._index]
-        #except IndexError:
-        #    self.data = None
-        #except: KeyError:
-        #    self.data = None
+        except IndexError:
+            self.data = None
+        except KeyError:
+            self.data = None
 
-        if True:#try:
-            self.data = self._convert_field_item(self.data)
-        #except TypeError:
-        #    self.data = None
+        try:
+            self.data = self._convert_field_item(self.data,
+                                                 **self._kwargs)
+        except TypeError:
+            self.data = None
 
-    def _convert_field_item(self, data: Any) -> Any:
+    def _convert_field_item(self, data: Any, **kwargs) -> Any:
         """Actual converting."""
 
 
 class NumberField(Field):
     """Converting item to integer."""
 
-    def _convert_field_item(self, data: str) -> int:
+    def _convert_field_item(self, data: str, **kwargs) -> int:
         """Actual converting."""
 
-        return int(data)
+        try:
+            return int(data)
+        except ValueError:
+            return 0
 
 
 class RealNumberField(Field):
     """Converting item to integer."""
 
-    def _convert_field_item(self, data: str) -> float:
+    def _convert_field_item(self, data: str, **kwargs) -> float:
         """Actual converting."""
 
         return float(data)
@@ -54,7 +60,7 @@ class RealNumberField(Field):
 class TextField(Field):
     """Converting item to string."""
 
-    def _convert_field_item(self, data: str) -> str:
+    def _convert_field_item(self, data: str, **kwargs) -> str:
         """Actual converting."""
 
         return str(data)
@@ -63,7 +69,7 @@ class TextField(Field):
 class BooleanField(Field):
     """Converting item to boolean."""
 
-    def _convert_field_item(self, data: str) -> \
+    def _convert_field_item(self, data: str, **kwargs) -> \
             Union[bool, None]:
         """Actual converting."""
 
@@ -78,24 +84,19 @@ class BooleanField(Field):
 class DatetimeField(Field):
     """Converting item to datetime object."""
 
-    def _convert_field_item(self, data: str) -> \
+    def _convert_field_item(self, data: str, **kwargs) -> \
             Union['datetime', str]:
         """Actual converting."""
 
-        if True:#try:
-            dt = data.split(' ')
-            d = dt[0].split('/')
-            t = dt[1].split(':')
-            return datetime(int(d[2]), int(d[1]), int(d[0]),
-                            int(t[0]), int(t[1]), int(t[2]))
-        #except:
-        #    return data
+        _format = kwargs.get('format')
+        return datetime.strptime(data, _format)
 
 
 class LinestringField(Field):
     """Converting item to list of integers."""
 
-    def _convert_field_item(self, data: str) -> List[float]:
+    def _convert_field_item(self, data: str, **kwargs) -> \
+            List[Tuple[float]]:
         """Actual converting."""
 
         coordinates = []
