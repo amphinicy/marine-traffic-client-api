@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def readme():
@@ -29,7 +29,7 @@ setup(
     ],
     keywords='marine traffic, api, cruise, distance, port',
 
-    packages=['marinetrafficapi'],
+    packages=find_packages(),
     install_requires=[
         'click~=6.7',
         'lxml>=4.3.0',
