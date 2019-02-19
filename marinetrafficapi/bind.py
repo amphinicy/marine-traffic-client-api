@@ -32,6 +32,8 @@ def bind_request(**request_data) -> 'callable':
             self.client = client
             self.parameters = {'query': {}, 'path': []}
 
+            self._timeout = 5
+
             self._set_parameters(*path_params, **query_params)
 
         def _set_parameters(self, *path_params, **query_params) -> None:
@@ -41,6 +43,16 @@ def bind_request(**request_data) -> 'callable':
             :query_params: dict of query parameters
             :return: None
             """
+
+            # take timeout
+            try:
+                self._timeout = int(query_params.get('timeout', self._timeout))
+            except ValueError:
+                pass
+            try:
+                del query_params['timeout']
+            except KeyError:
+                pass
 
             # set default API call params
             for key, value in self.default_parameters.items():
@@ -115,7 +127,7 @@ def bind_request(**request_data) -> 'callable':
                     return 200, f.read()
 
             elif self.method == 'GET':
-                response = requests.get(url)
+                response = requests.get(url, timeout=self._timeout)
                 self.debug.ok('response_object', response)
                 return response.status_code, response.text
 

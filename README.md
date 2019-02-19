@@ -22,7 +22,8 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 
 ```python
 response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # default is jsono
-                                   msg_type='simple'|'extended') # default is simple
+                                   msg_type='simple'|'extended',  # default is simple
+                                   timeout=10) # default is 5 (5 seconds)
 
 # protocol and msg_type are call params 
 # that could be used in any api call. 
@@ -94,13 +95,13 @@ for vessel in vessels.models:
 	vessel.last_port
 	vessel.last_port_time
 	vessel.current_port_id
-	vessel.current_port_unlcode
+	vessel.current_port_unlocode
 	vessel.current_port_country
 	vessel.last_port_id
-	vessel.last_port_unlcode
+	vessel.last_port_unlocode
 	vessel.last_port_country
 	vessel.next_port_id
-	vessel.next_port_unlcode
+	vessel.next_port_unlocode
 	vessel.next_port_name
 	vessel.next_port_country
 	vessel.eta_calc

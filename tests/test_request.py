@@ -19,7 +19,8 @@ class TestRequest(unittest.TestCase):
             'port_start_id': 1,
             'port_target_id': 10,
             'include_alternatives': True,
-            'include_in_land': False
+            'include_in_land': False,
+            'timeout': 10
         }
 
     def test_set_parameters(self):
@@ -40,6 +41,7 @@ class TestRequest(unittest.TestCase):
             'path': [self._base_url]
         }
         self.assertEqual(request.api_reguest.parameters, parameters)
+        self.assertEqual(request.api_reguest._timeout, 10)
 
     def test_prepare_url(self):
         request = Client(

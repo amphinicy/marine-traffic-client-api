@@ -4,7 +4,7 @@ from marinetrafficapi.formatter import Formatter, Json, Xml, Csv
 
 
 class Response:
-    """"""
+    """Response object returned from API call."""
 
     def __init__(self, data: Any, status_code: int,
                  formatter: Type[Formatter], api_reguest):
@@ -23,14 +23,14 @@ class Response:
 
     @property
     def raw_data(self) -> Any:
-        """"""
+        """Return data as is from the server."""
 
         return self._data
 
     @property
     def formatted_data(self) -> Union[Type[Json], Type[Xml],
                                       Type[Csv], None]:
-        """"""
+        """Format data using secected formatter."""
 
         if self._response_data['formatted'] is None:
             self._response_data['formatted'] = \
@@ -40,7 +40,7 @@ class Response:
 
     @property
     def models(self) -> Union[List[object], None]:
-        """"""
+        """Transform raw data into models."""
 
         if not self._response_data['models']:
             formatted_data = self.formatter.format(self._data)
@@ -52,7 +52,7 @@ class Response:
 
     @property
     def to_list(self) -> Union[List[object], None]:
-        """"""
+        """Transform data into list."""
 
         if not self._response_data['to_list']:
             formatted_data = self.formatter.format(self._data)

@@ -40,7 +40,8 @@ class VesselHistoricalPosition(Model):
 
     timestamp = DatetimeField(index='TIMESTAMP',
                               desc="The date and time (in UTC) that the subject vessel's "
-                                   "position was recorded by MarineTraffic")
+                                   "position was recorded by MarineTraffic",
+                              format='%Y-%m-%dT%H:%M:%S')
 
     ship_id = NumberField(index='SHIP_ID',
                           desc="A uniquely assigned ID by MarineTraffic "

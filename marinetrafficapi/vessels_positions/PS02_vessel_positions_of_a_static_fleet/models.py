@@ -48,7 +48,8 @@ class StaticFleetVesselPosition(Model):
 
     timestamp = DatetimeField(index='TIMESTAMP',
                               desc="The date and time (in UTC) that the subject vessel's "
-                                   "position was recorded by MarineTraffic")
+                                   "position was recorded by MarineTraffic",
+                              format='%Y-%m-%dT%H:%M:%S')
 
     dsrc = TextField(index='DSRC',
                      desc="Data Source - Defines whether the transmitted AIS data was "
@@ -108,7 +109,8 @@ class StaticFleetVesselPosition(Model):
 
     eta = DatetimeField(index='ETA',
                         desc="The Estimated Time of Arrival to Destination of the "
-                             "subject vessel according to the AIS transmissions")
+                             "subject vessel according to the AIS transmissions",
+                        format='%Y-%m-%dT%H:%M:%S')
 
     current_port = TextField(index='CURRENT_PORT',
                              desc="The name of the Port the subject vessel is "
@@ -119,15 +121,16 @@ class StaticFleetVesselPosition(Model):
 
     last_port_time = DatetimeField(index='LAST_PORT_TIME',
                                    desc="The Date and Time (in UTC) that the "
-                                        "subject vessel departed from the Last Port")
+                                        "subject vessel departed from the Last Port",
+                                   format='%Y-%m-%dT%H:%M:%S')
 
     current_port_id = NumberField(index='CURRENT_PORT_ID',
                                   desc="A uniquely assigned ID by "
                                        "MarineTraffic for the Current Port")
 
-    current_port_unlcode = TextField(index='CURRENT_PORT_UNLOCODE',
-                                     desc="A uniquely assigned ID by "
-                                          "United Nations for the Current Port")
+    current_port_unlocode = TextField(index='CURRENT_PORT_UNLOCODE',
+                                      desc="A uniquely assigned ID by "
+                                           "United Nations for the Current Port")
 
     current_port_country = TextField(index='CURRENT_PORT_COUNTRY',
                                      desc="The Country that the Current Port is located at")
@@ -135,8 +138,9 @@ class StaticFleetVesselPosition(Model):
     last_port_id = NumberField(index='LAST_PORT_ID',
                                desc="A uniquely assigned ID by MarineTraffic for the Last Port")
 
-    last_port_unlcode = TextField(index='LAST_PORT_UNLOCODE',
-                                  desc="A uniquely assigned ID by United Nations for the Last Port")
+    last_port_unlocode = TextField(index='LAST_PORT_UNLOCODE',
+                                   desc="A uniquely assigned ID by "
+                                        "United Nations for the Last Port")
 
     last_port_country = TextField(index='LAST_PORT_COUNTRY',
                                   desc="The Country that the Last Port is located at")
@@ -144,8 +148,9 @@ class StaticFleetVesselPosition(Model):
     next_port_id = NumberField(index='NEXT_PORT_ID',
                                desc="A uniquely assigned ID by MarineTraffic for the Next Port")
 
-    next_port_unlcode = TextField(index='NEXT_PORT_UNLOCODE',
-                                  desc="A uniquely assigned ID by United Nations for the Next Port")
+    next_port_unlocode = TextField(index='NEXT_PORT_UNLOCODE',
+                                   desc="A uniquely assigned ID by "
+                                        "United Nations for the Next Port")
 
     next_port_name = TextField(index='NEXT_PORT_NAME',
                                desc="The Name of the Next Port as derived by MarineTraffic "
@@ -156,11 +161,13 @@ class StaticFleetVesselPosition(Model):
 
     eta_calc = DatetimeField(index='ETA_CALC',
                              desc="The Estimated Time of Arrival to Destination of "
-                                  "the subject vessel according to the MarineTraffic calculations")
+                                  "the subject vessel according to the MarineTraffic calculations",
+                             format='%Y-%m-%dT%H:%M:%S')
 
     eta_updated = DatetimeField(index='ETA_UPDATED',
                                 desc="The date and time (in UTC) that the "
-                                     "ETA was calculated by MarineTraffic")
+                                     "ETA was calculated by MarineTraffic",
+                                format='%Y-%m-%dT%H:%M:%S')
 
     distance_to_go = NumberField(index='DISTANCE_TO_GO',
                                  desc="The Remaining Distance (in NM) for the subject "
