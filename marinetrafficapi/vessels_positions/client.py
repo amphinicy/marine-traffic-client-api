@@ -10,6 +10,11 @@ from marinetrafficapi.vessels_positions.\
 from marinetrafficapi.vessels_positions.\
     PS02_vessel_positions_of_a_static_fleet.query_params import PS02QueryParams
 
+from marinetrafficapi.vessels_positions.\
+    PS03_vessel_position_of_a_dynamic_fleet.query_params import PS03QueryParams
+from marinetrafficapi.vessels_positions.\
+    PS03_vessel_position_of_a_dynamic_fleet.models import DynamicFleetVesselPosition
+
 
 class VesselPositions:
     """Retrieve forecasted information for any vessel.
@@ -32,6 +37,18 @@ class VesselPositions:
         api_path='/exportvessels',
         model=StaticFleetVesselPosition,
         query_parameters=PS02QueryParams,
+        default_parameters={
+            'v': '8',
+            'msgtype': 'simple',
+            'protocol': 'jsono'
+        }
+    )
+
+    # PS03 - Monitor vessel activity for your MarineTraffic fleet(s)
+    dynamic_fleet_vessel_positions = bind_request(
+        api_path='/exportvessels',
+        model=DynamicFleetVesselPosition,
+        query_parameters=PS03QueryParams,
         default_parameters={
             'v': '8',
             'msgtype': 'simple',
