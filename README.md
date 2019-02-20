@@ -112,6 +112,60 @@ for vessel in vessels.models:
 	vessel.max_speed
 ```
 
+<h4>[PS03] Vessel Positions of a Dynamic Fleet</h4>
+
+```python
+vessels = api.dynamic_fleet_vessel_positions(time_span=10)
+
+for vessel in vessels.models:
+	vessel.mmsi
+	vessel.imo
+	vessel.ship_id
+	vessel.longitude
+	vessel.latitude
+	vessel.speed
+	vessel.heading
+	vessel.status
+	vessel.course
+	vessel.timestamp
+	vessel.dsrc
+	vessel.utc_seconds
+	vessel.ship_name
+	vessel.ship_type
+	vessel.call_sign
+	vessel.flag
+	vessel.length
+	vessel.width
+	vessel.grt
+	vessel.dwt
+	vessel.draught
+	vessel.year_built
+	vessel.rot
+	vessel.type_name
+	vessel.ais_type_summary
+	vessel.destination
+	vessel.eta
+	vessel.current_port
+	vessel.last_port
+	vessel.last_port_time
+	vessel.current_port_id
+	vessel.current_port_unlocode
+	vessel.current_port_country
+	vessel.last_port_id
+	vessel.last_port_unlocode
+	vessel.last_port_country
+	vessel.next_port_id
+	vessel.next_port_unlocode
+	vessel.next_port_name
+	vessel.next_port_country
+	vessel.eta_calc
+	vessel.eta_updated
+	vessel.distance_to_go
+	vessel.distance_travelled
+	vessel.awg_speed
+	vessel.max_speed
+```
+
 <h3>Voyage Info</h3>
 
 <h4>[VI03] Port Distance and Routes</h4>
