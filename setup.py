@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.3.0',
+    version='0.4.0',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
@@ -27,7 +27,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.7',
     ],
-    keywords='marine traffic, api, cruise, distance, port',
+    keywords='marine traffic, api, cruise, distance, port, vessel, track, fleet',
 
     packages=find_packages(),
     install_requires=[
