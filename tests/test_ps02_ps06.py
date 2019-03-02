@@ -5,19 +5,19 @@ from datetime import datetime
 from marinetrafficapi.client import Client
 
 
-class PS02Response(unittest.TestCase):
+class PS02PS06Response(unittest.TestCase):
 
     def setUp(self):
         self._api_key = '_api_key_'
         self.fake_ok_response_path_json = os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            'tests', 'responses', 'ps02_response.json'
+            'tests', 'responses', 'ps02_ps06_response.json'
         )
 
     def test_ok_response_json(self):
         request = Client(self._api_key,
                          fake_response_path=self.fake_ok_response_path_json)\
-            .static_fleet_vessel_positions()
+            .fleet_vessel_positions()
 
         self.assertEqual(request.models[0].mmsi, 304010417)
         self.assertEqual(request.models[0].imo, 9015462)

@@ -3,12 +3,12 @@ from marinetrafficapi.bind import bind_request
 from marinetrafficapi.vessels_positions.\
     PS01_vessel_historical_track.models import VesselHistoricalPosition
 from marinetrafficapi.vessels_positions.\
-    PS02_PS06_vessel_positions.models import StaticFleetVesselPosition
+    PS02_PS06_vessel_positions.models import VesselPosition
 
 from marinetrafficapi.vessels_positions.\
     PS01_vessel_historical_track.query_params import PS01QueryParams
 from marinetrafficapi.vessels_positions.\
-    PS02_PS06_vessel_positions.query_params import PS02QueryParams
+    PS02_PS06_vessel_positions.query_params import PS02PS06QueryParams
 
 
 class VesselPositions:
@@ -35,8 +35,8 @@ class VesselPositions:
     #        you define each time you call the service
     fleet_vessel_positions = bind_request(
         api_path='/exportvessels',
-        model=StaticFleetVesselPosition,
-        query_parameters=PS02QueryParams,
+        model=VesselPosition,
+        query_parameters=PS02PS06QueryParams,
         default_parameters={
             'v': '8',
             'msgtype': 'simple',

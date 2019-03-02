@@ -2,7 +2,7 @@ from marinetrafficapi.models import Model
 from marinetrafficapi.fields import NumberField, RealNumberField, DatetimeField, TextField
 
 
-class StaticFleetVesselPosition(Model):
+class VesselPosition(Model):
     """Get positional information for a set of predefined vessels."""
 
     mmsi = NumberField(index='MMSI',
