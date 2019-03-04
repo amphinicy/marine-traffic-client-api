@@ -2,7 +2,7 @@ from marinetrafficapi.query_params import QueryParams
 
 
 class PS01QueryParams(QueryParams):
-    """Query params params for PS01 API call."""
+    """Query params for PS01 API call."""
 
     params = {
         # The number of days, starting from the time of request and going backwards,

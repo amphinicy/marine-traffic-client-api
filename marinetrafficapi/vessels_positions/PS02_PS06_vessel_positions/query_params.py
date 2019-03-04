@@ -1,8 +1,8 @@
 from marinetrafficapi.query_params import QueryParams
 
 
-class PS03QueryParams(QueryParams):
-    """Query params params for PS02 API call."""
+class PS02PS06QueryParams(QueryParams):
+    """Query params for PS02 API call."""
 
     params = {
         # The maximum age, in minutes, of the returned positions.
@@ -13,4 +13,9 @@ class PS03QueryParams(QueryParams):
         # Data filter: Vessel type.
         # (2=Fishing / 4=High Speed Craft / 6=Passenger / 7=Cargo / 8=Tanker)
         'ship_type': 'shiptype',
+
+        'min_latitude': 'MINLAT',
+        'max_latitude': 'MAXLAT',
+        'min_longitude': 'MINLON',
+        'max_longitude': 'MAXLON'
     }

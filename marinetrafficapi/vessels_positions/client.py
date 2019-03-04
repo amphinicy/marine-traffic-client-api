@@ -3,17 +3,12 @@ from marinetrafficapi.bind import bind_request
 from marinetrafficapi.vessels_positions.\
     PS01_vessel_historical_track.models import VesselHistoricalPosition
 from marinetrafficapi.vessels_positions.\
-    PS02_vessel_positions_of_a_static_fleet.models import StaticFleetVesselPosition
+    PS02_PS06_vessel_positions.models import VesselPosition
 
 from marinetrafficapi.vessels_positions.\
     PS01_vessel_historical_track.query_params import PS01QueryParams
 from marinetrafficapi.vessels_positions.\
-    PS02_vessel_positions_of_a_static_fleet.query_params import PS02QueryParams
-
-from marinetrafficapi.vessels_positions.\
-    PS03_vessel_position_of_a_dynamic_fleet.query_params import PS03QueryParams
-from marinetrafficapi.vessels_positions.\
-    PS03_vessel_position_of_a_dynamic_fleet.models import DynamicFleetVesselPosition
+    PS02_PS06_vessel_positions.query_params import PS02PS06QueryParams
 
 
 class VesselPositions:
@@ -33,22 +28,15 @@ class VesselPositions:
     )
 
     # PS02 - Get positional information for a set of predefined vessels.
-    static_fleet_vessel_positions = bind_request(
-        api_path='/exportvessels',
-        model=StaticFleetVesselPosition,
-        query_parameters=PS02QueryParams,
-        default_parameters={
-            'v': '8',
-            'msgtype': 'simple',
-            'protocol': 'jsono'
-        }
-    )
-
     # PS03 - Monitor vessel activity for your MarineTraffic fleet(s)
-    dynamic_fleet_vessel_positions = bind_request(
+    # PS04 - Monitor vessel activity in one or more ports of your interest
+    # PS05 - Monitor vessel activity in an area of your interest
+    # PS06 - Retrieve positions for vessels sailing in an area that
+    #        you define each time you call the service
+    fleet_vessel_positions = bind_request(
         api_path='/exportvessels',
-        model=DynamicFleetVesselPosition,
-        query_parameters=PS03QueryParams,
+        model=VesselPosition,
+        query_parameters=PS02PS06QueryParams,
         default_parameters={
             'v': '8',
             'msgtype': 'simple',
