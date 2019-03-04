@@ -122,6 +122,7 @@ for vessel in vessels.models:
 <p>Same as PS02.</p>
 
 <h4>[PS06] Vessel Positions in a Predefined Area</h4>
+
 ```python
 vessels = api.fleet_vessel_positions(min_latitude=38.20882,
                                      max_latitude=40.24562,
