@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
 [![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
 
-<h3>Installation</h3>
+<h2>Installation</h2>
 <p>Works on python 3.x.</p>
 
 ```
@@ -18,7 +18,7 @@ from marinetrafficapi import MarineTrafficApi
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 ```
 
-<h3>Default params</h3>
+<h2>Default params</h2>
 
 ```python
 response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # default is jsono
@@ -36,7 +36,7 @@ response.formatted_data  # data list
 response.models  # list of Client models representing the data
 ```
 
-<h3>Vessels Positions</h3>
+<h2>Vessels Positions</h2>
 
 <h4>[PS01] Vessel History Track</h4>
 
@@ -61,7 +61,7 @@ for position in vessel_positions.models:
 <h4>[PS02] Vessel Positions of a Static Fleet</h4>
 
 ```python
-vessels = api.static_fleet_vessel_positions(time_span=10)
+vessels = api.fleet_vessel_positions(time_span=10)
 
 for vessel in vessels.models:
 	vessel.mmsi
@@ -113,57 +113,24 @@ for vessel in vessels.models:
 ```
 
 <h4>[PS03] Vessel Positions of a Dynamic Fleet</h4>
+<p>Same as PS02.</p>
 
+<h4>[PS04] Vessel Positions Within a port</h4>
+<p>Same as PS02.</p>
+
+<h4>[PS05] Vessel Positions in a Predefined Area</h4>
+<p>Same as PS02.</p>
+
+<h4>[PS06] Vessel Positions in a Predefined Area</h4>
 ```python
-vessels = api.dynamic_fleet_vessel_positions(time_span=10)
+vessels = api.fleet_vessel_positions(min_latitude=38.20882,
+                                     max_latitude=40.24562,
+                                     min_longitude=-6.7749,
+                                     max_longitude=-4.13721,
+                                     time_span=10)
 
 for vessel in vessels.models:
-	vessel.mmsi
-	vessel.imo
-	vessel.ship_id
-	vessel.longitude
-	vessel.latitude
-	vessel.speed
-	vessel.heading
-	vessel.status
-	vessel.course
-	vessel.timestamp
-	vessel.dsrc
-	vessel.utc_seconds
-	vessel.ship_name
-	vessel.ship_type
-	vessel.call_sign
-	vessel.flag
-	vessel.length
-	vessel.width
-	vessel.grt
-	vessel.dwt
-	vessel.draught
-	vessel.year_built
-	vessel.rot
-	vessel.type_name
-	vessel.ais_type_summary
-	vessel.destination
-	vessel.eta
-	vessel.current_port
-	vessel.last_port
-	vessel.last_port_time
-	vessel.current_port_id
-	vessel.current_port_unlocode
-	vessel.current_port_country
-	vessel.last_port_id
-	vessel.last_port_unlocode
-	vessel.last_port_country
-	vessel.next_port_id
-	vessel.next_port_unlocode
-	vessel.next_port_name
-	vessel.next_port_country
-	vessel.eta_calc
-	vessel.eta_updated
-	vessel.distance_to_go
-	vessel.distance_travelled
-	vessel.awg_speed
-	vessel.max_speed
+	# same as PS02
 ```
 
 <h3>Voyage Info</h3>
