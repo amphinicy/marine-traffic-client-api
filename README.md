@@ -136,6 +136,52 @@ for vessel in vessels.models:
 	# same as PS02
 ```
 
+<h4>[PS07] Single Vessel Positions</h4>
+
+```python
+vessel = api.single_vessel_positions(time_span=20,
+                                     mmsi=310627)
+
+vessel = vessel.models[0]
+
+vessel.mmsi
+vessel.imo
+vessel.longitude
+vessel.latitude
+vessel.speed
+vessel.heading
+vessel.status
+vessel.course
+vessel.timestamp
+vessel.dsrc
+vessel.ship_name
+vessel.ship_type
+vessel.call_sign
+vessel.flag
+vessel.length
+vessel.width
+vessel.grt
+vessel.dwt
+vessel.draught
+vessel.year_built
+vessel.type_name
+vessel.ais_type_summary
+vessel.destination
+vessel.eta
+vessel.eta_calc
+vessel.current_port
+vessel.current_port_id
+vessel.current_port_unlocode
+vessel.last_port
+vessel.last_port_time
+vessel.last_port_id
+vessel.last_port_unlocode
+vessel.next_port_id
+vessel.next_port_unlocode
+vessel.next_port_name
+vessel.next_port_country
+```
+
 <h3>Voyage Info</h3>
 
 <h4>[VI03] Port Distance and Routes</h4>
