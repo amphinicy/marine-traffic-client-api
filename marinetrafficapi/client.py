@@ -15,6 +15,7 @@ class Client(VesselPositions, VoyageInfo):
         if not api_key:
             raise MarineTrafficRequestApiException('API key missing!')
 
+        self.request = None
         self.api_key = api_key
         self.debug = debug
         self.fake_response_path = fake_response_path

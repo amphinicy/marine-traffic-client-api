@@ -2,9 +2,11 @@
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
 [![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
+![GitHub](https://img.shields.io/github/license/arrrlo/marine-traffic-client-api.svg?color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/arrrlo/marine-traffic-client-api.svg?color=blue)
 
 <h2>Installation</h2>
-<p>Works on python 3.x.</p>
+<p>Works with python 3.x.</p>
 
 ```
 pip install Marine-Traffic-API
@@ -134,6 +136,52 @@ for vessel in vessels.models:
 	# same as PS02
 ```
 
+<h4>[PS07] Single Vessel Positions</h4>
+
+```python
+vessel = api.single_vessel_positions(time_span=20,
+                                     mmsi=310627)
+
+vessel = vessel.models[0]
+
+vessel.mmsi
+vessel.imo
+vessel.longitude
+vessel.latitude
+vessel.speed
+vessel.heading
+vessel.status
+vessel.course
+vessel.timestamp
+vessel.dsrc
+vessel.ship_name
+vessel.ship_type
+vessel.call_sign
+vessel.flag
+vessel.length
+vessel.width
+vessel.grt
+vessel.dwt
+vessel.draught
+vessel.year_built
+vessel.type_name
+vessel.ais_type_summary
+vessel.destination
+vessel.eta
+vessel.eta_calc
+vessel.current_port
+vessel.current_port_id
+vessel.current_port_unlocode
+vessel.last_port
+vessel.last_port_time
+vessel.last_port_id
+vessel.last_port_unlocode
+vessel.next_port_id
+vessel.next_port_unlocode
+vessel.next_port_name
+vessel.next_port_country
+```
+
 <h3>Voyage Info</h3>
 
 <h4>[VI03] Port Distance and Routes</h4>
@@ -151,11 +199,34 @@ for route in routes.models:
 	route.final_path
 ```
 
+<h3>Exception Handling</h3>
+
+```python
+from marinetrafficapi import MarineTrafficApi
+from marinetrafficapi import (MarineTrafficRequestApiException,
+                              MarineTrafficClientApiException,
+                              MarineTrafficFormatterException)
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+try:
+    routes = api.vessel_historical_track(...)
+    
+except MarineTrafficRequestApiException:
+    pass
+except MarineTrafficClientApiException:
+    pass
+except MarineTrafficFormatterException:
+    pass
+```
+
 <h3>Debugging</h3>
 
 <p>If you want to debug your code using the data regarding the API call.</p>
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
 # initialize with debug=True
 api = MarineTrafficApi(api_key="...", debug=True)
 
