@@ -2,9 +2,11 @@
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
 [![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
+![GitHub](https://img.shields.io/github/license/arrrlo/marine-traffic-client-api.svg?color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/arrrlo/marine-traffic-client-api.svg?color=blue)
 
 <h2>Installation</h2>
-<p>Works on python 3.x.</p>
+<p>Works with python 3.x.</p>
 
 ```
 pip install Marine-Traffic-API
