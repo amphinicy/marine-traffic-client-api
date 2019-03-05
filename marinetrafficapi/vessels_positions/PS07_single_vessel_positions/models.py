@@ -2,7 +2,7 @@ from marinetrafficapi.models import Model
 from marinetrafficapi.fields import NumberField, RealNumberField, DatetimeField, TextField
 
 
-class FleetVesselPosition(Model):
+class SingleVesselPosition(Model):
     """Get positional information for a set of predefined vessels."""
 
     mmsi = NumberField(index='MMSI',
@@ -13,10 +13,6 @@ class FleetVesselPosition(Model):
     imo = NumberField(index='IMO',
                       desc="International Maritime Organisation number - a "
                            "seven-digit number that uniquely identifies vessels")
-
-    ship_id = NumberField(index='SHIP_ID',
-                          desc="A uniquely assigned ID by MarineTraffic "
-                               "for the subject vessel")
 
     longitude = RealNumberField(index='LON',
                                 desc="A geographic coordinate that specifies the "
@@ -55,10 +51,6 @@ class FleetVesselPosition(Model):
                      desc="Data Source - Defines whether the transmitted AIS data was "
                           "received by a Terrestrial or a Satellite AIS Station")
 
-    utc_seconds = NumberField(index='UTC_SECONDS',
-                              desc="The time slot that the subject vessel uses "
-                                   "to transmit information")
-
     ship_name = TextField(index='SHIPNAME',
                           desc="The Shipname of the subject vessel")
 
@@ -94,9 +86,6 @@ class FleetVesselPosition(Model):
     year_built = NumberField(index='YEAR_BUILT',
                              desc="The year that the subject vessel was built")
 
-    rot = NumberField(index='ROT',
-                      desc="Rate of Turn")
-
     type_name = TextField(index='TYPE_NAME',
                           desc="The Type of the subject vessel")
 
@@ -116,6 +105,14 @@ class FleetVesselPosition(Model):
                              desc="The name of the Port the subject vessel is "
                                   "currently in (NULL if the vessel is underway)")
 
+    current_port_id = NumberField(index='PORT_ID',
+                                  desc="A uniquely assigned ID by "
+                                       "MarineTraffic for the Current Port")
+
+    current_port_unlocode = TextField(index='PORT_UNLOCODE',
+                                      desc="A uniquely assigned ID by "
+                                           "United Nations for the Current Port")
+
     last_port = TextField(index='LAST_PORT',
                           desc="The Name of the Last Port the vessel has visited")
 
@@ -124,26 +121,12 @@ class FleetVesselPosition(Model):
                                         "subject vessel departed from the Last Port",
                                    format='%Y-%m-%dT%H:%M:%S')
 
-    current_port_id = NumberField(index='CURRENT_PORT_ID',
-                                  desc="A uniquely assigned ID by "
-                                       "MarineTraffic for the Current Port")
-
-    current_port_unlocode = TextField(index='CURRENT_PORT_UNLOCODE',
-                                      desc="A uniquely assigned ID by "
-                                           "United Nations for the Current Port")
-
-    current_port_country = TextField(index='CURRENT_PORT_COUNTRY',
-                                     desc="The Country that the Current Port is located at")
-
     last_port_id = NumberField(index='LAST_PORT_ID',
                                desc="A uniquely assigned ID by MarineTraffic for the Last Port")
 
     last_port_unlocode = TextField(index='LAST_PORT_UNLOCODE',
                                    desc="A uniquely assigned ID by "
                                         "United Nations for the Last Port")
-
-    last_port_country = TextField(index='LAST_PORT_COUNTRY',
-                                  desc="The Country that the Last Port is located at")
 
     next_port_id = NumberField(index='NEXT_PORT_ID',
                                desc="A uniquely assigned ID by MarineTraffic for the Next Port")
@@ -163,24 +146,3 @@ class FleetVesselPosition(Model):
                              desc="The Estimated Time of Arrival to Destination of "
                                   "the subject vessel according to the MarineTraffic calculations",
                              format='%Y-%m-%dT%H:%M:%S')
-
-    eta_updated = DatetimeField(index='ETA_UPDATED',
-                                desc="The date and time (in UTC) that the "
-                                     "ETA was calculated by MarineTraffic",
-                                format='%Y-%m-%dT%H:%M:%S')
-
-    distance_to_go = NumberField(index='DISTANCE_TO_GO',
-                                 desc="The Remaining Distance (in NM) for the subject "
-                                      "vessel to reach the reported Destination")
-
-    distance_travelled = NumberField(index='DISTANCE_TRAVELLED',
-                                     desc="The Distance (in NM) that the subject "
-                                          "vessel has travelled since departing from Last Port")
-
-    awg_speed = RealNumberField(index='AVG_SPEED',
-                                desc="The average speed calculated for the subject "
-                                     "vessel during the latest voyage (port to port)")
-
-    max_speed = RealNumberField(index='MAX_SPEED',
-                                desc="The maximum speed reported by the subject "
-                                     "vessel during the latest voyage (port to port)")

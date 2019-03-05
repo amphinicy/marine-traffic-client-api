@@ -153,11 +153,34 @@ for route in routes.models:
 	route.final_path
 ```
 
+<h3>Exception Handling</h3>
+
+```python
+from marinetrafficapi import MarineTrafficApi
+from marinetrafficapi import (MarineTrafficRequestApiException,
+                              MarineTrafficClientApiException,
+                              MarineTrafficFormatterException)
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+try:
+    routes = api.vessel_historical_track(...)
+    
+except MarineTrafficRequestApiException:
+    pass
+except MarineTrafficClientApiException:
+    pass
+except MarineTrafficFormatterException:
+    pass
+```
+
 <h3>Debugging</h3>
 
 <p>If you want to debug your code using the data regarding the API call.</p>
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
 # initialize with debug=True
 api = MarineTrafficApi(api_key="...", debug=True)
 
