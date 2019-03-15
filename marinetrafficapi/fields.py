@@ -27,8 +27,9 @@ class Field:
             self.data = None
 
         try:
-            self.data = self._convert_field_item(self.data,
-                                                 **self._kwargs)
+            self.data = self._convert_field_item(
+                self.data, **self._kwargs
+            )
         except TypeError:
             self.data = None
 
