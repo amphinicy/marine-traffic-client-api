@@ -1,5 +1,5 @@
 from marinetrafficapi.models import Model
-from marinetrafficapi.fields import NumberField, RealNumberField, DatetimeField, TextField
+from marinetrafficapi.fields import NumberField, BooleanField, DatetimeField, TextField
 
 
 class PortCall(Model):
@@ -39,9 +39,9 @@ class PortCall(Model):
                           desc="A uniquely assigned ID by MarineTraffic "
                                "for the subject vessel")
 
-    move_type = NumberField(index='MOVE_TYPE',
-                            desc="0 or 1 - specifies the Port Call type "
-                                 "(0 = Arrival, 1 = Departure)")
+    move_type = BooleanField(index='MOVE_TYPE',
+                             desc="0 or 1 - specifies the Port Call type "
+                                  "(0 = Arrival, 1 = Departure)")
 
     type_name = TextField(index='TYPE_NAME',
                           desc="The Type of the subject vessel")
@@ -52,7 +52,7 @@ class PortCall(Model):
     port_name = TextField(index='PORT_NAME',
                           desc="The Type of the subject vessel")
 
-    unlocode = TextField(index='PORT_NAME',
+    unlocode = TextField(index='UNLOCODE',
                          desc="A uniquely assigned ID by United Nations for the subject Port")
 
     draught = NumberField(index='DRAUGHT',
@@ -64,9 +64,9 @@ class PortCall(Model):
                                       "Port Call event (0 : N/A, 1 : load, 2 : discharge, "
                                       "3 : both, 4 : none)")
 
-    in_transit = NumberField(index='INTRANSIT',
-                             desc="0 or 1 - specifies whether the vessel anchored in the "
-                                  "Port or was In Transit (1 = In Transit)")
+    in_transit = BooleanField(index='INTRANSIT',
+                              desc="0 or 1 - specifies whether the vessel anchored in the "
+                                   "Port or was In Transit (1 = In Transit)")
 
     distance_travelled = NumberField(index='DISTANCE_TRAVELLED',
                                      desc="The Distance (in NM) that the subject vessel "

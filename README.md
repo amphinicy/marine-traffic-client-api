@@ -182,6 +182,35 @@ vessel.next_port_name
 vessel.next_port_country
 ```
 
+<h3>Events</h3>
+
+<h4>[EV01] Port Calls</h4>
+
+```python
+events = api.port_calls(port_id=1,
+                        gt_min=4000,
+                        dwt_min=9000,
+                        timespan=60)
+
+for event in events.models:
+    event.mmsi
+    event.ship_name
+    event.ship_id
+    event.local_timestamp
+    event.utc_timestamp
+    event.move_type
+    event.type_name
+    event.unlocode
+    event.draught
+    event.load_status
+    event.port_operation
+    event.in_transit
+    event.voyage_avg_speed
+    event.voyage_max_speed
+    event.voyage_idle_time
+    event.elapsed_noanch
+```
+
 <h3>Voyage Info</h3>
 
 <h4>[VI03] Port Distance and Routes</h4>
