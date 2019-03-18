@@ -1,18 +1,18 @@
-<h1>Marine Traffic API Client Python Library</h1>
+# Marine Traffic API Client Python Library
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
 [![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
 ![GitHub](https://img.shields.io/github/license/arrrlo/marine-traffic-client-api.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/arrrlo/marine-traffic-client-api.svg?color=blue)
 
-<h2>Installation</h2>
-<p>Works with python 3.x.</p>
+## Installation
+Works with python 3.x.
 
 ```
 pip install Marine-Traffic-API
 ```
 
-<h3>Initialize API</h3>
+## Initialize API
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -20,7 +20,7 @@ from marinetrafficapi import MarineTrafficApi
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 ```
 
-<h2>Default params</h2>
+## Default params
 
 ```python
 response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # default is jsono
@@ -38,9 +38,9 @@ response.formatted_data  # data list
 response.models  # list of Client models representing the data
 ```
 
-<h2>Vessels Positions</h2>
+## Vessels Positions
 
-<h4>[PS01] Vessel History Track</h4>
+#### [PS01] Vessel History Track
 
 ```python
 vessel_positions = api.vessel_historical_track(period='daily', 
@@ -60,7 +60,7 @@ for position in vessel_positions.models:
 	position.wind_angle
 ```
 
-<h4>[PS02] Vessel Positions of a Static Fleet</h4>
+#### [PS02] Vessel Positions of a Static Fleet
 
 ```python
 vessels = api.fleet_vessel_positions(time_span=10)
@@ -114,16 +114,16 @@ for vessel in vessels.models:
 	vessel.max_speed
 ```
 
-<h4>[PS03] Vessel Positions of a Dynamic Fleet</h4>
-<p>Same as PS02.</p>
+#### [PS03] Vessel Positions of a Dynamic Fleet
+Same as PS02.
 
-<h4>[PS04] Vessel Positions Within a port</h4>
-<p>Same as PS02.</p>
+#### [PS04] Vessel Positions Within a port
+Same as PS02.
 
-<h4>[PS05] Vessel Positions in a Predefined Area</h4>
-<p>Same as PS02.</p>
+#### [PS05] Vessel Positions in a Predefined Area
+Same as PS02.
 
-<h4>[PS06] Vessel Positions in a Predefined Area</h4>
+#### [PS06] Vessel Positions in a Predefined Area
 
 ```python
 vessels = api.fleet_vessel_positions(min_latitude=38.20882,
@@ -136,7 +136,7 @@ for vessel in vessels.models:
 	# same as PS02
 ```
 
-<h4>[PS07] Single Vessel Positions</h4>
+#### [PS07] Single Vessel Positions
 
 ```python
 vessel = api.single_vessel_positions(time_span=20,
@@ -182,9 +182,9 @@ vessel.next_port_name
 vessel.next_port_country
 ```
 
-<h3>Events</h3>
+## Events
 
-<h4>[EV01] Port Calls</h4>
+#### [EV01] Port Calls
 
 ```python
 events = api.port_calls(port_id=1,
@@ -211,9 +211,9 @@ for event in events.models:
     event.elapsed_noanch
 ```
 
-<h3>Voyage Info</h3>
+## Voyage Info
 
-<h4>[VI03] Port Distance and Routes</h4>
+#### [VI03] Port Distance and Routes
 
 ```python
 routes = api.port_distances_and_routes(port_start_id=1, 
@@ -228,7 +228,7 @@ for route in routes.models:
 	route.final_path
 ```
 
-<h3>Exception Handling</h3>
+## Exception Handling
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -249,9 +249,9 @@ except MarineTrafficFormatterException:
     pass
 ```
 
-<h3>Debugging</h3>
+## Debugging
 
-<p>If you want to debug your code using the data regarding the API call.</p>
+If you want to debug your code using the data regarding the API call.
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -266,6 +266,13 @@ api.vessel_historical_track(...)
 debug_data = api.request.debug.show()
 ```
 
-<h3>Official documentation</h3>
+## Official documentation
 
-<p>For more information visit official documentation: <a href="https://www.marinetraffic.com/en/ais-api-services/">https://www.marinetraffic.com/en/ais-api-services/</a></p>
+For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
+
+# Changelog
+
+## 0.6.0
+
+#### Added:
+- EV01 - Port Calls 
