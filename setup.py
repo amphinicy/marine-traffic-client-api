@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.5.0',
+    version='0.6.0',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
@@ -18,7 +18,7 @@ setup(
     licence='MIT',
 
     author='Ivan Arar',
-    author_email='ivan.arar@gmail.com',
+    author_email='ivan.arar@amphinicy.com',
 
     classifiers=[
         'Development Status :: 4 - Beta',
