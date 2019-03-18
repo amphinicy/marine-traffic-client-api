@@ -52,10 +52,10 @@ class SingleVesselPosition(Model):
                           "received by a Terrestrial or a Satellite AIS Station")
 
     ship_name = TextField(index='SHIPNAME',
-                          desc="The Shipname of the subject vessel")
+                          desc="The Ship name of the subject vessel")
 
     ship_type = NumberField(index='SHIPTYPE',
-                            desc="The Shiptype of the subject vessel "
+                            desc="The Ship type of the subject vessel "
                                  "according to AIS transmissions")
 
     call_sign = TextField(index='CALLSIGN',
