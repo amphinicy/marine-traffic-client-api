@@ -1,9 +1,9 @@
 # Marine Traffic API Client Python Library
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
-[![Build Status](https://travis-ci.com/arrrlo/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/arrrlo/marine-traffic-client-api)
-![GitHub](https://img.shields.io/github/license/arrrlo/marine-traffic-client-api.svg?color=blue)
-![GitHub last commit](https://img.shields.io/github/last-commit/arrrlo/marine-traffic-client-api.svg?color=blue)
+[![Build Status](https://travis-ci.com/amphinicy/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/amphinicy/marine-traffic-client-api)
+![GitHub](https://img.shields.io/github/license/amphinicy/marine-traffic-client-api.svg?color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/amphinicy/marine-traffic-client-api.svg?color=blue)
 
 ## Installation
 Works with python 3.x.
@@ -271,6 +271,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.6.1
+
+#### Added:
+- README badges fixed
 
 ## 0.6.0
 
