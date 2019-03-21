@@ -25,7 +25,7 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3',
     ],
     keywords='marine traffic, api, cruise, distance, port, vessel, track, fleet',
 
