@@ -8,16 +8,16 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.6.1',
+    version='0.6.2',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
     long_description_content_type='text/markdown',
 
-    url='https://github.com/arrrlo/marine-traffic-client-api',
+    url='https://github.com/amphinicy/marine-traffic-client-api',
     licence='MIT',
 
-    author='Ivan Arar',
+    author='Ivan Arar @ Amphinicy Technologies',
     author_email='ivan.arar@amphinicy.com',
 
     classifiers=[
@@ -38,6 +38,6 @@ setup(
     ],
 
     project_urls={
-        'Source': 'https://github.com/arrrlo/marine-traffic-client-api',
+        'Source': 'https://github.com/amphinicy/marine-traffic-client-api',
     },
 )
