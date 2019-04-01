@@ -17,7 +17,14 @@ class EV01Response(unittest.TestCase):
     def test_ok_response_json(self):
         request = Client(self._api_key,
                          fake_response_path=self.fake_ok_response_path_json)\
-            .port_calls()
+            .port_calls(portid=1,
+                        gt_min=4000,
+                        dwt_min=9000,
+                        timespan=60)
+
+        url = 'https://services.marinetraffic.com/api/portcalls/_api_key_/' \
+              'v:4/msgtype:simple/protocol:jsono/portid:1/gt_min:4000/dwt_min:9000/timespan:60'
+        self.assertEqual(request.api_reguest.url, url)
 
         self.assertEqual(request.models[0].mmsi, 566312000)
         self.assertEqual(request.models[0].ship_name, "MARITIME KELLY ANNE")

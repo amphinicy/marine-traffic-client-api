@@ -8,7 +8,7 @@ class TestRequest(unittest.TestCase):
 
     def setUp(self):
         self._api_key = '_api_key_'
-        self._base_url = 'https://services.marinetraffic.com/en/api/exportroutes/_api_key_'
+        self._base_url = 'https://services.marinetraffic.com/api/exportroutes/_api_key_'
         self._url = self._base_url + '/msgtype:simple/protocol:jsono/port_start_id:1/' \
                                      'port_target_id:10/includealternatives:1/includeinland:0'
         self.fake_ok_response_path = os.path.join(

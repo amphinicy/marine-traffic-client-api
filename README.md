@@ -211,6 +211,22 @@ for event in events.models:
     event.elapsed_noanch
 ```
 
+#### [EV02] Vessel Events
+
+```python
+events = api.vessel_events(mmsi=355906000,
+                           event_type=19,
+                           timespan=160)
+
+for event in events.models:
+    event.mmsi
+    event.ship_name
+    event.timestamp
+    event.event_id
+    event.event_name
+    event.event_content
+```
+
 ## Voyage Info
 
 #### [VI03] Port Distance and Routes
@@ -271,6 +287,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.7.0
+
+#### Added:
+- EV02 - Vessel Events 
 
 ## 0.6.1
 

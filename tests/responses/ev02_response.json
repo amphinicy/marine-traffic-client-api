@@ -1,0 +1,26 @@
+[
+   {
+      "SHIPNAME":"MSC OSCAR",
+      "MMSI":"355906000",
+      "EVENT_ID":"2",
+      "EVENT_NAME":"INTERMEDIATE_DAILY_POS",
+      "EVENT_CONTENT":"At Lat:35.9598 / Lon:-6.02252",
+      "TIMESTAMP":"2016-04-10T12:02:00"
+   },
+   {
+      "SHIPNAME":"MSC OSCAR",
+      "MMSI":"355906000",
+      "EVENT_ID":"19",
+      "EVENT_NAME":"PROXIMITY_VESSEL",
+      "EVENT_CONTENT":"Distance from vessel VB SIMUN is 258m",
+      "TIMESTAMP":"2016-04-10T09:41:00"
+   },
+   {
+      "SHIPNAME":"MSC OSCAR",
+      "MMSI":"355906000",
+      "EVENT_ID":"19",
+      "EVENT_NAME":"PROXIMITY_VESSEL",
+      "EVENT_CONTENT":"Distance from vessel VB TRON is 389m",
+      "TIMESTAMP":"2016-04-10T09:41:00"
+   }
+]
