@@ -7,7 +7,7 @@ from marinetrafficapi.exceptions import MarineTrafficRequestApiException
 class Client(VesselPositions, VoyageInfo, Events):
     """Main API class. Sets all API calls."""
 
-    base_url = 'services.marinetraffic.com/en'
+    base_url = 'services.marinetraffic.com'
     base_path = '/api'
     protocol = 'https'
 

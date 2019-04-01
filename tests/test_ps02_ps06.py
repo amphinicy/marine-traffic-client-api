@@ -17,7 +17,11 @@ class PS02PS06Response(unittest.TestCase):
     def test_ok_response_json(self):
         request = Client(self._api_key,
                          fake_response_path=self.fake_ok_response_path_json)\
-            .fleet_vessel_positions()
+            .fleet_vessel_positions(timespan=10)
+
+        url = 'https://services.marinetraffic.com/api/exportvessels/_api_key_/' \
+              'v:8/msgtype:simple/protocol:jsono/timespan:10'
+        self.assertEqual(request.api_reguest.url, url)
 
         self.assertEqual(request.models[0].mmsi, 304010417)
         self.assertEqual(request.models[0].imo, 9015462)
