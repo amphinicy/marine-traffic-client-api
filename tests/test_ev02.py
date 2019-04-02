@@ -25,9 +25,9 @@ class EV02Response(unittest.TestCase):
               'msgtype:simple/protocol:jsono/mmsi:355906000/event_type:19/timespan:160'
         self.assertEqual(request.api_reguest.url, url)
 
-        self.assertEqual(request.models[0].mmsi, 355906000)
-        self.assertEqual(request.models[0].ship_name, "MSC OSCAR")
-        self.assertEqual(request.models[0].timestamp, datetime(2016, 4, 10, 12, 2, 0))
-        self.assertEqual(request.models[0].event_id, 2)
-        self.assertEqual(request.models[0].event_name, 'INTERMEDIATE_DAILY_POS')
-        self.assertEqual(request.models[0].event_content, 'At Lat:35.9598 / Lon:-6.02252')
+        self.assertEqual(request.models[0].mmsi.value, 355906000)
+        self.assertEqual(request.models[0].ship_name.value, "MSC OSCAR")
+        self.assertEqual(request.models[0].timestamp.value, datetime(2016, 4, 10, 12, 2, 0))
+        self.assertEqual(request.models[0].event_id.value, 2)
+        self.assertEqual(request.models[0].event_name.value, 'INTERMEDIATE_DAILY_POS')
+        self.assertEqual(request.models[0].event_content.value, 'At Lat:35.9598 / Lon:-6.02252')

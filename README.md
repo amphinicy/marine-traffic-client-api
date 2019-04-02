@@ -52,16 +52,16 @@ vessel_positions = api.vessel_historical_track(period='daily',
                                                mmsi=241486000)
 
 for position in vessel_positions.models:
-	position.mmsi
-	position.status
-	position.speed
-	position.longitude
-	position.latitude
-	position.course
-	position.heading
-	position.timestamp
-	position.ship_id
-	position.wind_angle
+	position.mmsi.value
+	position.status.value
+	position.speed.value
+	position.longitude.value
+	position.latitude.value
+	position.course.value
+	position.heading.value
+	position.timestamp.value
+	position.ship_id.value
+	position.wind_angle.value
 ```
 
 #### [PS02] Vessel Positions of a Static Fleet
@@ -74,52 +74,52 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 vessels = api.fleet_vessel_positions(time_span=10)
 
 for vessel in vessels.models:
-	vessel.mmsi
-	vessel.imo
-	vessel.ship_id
-	vessel.longitude
-	vessel.latitude
-	vessel.speed
-	vessel.heading
-	vessel.status
-	vessel.course
-	vessel.timestamp
-	vessel.dsrc
-	vessel.utc_seconds
-	vessel.ship_name
-	vessel.ship_type
-	vessel.call_sign
-	vessel.flag
-	vessel.length
-	vessel.width
-	vessel.grt
-	vessel.dwt
-	vessel.draught
-	vessel.year_built
-	vessel.rot
-	vessel.type_name
-	vessel.ais_type_summary
-	vessel.destination
-	vessel.eta
-	vessel.current_port
-	vessel.last_port
-	vessel.last_port_time
-	vessel.current_port_id
-	vessel.current_port_unlocode
-	vessel.current_port_country
-	vessel.last_port_id
-	vessel.last_port_unlocode
-	vessel.last_port_country
-	vessel.next_port_id
-	vessel.next_port_unlocode
-	vessel.next_port_name
-	vessel.next_port_country
-	vessel.eta_calc
-	vessel.eta_updated
-	vessel.distance_to_go
-	vessel.distance_travelled
-	vessel.awg_speed
-	vessel.max_speed
+	vessel.mmsi.value
+	vessel.imo.value
+	vessel.ship_id.value
+	vessel.longitude.value
+	vessel.latitude.value
+	vessel.speed.value
+	vessel.heading.value
+	vessel.status.value
+	vessel.course.value
+	vessel.timestamp.value
+	vessel.dsrc.value
+	vessel.utc_seconds.value
+	vessel.ship_name.value
+	vessel.ship_type.value
+	vessel.call_sign.value
+	vessel.flag.value
+	vessel.length.value
+	vessel.width.value
+	vessel.grt.value
+	vessel.dwt.value
+	vessel.draught.value
+	vessel.year_built.value
+	vessel.rot.value
+	vessel.type_name.value
+	vessel.ais_type_summary.value
+	vessel.destination.value
+	vessel.eta.value
+	vessel.current_port.value
+	vessel.last_port.value
+	vessel.last_port_time.value
+	vessel.current_port_id.value
+	vessel.current_port_unlocode.value
+	vessel.current_port_country.value
+	vessel.last_port_id.value
+	vessel.last_port_unlocode.value
+	vessel.last_port_country.value
+	vessel.next_port_id.value
+	vessel.next_port_unlocode.value
+	vessel.next_port_name.value
+	vessel.next_port_country.value
+	vessel.eta_calc.value
+	vessel.eta_updated.value
+	vessel.distance_to_go.value
+	vessel.distance_travelled.value
+	vessel.awg_speed.value
+	vessel.max_speed.value
 ```
 
 #### [PS03] Vessel Positions of a Dynamic Fleet
@@ -160,42 +160,42 @@ vessel = api.single_vessel_positions(time_span=20,
 
 vessel = vessel.models[0]
 
-vessel.mmsi
-vessel.imo
-vessel.longitude
-vessel.latitude
-vessel.speed
-vessel.heading
-vessel.status
-vessel.course
-vessel.timestamp
-vessel.dsrc
-vessel.ship_name
-vessel.ship_type
-vessel.call_sign
-vessel.flag
-vessel.length
-vessel.width
-vessel.grt
-vessel.dwt
-vessel.draught
-vessel.year_built
-vessel.type_name
-vessel.ais_type_summary
-vessel.destination
-vessel.eta
-vessel.eta_calc
-vessel.current_port
-vessel.current_port_id
-vessel.current_port_unlocode
-vessel.last_port
-vessel.last_port_time
-vessel.last_port_id
-vessel.last_port_unlocode
-vessel.next_port_id
-vessel.next_port_unlocode
-vessel.next_port_name
-vessel.next_port_country
+vessel.mmsi.value
+vessel.imo.value
+vessel.longitude.value
+vessel.latitude.value
+vessel.speed.value
+vessel.heading.value
+vessel.status.value
+vessel.course.value
+vessel.timestamp.value
+vessel.dsrc.value
+vessel.ship_name.value
+vessel.ship_type.value
+vessel.call_sign.value
+vessel.flag.value
+vessel.length.value
+vessel.width.value
+vessel.grt.value
+vessel.dwt.value
+vessel.draught.value
+vessel.year_built.value
+vessel.type_name.value
+vessel.ais_type_summary.value
+vessel.destination.value
+vessel.eta.value
+vessel.eta_calc.value
+vessel.current_port.value
+vessel.current_port_id.value
+vessel.current_port_unlocode.value
+vessel.last_port.value
+vessel.last_port_time.value
+vessel.last_port_id.value
+vessel.last_port_unlocode.value
+vessel.next_port_id.value
+vessel.next_port_unlocode.value
+vessel.next_port_name.value
+vessel.next_port_country.value
 ```
 
 ## Events
@@ -213,22 +213,22 @@ events = api.port_calls(port_id=1,
                         timespan=60)
 
 for event in events.models:
-    event.mmsi
-    event.ship_name
-    event.ship_id
-    event.local_timestamp
-    event.utc_timestamp
-    event.move_type
-    event.type_name
-    event.unlocode
-    event.draught
-    event.load_status
-    event.port_operation
-    event.in_transit
-    event.voyage_avg_speed
-    event.voyage_max_speed
-    event.voyage_idle_time
-    event.elapsed_noanch
+    event.mmsi.value
+    event.ship_name.value
+    event.ship_id.value
+    event.local_timestamp.value
+    event.utc_timestamp.value
+    event.move_type.value
+    event.type_name.value
+    event.unlocode.value
+    event.draught.value
+    event.load_status.value
+    event.port_operation.value
+    event.in_transit.value
+    event.voyage_avg_speed.value
+    event.voyage_max_speed.value
+    event.voyage_idle_time.value
+    event.elapsed_noanch.value
 ```
 
 #### [EV02] Vessel Events
@@ -243,12 +243,12 @@ events = api.vessel_events(mmsi=355906000,
                            timespan=160)
 
 for event in events.models:
-    event.mmsi
-    event.ship_name
-    event.timestamp
-    event.event_id
-    event.event_name
-    event.event_content
+    event.mmsi.value
+    event.ship_name.value
+    event.timestamp.value
+    event.event_id.value
+    event.event_name.value
+    event.event_content.value
 ```
 
 #### [EV03] Berth Calls
@@ -263,50 +263,50 @@ berth_calls = api.berth_calls(dwt_min=2000,
                               timespan=20)
 
 for berth_call in berth_calls.models:
-    berth_call.ship_id
-    berth_call.mmsi
-    berth_call.imo
-    berth_call.dock_local_time
-    berth_call.dock_utc_time
-    berth_call.dock_offset_time
-    berth_call.undock_local_time
-    berth_call.undock_utc_time
-    berth_call.undock_offset_time
-    berth_call.ship_name
-    berth_call.type_name
-    berth_call.grt
-    berth_call.dwt
-    berth_call.flag
-    berth_call.year_built
-    berth_call.berth_id
-    berth_call.berth_name
-    berth_call.terminal_id
-    berth_call.terminal_name
-    berth_call.port_name
-    berth_call.port_id
-    berth_call.unlocode
-    berth_call.country_code
-    berth_call.destination_id
-    berth_call.destination
-    berth_call.arrival_local_time
-    berth_call.arrival_utc_time
-    berth_call.arrival_draught
-    berth_call.arrival_load_status
-    berth_call.distance_travelled
-    berth_call.voyage_average_speed
-    berth_call.voyage_max_speed
-    berth_call.voyage_idle_time
-    berth_call.origin_name
-    berth_call.origin_port_id
-    berth_call.origin_departure_time
-    berth_call.total_voyage_time
-    berth_call.departure_local_time
-    berth_call.departure_utc_time
-    berth_call.departure_draught
-    berth_call.departure_load_status
-    berth_call.port_operation
-    berth_call.time_at_berth
-    berth_call.time_at_port
+    berth_call.ship_id.value
+    berth_call.mmsi.value
+    berth_call.imo.value
+    berth_call.dock_local_time.value
+    berth_call.dock_utc_time.value
+    berth_call.dock_offset_time.value
+    berth_call.undock_local_time.value
+    berth_call.undock_utc_time.value
+    berth_call.undock_offset_time.value
+    berth_call.ship_name.value
+    berth_call.type_name.value
+    berth_call.grt.value
+    berth_call.dwt.value
+    berth_call.flag.value
+    berth_call.year_built.value
+    berth_call.berth_id.value
+    berth_call.berth_name.value
+    berth_call.terminal_id.value
+    berth_call.terminal_name.value
+    berth_call.port_name.value
+    berth_call.port_id.value
+    berth_call.unlocode.value
+    berth_call.country_code.value
+    berth_call.destination_id.value
+    berth_call.destination.value
+    berth_call.arrival_local_time.value
+    berth_call.arrival_utc_time.value
+    berth_call.arrival_draught.value
+    berth_call.arrival_load_status.value
+    berth_call.distance_travelled.value
+    berth_call.voyage_average_speed.value
+    berth_call.voyage_max_speed.value
+    berth_call.voyage_idle_time.value
+    berth_call.origin_name.value
+    berth_call.origin_port_id.value
+    berth_call.origin_departure_time.value
+    berth_call.total_voyage_time.value
+    berth_call.departure_local_time.value
+    berth_call.departure_utc_time.value
+    berth_call.departure_draught.value
+    berth_call.departure_load_status.value
+    berth_call.port_operation.value
+    berth_call.time_at_berth.value
+    berth_call.time_at_port.value
 ```
 
 ## Voyage Info
@@ -324,10 +324,10 @@ routes = api.port_distances_and_routes(port_start_id=1,
                                        include_in_land=True)
 
 for route in routes.models:
-	route.distance
-	route.panama
-	route.suez
-	route.final_path
+	route.distance.value
+	route.panama.value
+	route.suez.value
+	route.final_path.value
 ```
 
 ## Exception Handling
@@ -358,6 +358,27 @@ except MarineTrafficException:
     
 ```
 
+## Model Field Descriptions
+
+There are a lot of model fields and every one of them has it's own description which describes the data comming from the API.
+There is one very useful python package called `dumpit` with which you can easily fetch all those descriptions:
+[https://github.com/arrrlo/dumpit](https://github.com/arrrlo/dumpit)
+
+````python
+from dumpit import pdumpit
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+vessel_positions = api.vessel_historical_track(period='daily', 
+                                               days=3, 
+                                               mmsi=241486000)
+
+pdumpit(vessel_positions.models[0], all_=False)
+````
+
+![Field Descriptions](docs/images/field_desc.png)   
+
 ## Debugging
 
 If you want to debug your code using the data regarding the API call.
@@ -375,11 +396,19 @@ api.vessel_historical_track(...)
 debug_data = api.request.debug.show()
 ```
 
+![Debugging](docs/images/debugging.png)   
+
 ## Official documentation
 
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.9.0
+
+#### Added:
+- description fetching for API calls, query parameters, model properties, etc.
+- models are now Model instances, not native type instances.
 
 ## 0.8.0
 
