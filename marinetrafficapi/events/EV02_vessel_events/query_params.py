@@ -2,7 +2,7 @@ from marinetrafficapi.query_params import QueryParams
 
 
 class EV02QueryParams(QueryParams):
-    """Query params for EV01 API call."""
+    """Query params for EV02 API call."""
 
     params = {
         # The maximum age, in minutes, of the returned port calls. Maximum value is 2880.

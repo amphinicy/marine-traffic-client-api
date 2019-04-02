@@ -3,7 +3,7 @@ from marinetrafficapi.fields import NumberField, DatetimeField, TextField
 
 
 class VesselEvent(Model):
-    """Get all vessel historical positions for a specific period of time."""
+    """Get event based intelligence for a vessel."""
 
     mmsi = NumberField(index='MMSI',
                        desc="Maritime Mobile Service Identity - a nine-digit number "
