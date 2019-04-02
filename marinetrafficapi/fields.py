@@ -27,9 +27,10 @@ class Field:
             self.data = None
 
         try:
-            self.data = self._convert_field_item(
-                self.data, **self._kwargs
-            )
+            if self.data is not None:
+                self.data = self._convert_field_item(
+                    self.data, **self._kwargs
+                )
         except TypeError:
             self.data = None
 
@@ -55,7 +56,10 @@ class RealNumberField(Field):
     def _convert_field_item(self, data: str, **kwargs) -> float:
         """Actual converting."""
 
-        return float(data)
+        try:
+            return float(data)
+        except ValueError:
+            return 0.0
 
 
 class TextField(Field):
@@ -64,14 +68,16 @@ class TextField(Field):
     def _convert_field_item(self, data: str, **kwargs) -> str:
         """Actual converting."""
 
-        return str(data)
+        try:
+            return str(data)
+        except ValueError:
+            return ''
 
 
 class BooleanField(Field):
     """Converting item to boolean."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> \
-            Union[bool, None]:
+    def _convert_field_item(self, data: str, **kwargs) -> Union[bool, None]:
         """Actual converting."""
 
         if data == '1':
@@ -85,19 +91,20 @@ class BooleanField(Field):
 class DatetimeField(Field):
     """Converting item to datetime object."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> \
-            Union['datetime', str]:
+    def _convert_field_item(self, data: str, **kwargs) -> Union['datetime', str]:
         """Actual converting."""
 
-        _format = kwargs.get('format')
-        return datetime.strptime(data, _format)
+        try:
+            _format = kwargs.get('format')
+            return datetime.strptime(data, _format)
+        except ValueError:
+            return data
 
 
 class LinestringField(Field):
     """Converting item to list of integers."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> \
-            List[Tuple[float]]:
+    def _convert_field_item(self, data: str, **kwargs) -> List[Tuple[float]]:
         """Actual converting."""
 
         coordinates = []

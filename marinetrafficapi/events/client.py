@@ -10,6 +10,11 @@ from marinetrafficapi.events.\
 from marinetrafficapi.events.\
     EV02_vessel_events.query_params import EV02QueryParams
 
+from marinetrafficapi.events.\
+    EV03_berth_calls.models import BerthCall
+from marinetrafficapi.events.\
+    EV03_berth_calls.query_params import EV03QueryParams
+
 
 class Events:
     """Retrieve event information of any vessel.
@@ -35,6 +40,18 @@ class Events:
         api_path='/vesselevents',
         model=VesselEvent,
         query_parameters=EV02QueryParams,
+        default_parameters={
+            'msgtype': 'simple',
+            'protocol': 'jsono'
+        }
+    )
+
+    # EV03 - Get berth arrival and departure information
+    #        for a specific vessel, berth, terminal or port.
+    berth_calls = bind_request(
+        api_path='/berth-calls',
+        model=BerthCall,
+        query_parameters=EV03QueryParams,
         default_parameters={
             'msgtype': 'simple',
             'protocol': 'jsono'

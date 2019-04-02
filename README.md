@@ -43,6 +43,10 @@ response.models  # list of Client models representing the data
 #### [PS01] Vessel History Track
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 vessel_positions = api.vessel_historical_track(period='daily', 
                                                days=3, 
                                                mmsi=241486000)
@@ -63,6 +67,10 @@ for position in vessel_positions.models:
 #### [PS02] Vessel Positions of a Static Fleet
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 vessels = api.fleet_vessel_positions(time_span=10)
 
 for vessel in vessels.models:
@@ -126,6 +134,10 @@ Same as PS02.
 #### [PS06] Vessel Positions in a Predefined Area
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 vessels = api.fleet_vessel_positions(min_latitude=38.20882,
                                      max_latitude=40.24562,
                                      min_longitude=-6.7749,
@@ -139,6 +151,10 @@ for vessel in vessels.models:
 #### [PS07] Single Vessel Positions
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 vessel = api.single_vessel_positions(time_span=20,
                                      mmsi=310627)
 
@@ -187,6 +203,10 @@ vessel.next_port_country
 #### [EV01] Port Calls
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 events = api.port_calls(port_id=1,
                         gt_min=4000,
                         dwt_min=9000,
@@ -214,6 +234,10 @@ for event in events.models:
 #### [EV02] Vessel Events
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 events = api.vessel_events(mmsi=355906000,
                            event_type=19,
                            timespan=160)
@@ -227,11 +251,73 @@ for event in events.models:
     event.event_content
 ```
 
+#### [EV03] Berth Calls
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+berth_calls = api.berth_calls(dwt_min=2000,
+                              dwt_max=70000,
+                              timespan=20)
+
+for berth_call in berth_calls.models:
+    berth_call.ship_id
+    berth_call.mmsi
+    berth_call.imo
+    berth_call.dock_local_time
+    berth_call.dock_utc_time
+    berth_call.dock_offset_time
+    berth_call.undock_local_time
+    berth_call.undock_utc_time
+    berth_call.undock_offset_time
+    berth_call.ship_name
+    berth_call.type_name
+    berth_call.grt
+    berth_call.dwt
+    berth_call.flag
+    berth_call.year_built
+    berth_call.berth_id
+    berth_call.berth_name
+    berth_call.terminal_id
+    berth_call.terminal_name
+    berth_call.port_name
+    berth_call.port_id
+    berth_call.unlocode
+    berth_call.country_code
+    berth_call.destination_id
+    berth_call.destination
+    berth_call.arrival_local_time
+    berth_call.arrival_utc_time
+    berth_call.arrival_draught
+    berth_call.arrival_load_status
+    berth_call.distance_travelled
+    berth_call.voyage_average_speed
+    berth_call.voyage_max_speed
+    berth_call.voyage_idle_time
+    berth_call.origin_name
+    berth_call.origin_port_id
+    berth_call.origin_departure_time
+    berth_call.total_voyage_time
+    berth_call.departure_local_time
+    berth_call.departure_utc_time
+    berth_call.departure_draught
+    berth_call.departure_load_status
+    berth_call.port_operation
+    berth_call.time_at_berth
+    berth_call.time_at_port
+```
+
 ## Voyage Info
 
 #### [VI03] Port Distance and Routes
 
 ```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
 routes = api.port_distances_and_routes(port_start_id=1, 
                                        port_target_id=10, 
                                        include_alternatives=True, 
@@ -294,6 +380,14 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.8.0
+
+#### Added:
+- EV03 - Berth Calls 
+
+#### Fixed:
+- default values for number field, real number field and datetime field
 
 ## 0.7.1
 
