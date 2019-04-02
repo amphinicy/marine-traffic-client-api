@@ -1,10 +1,14 @@
-class MarineTrafficClientApiException(Exception):
-	pass
+class MarineTrafficException(Exception):
+	"""Handle All Marine Traffic Exceptions"""
 
 
-class MarineTrafficRequestApiException(Exception):
-	pass
+class MarineTrafficClientApiException(MarineTrafficException):
+	"""Handle Client Exceptions"""
 
 
-class MarineTrafficFormatterException(Exception):
-	pass
+class MarineTrafficRequestApiException(MarineTrafficException):
+	"""Handle Request Exceptions"""
+
+
+class MarineTrafficFormatterException(MarineTrafficException):
+	"""Handle Formatter Exceptions"""

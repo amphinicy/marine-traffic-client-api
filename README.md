@@ -250,7 +250,8 @@ for route in routes.models:
 from marinetrafficapi import MarineTrafficApi
 from marinetrafficapi import (MarineTrafficRequestApiException,
                               MarineTrafficClientApiException,
-                              MarineTrafficFormatterException)
+                              MarineTrafficFormatterException,
+                              MarineTrafficException)
 
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 
@@ -258,11 +259,17 @@ try:
     routes = api.vessel_historical_track(...)
     
 except MarineTrafficRequestApiException:
-    pass
+    """Handle Request Exceptions"""
+    
 except MarineTrafficClientApiException:
-    pass
+    """Handle Client Exceptions"""
+    
 except MarineTrafficFormatterException:
-    pass
+    """Handle Formatter Exceptions"""
+    
+except MarineTrafficException:
+    """Handle All Marine Traffic Exceptions"""
+    
 ```
 
 ## Debugging
@@ -287,6 +294,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.7.1
+
+#### Fixed:
+- better structure for exceptions 
 
 ## 0.7.0
 
