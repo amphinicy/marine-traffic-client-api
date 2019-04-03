@@ -4,18 +4,14 @@ from marinetrafficapi.query_params import QueryParams
 class PS07QueryParams(QueryParams):
     """Query params for PS02 API call."""
 
-    params = {
-        # The maximum age, in minutes, of the returned positions.
-        # Maximum value for terrestrial coverage is 60.
-        # Maximum value for satellite coverage is 180.
-        'time_span': 'timespan',
+    time_span = 'timespan', 'The maximum age, in minutes, of the returned positions. \n' \
+                            'Maximum value for terrestrial coverage is 60. \n' \
+                            'Maximum value for satellite coverage is 180.'
 
-        # The Maritime Mobile Service Identity (MMSI) of the vessel you wish to track.
-        'mmsi': 'mmsi',
+    mmsi = 'mmsi', 'The Maritime Mobile Service Identity \n' \
+                   '(MMSI) of the vessel you wish to track.'
 
-        # The International Maritime Organization (IMO) number of the vessel you wish to track.
-        'imo': 'imo',
+    imo = 'imo', 'The International Maritime Organization \n' \
+                 '(IMO) number of the vessel you wish to track.'
 
-        # A uniquely assigned ID by MarineTraffic for the subject vessel
-        'shipid': 'shipid'
-    }
+    ship_id = 'shipid', 'A uniquely assigned ID by MarineTraffic for the subject vessel'

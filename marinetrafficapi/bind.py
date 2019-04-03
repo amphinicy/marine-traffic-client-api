@@ -1,6 +1,5 @@
 import requests
-from typing import TYPE_CHECKING
-
+from typing import TYPE_CHECKING, Union
 from marinetrafficapi.debug import Debug
 from marinetrafficapi.formatter import FormatterFactory
 from marinetrafficapi.exceptions import MarineTrafficRequestApiException
@@ -56,21 +55,20 @@ def bind_request(**request_data) -> 'callable':
 
             # set default API call params
             for key, value in self.default_parameters.items():
-                self.parameters['query'][key] = value  # str(value).encode('utf-8')
+                self.parameters['query'][key] = value
+
+            _query_params = self.query_parameters.get_params()
 
             # set API call params defined during the "call" invocation
             for key, value in query_params.items():
                 if value is None:
                     continue
 
-                query_params = self.query_parameters.get_params()
+                if key in _query_params.values():
+                    self.parameters['query'][key] = value
 
-                if key in query_params.values():
-                    self.parameters['query'][key] = value  # str(value).encode('utf-8')
-
-                elif key in query_params.keys():
-                    self.parameters['query'][query_params[key]] = \
-                        value  # str(value).encode('utf-8')
+                elif key in _query_params.keys():
+                    self.parameters['query'][_query_params[key]] = value
 
             # transform all True and False param to 1 and 0
             for key, value in self.parameters['query'].items():
@@ -176,7 +174,7 @@ def bind_request(**request_data) -> 'callable':
             status_code, response = self._do_request(self.url)
             return self._process_response(status_code, response)
 
-    def call(client, *path_params, **query_params) -> 'Response':
+    def call(client, *path_params, **query_params) -> Union['Response', None]:
         """
         Binded method for API calls
         :path_params: list of path parameters
@@ -184,8 +182,14 @@ def bind_request(**request_data) -> 'callable':
         :return: Return value from ApiRequest.call()
         """
 
+        if 'print_params' in query_params:
+            ApiRequest.query_parameters.print_params()
+            return
+
         with Debug(client=client) as debug:
             request = ApiRequest(client, debug, *path_params, **query_params)
             return request.call()
+
+    call.__doc__ = request_data.get('description')
 
     return call

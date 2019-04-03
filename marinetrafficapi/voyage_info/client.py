@@ -1,3 +1,5 @@
+import click
+
 from marinetrafficapi.bind import bind_request
 
 from marinetrafficapi.voyage_info.\
@@ -11,8 +13,6 @@ class VoyageInfo:
     """Retrieve forecasted information for any vessel.
     Get ETA and voyage related information using one of these APIs."""
 
-    # VI03 - Get all the available vessel routes and the respective
-    # distances from point to port or port to port.
     port_distances_and_routes = bind_request(
         api_path='/exportroutes',
         model=PortDistanceAndRoute,
@@ -20,5 +20,8 @@ class VoyageInfo:
         default_parameters={
             'msgtype': 'simple',
             'protocol': 'jsono'
-        }
+        },
+        description=f'{click.style("API CALL VI01", fg="red")}: \n'
+                    'Get all the available vessel routes and the respective \n'
+                    'distances from point to port or port to port'
     )

@@ -35,7 +35,8 @@ setup(
         'lxml>=4.3.0',
         'ujson>=1.35',
         'requests~=2.20.0',
-        'dumpit~=0.1.0'
+        'dumpit~=0.1.0',
+        'aenum~=2.1.2'
     ],
 
     project_urls={

@@ -358,11 +358,33 @@ except MarineTrafficException:
     
 ```
 
-## Model Field Descriptions
+## List all API call methods
+
+There are quite a few api call methods and it's quite usefull to have a complete list of the in one place.
+
+There is one very useful python package called `dumpit` with which you can easily list all methods and descriptions:
+
+[https://github.com/arrrlo/dumpit](https://github.com/arrrlo/dumpit)
+
+To list api call methods, do the following:
+
+```python
+from dumpit import pdumpit
+
+from marinetrafficapi import Events
+from marinetrafficapi import VoyageInfo
+from marinetrafficapi import VesselPositions
+
+pdumpit(Events, all_=False)
+pdumpit(VoyageInfo, all_=False)
+pdumpit(VesselPositions, all_=False)
+```
+
+![Field Descriptions](docs/images/api_calls.png)
+
+## Response Models Descriptions
 
 There are a lot of model fields and every one of them has it's own description which describes the data comming from the API.
-There is one very useful python package called `dumpit` with which you can easily fetch all those descriptions:
-[https://github.com/arrrlo/dumpit](https://github.com/arrrlo/dumpit)
 
 ````python
 from dumpit import pdumpit
@@ -370,14 +392,26 @@ from marinetrafficapi import MarineTrafficApi
 
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 
-vessel_positions = api.vessel_historical_track(period='daily', 
-                                               days=3, 
-                                               mmsi=241486000)
+request = api.vessel_historical_track(period='daily', days=3, mmsi=241486000)
 
-pdumpit(vessel_positions.models[0], all_=False)
+pdumpit(request.models[0], all_=False)
 ````
 
-![Field Descriptions](docs/images/field_desc.png)   
+![Field Descriptions](docs/images/field_desc.png)
+
+## API call parameter list and descriptions
+
+Every API call has it's own parameters.
+
+To list them and to read description for every one of them, use following code:
+
+````python
+from marinetrafficapi import MarineTrafficApi
+
+MarineTrafficApi.print_params_for('vessel_historical_track')
+````
+
+![Print Parameters](docs/images/print_params.png)
 
 ## Debugging
 
@@ -387,10 +421,10 @@ If you want to debug your code using the data regarding the API call.
 from marinetrafficapi import MarineTrafficApi
 
 # initialize with debug=True
-api = MarineTrafficApi(api_key="...", debug=True)
+api = MarineTrafficApi(api_key="__your_api_key_here__", debug=True)
 
 # after every API call the client library will automatically print all the data to standard output
-api.vessel_historical_track(...)
+api.vessel_historical_track(period='daily', days=3, mmsi=241486000)
 
 # and you can always have all debug data in your code
 debug_data = api.request.debug.show()
@@ -408,7 +442,11 @@ For more information visit official documentation: [https://www.marinetraffic.co
 
 #### Added:
 - description fetching for API calls, query parameters, model properties, etc.
+
+#### Fixed:
 - models are now Model instances, not native type instances.
+- better constants management
+- better string formatting
 
 ## 0.8.0
 
