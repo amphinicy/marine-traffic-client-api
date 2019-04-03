@@ -360,7 +360,7 @@ except MarineTrafficException:
 
 ## List all API call methods
 
-There are quite a few api call methods and it's quite usefull to have a complete list of the in one place.
+There are quite a few api call methods and it's quite usefull to have a complete list in one place.
 
 There is one very useful python package called `dumpit` with which you can easily list all methods and descriptions:
 
