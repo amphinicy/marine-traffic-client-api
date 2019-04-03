@@ -4,35 +4,27 @@ from marinetrafficapi.query_params import QueryParams
 class EV02QueryParams(QueryParams):
     """Query params for EV02 API call."""
 
-    params = {
-        # The maximum age, in minutes, of the returned port calls. Maximum value is 2880.
-        'time_span': 'timespan',
+    time_span = 'timespan', 'The maximum age, in minutes, of the \n' \
+                            'returned port calls. Maximum value is 2880.'
 
-        # If used with the value extended,
-        # the response includes voyage related data since the previous port call.
-        'msg_type': 'msgtype',
+    mmsi = 'mmsi', 'The Maritime Mobile Service Identity \n' \
+                   '(MMSI) of the vessel you wish to track.'
 
-        # Response type. Use one of the following: xml, csv, json, jsono (object)
-        'protocol': 'protocol',
+    imo = 'imo', 'The International Maritime Organization \n' \
+                 '(IMO) number of the vessel you wish to track.'
 
-        # The Maritime Mobile Service Identity (MMSI) of the vessel you wish to track.
-        'mmsi': 'mmsi',
+    ship_id = 'shipid', 'A uniquely assigned ID by \n' \
+                        'MarineTraffic for the subject vessel.'
 
-        # The International Maritime Organization (IMO) number of the vessel you wish to track.
-        'imo': 'imo',
+    from_date = 'fromdate', 'Portcalls fromdate. \n' \
+                            'Date format: YYYY-MM-DD HH:MM'
 
-        # A uniquely assigned ID by MarineTraffic for the subject vessel.
-        'ship_id': 'shipid',
+    to_date = 'todate', 'Portcalls todate. \n' \
+                        'Date format: YYYY-MM-DD HH:MM'
 
-        # Portcalls between fromdate and todate.
-        # Date format: YYYY-MM-DD HH:MM
-        'from_date': 'fromdate',
-        'to_date': 'todate',
+    event_type = 'event_type', 'You may use one or more event ids in \n' \
+                               'comma separated format for the events \n' \
+                               'you wish to receive.'
 
-        # You may use one or more event ids in comma separated format
-        # for the events you wish to receive.
-        'event_type': 'event_type',
+    limit_events = 'limit_events', 'Limit the number of results'
 
-        # Limit the number of results.
-        'limit_events': 'limit_events'
-    }

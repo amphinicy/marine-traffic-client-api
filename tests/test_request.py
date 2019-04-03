@@ -27,7 +27,7 @@ class TestRequest(unittest.TestCase):
         request = Client(
             self._api_key,
             fake_response_path=self.fake_ok_response_path)\
-            .port_distances_and_routes(**self._request_params)
+            .port_distances_and_routes(*['foo', 'bar'], **self._request_params)
 
         parameters = {
             'query': {
@@ -38,8 +38,9 @@ class TestRequest(unittest.TestCase):
                 'includealternatives': '1',
                 'includeinland': '0'
             },
-            'path': [self._base_url]
+            'path': ['foo', 'bar']
         }
+
         self.assertEqual(request.api_reguest.parameters, parameters)
         self.assertEqual(request.api_reguest._timeout, 10)
 

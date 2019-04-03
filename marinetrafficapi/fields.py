@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import Any, Union, List, TYPE_CHECKING, Tuple
 
+from marinetrafficapi.constants import BoolConst, MiscConst
+
 if TYPE_CHECKING:
     from marinetrafficapi.models import Model
 
@@ -11,31 +13,34 @@ class Field:
     def __init__(self, index: Union[int, str],
                  desc: str = None, **kwargs):
         self._index = index
-        self._desc = desc
         self._kwargs = kwargs
 
-        self.data = None
+        self.__doc__ = desc
+        self.value = None
 
     def convert_item(self, model: 'Model') -> None:
         """Convert item to desired item type"""
 
         try:
-            self.data = model.item[self._index]
+            self.value = model.item[self._index]
         except IndexError:
-            self.data = None
+            self.value = None
         except KeyError:
-            self.data = None
+            self.value = None
 
         try:
-            if self.data is not None:
-                self.data = self._convert_field_item(
-                    self.data, **self._kwargs
+            if self.value is not None:
+                self.value = self._convert_field_item(
+                    self.value, **self._kwargs
                 )
         except TypeError:
-            self.data = None
+            self.value = None
 
     def _convert_field_item(self, data: Any, **kwargs) -> Any:
         """Actual converting."""
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}: {self.value}'
 
 
 class NumberField(Field):
@@ -80,9 +85,9 @@ class BooleanField(Field):
     def _convert_field_item(self, data: str, **kwargs) -> Union[bool, None]:
         """Actual converting."""
 
-        if data == '1':
+        if data == BoolConst.TRUE:
             return True
-        elif data == '0':
+        elif data == BoolConst.FALSE:
             return False
         else:
             return None
@@ -95,7 +100,7 @@ class DatetimeField(Field):
         """Actual converting."""
 
         try:
-            _format = kwargs.get('format')
+            _format = kwargs.get(MiscConst.FORMAT)
             return datetime.strptime(data, _format)
         except ValueError:
             return data

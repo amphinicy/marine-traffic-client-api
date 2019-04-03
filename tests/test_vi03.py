@@ -18,10 +18,10 @@ class VI03Response(unittest.TestCase):
                          fake_response_path=self.fake_ok_response_path_json)\
             .port_distances_and_routes()
 
-        self.assertEqual(request.models[0].distance, 7891)
-        self.assertFalse(request.models[0].panama)
-        self.assertTrue(request.models[0].suez)
-        self.assertEqual(request.models[0].final_path, [
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, [
             (23.5935, 37.9475),
             (23.5997, 37.9455),
             (23.605, 37.9413),

@@ -66,10 +66,10 @@ class TestResponse(unittest.TestCase):
 
         self.assertEqual(request.formatted_data, self._test_response)
 
-        self.assertEqual(request.models[0].distance, 7891)
-        self.assertFalse(request.models[0].panama)
-        self.assertTrue(request.models[0].suez)
-        self.assertEqual(request.models[0].final_path, self._final_path)
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
 
     def test_ok_response_csv(self):
         request = Client(
@@ -79,10 +79,10 @@ class TestResponse(unittest.TestCase):
 
         self.assertEqual(request.formatted_data, self._test_response)
 
-        self.assertEqual(request.models[0].distance, 7891)
-        self.assertFalse(request.models[0].panama)
-        self.assertTrue(request.models[0].suez)
-        self.assertEqual(request.models[0].final_path, self._final_path)
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
 
     def test_ok_response_xml(self):
         request = Client(
@@ -92,10 +92,10 @@ class TestResponse(unittest.TestCase):
 
         self.assertEqual(request.formatted_data, self._test_response)
 
-        self.assertEqual(request.models[0].distance, 7891)
-        self.assertFalse(request.models[0].panama)
-        self.assertTrue(request.models[0].suez)
-        self.assertEqual(request.models[0].final_path, self._final_path)
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
 
     def test_error_response_json(self):
         with self.assertRaises(Exception) as context:

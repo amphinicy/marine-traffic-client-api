@@ -1,3 +1,5 @@
+import click
+
 from marinetrafficapi.events.client import Events
 from marinetrafficapi.voyage_info.client import VoyageInfo
 from marinetrafficapi.vessels_positions.client import VesselPositions
@@ -20,3 +22,12 @@ class Client(VesselPositions, VoyageInfo, Events):
         self.api_key = api_key
         self.debug = debug
         self.fake_response_path = fake_response_path
+
+    @classmethod
+    def print_params_for(cls, fn_name: str) -> None:
+        """Prints parameters for certain API call function."""
+
+        try:
+            getattr(cls, fn_name)(None, print_params=True)
+        except AttributeError:
+            click.secho(f'Unknown API method: {fn_name}', fg='red')

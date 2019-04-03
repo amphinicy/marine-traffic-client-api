@@ -1,4 +1,8 @@
+import click
+
 from marinetrafficapi.bind import bind_request
+from marinetrafficapi.constants import (ClientConst, RequestConst,
+                                        FormatterConst)
 
 from marinetrafficapi.events.\
     EV01_port_calls.models import PortCall
@@ -21,39 +25,42 @@ class Events:
     Select which events, including port calls and
     departures, using any of these APIs."""
 
-    # EV01 - Get detailed arrival and departure
-    #        information for a port or vessel.
     port_calls = bind_request(
         api_path='/portcalls',
         model=PortCall,
         query_parameters=EV01QueryParams,
         default_parameters={
             'v': '4',
-            'msgtype': 'simple',
-            'protocol': 'jsono'
-        }
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
+        },
+        description=f'{click.style("API CALL EV01", fg="red")}: \n'
+                    'Get detailed arrival and departure \n'
+                    'information for a port or vessel'
     )
 
-    # EV02 - Access our powerful events data
-    #        and event derived intelligence.
     vessel_events = bind_request(
         api_path='/vesselevents',
         model=VesselEvent,
         query_parameters=EV02QueryParams,
         default_parameters={
-            'msgtype': 'simple',
-            'protocol': 'jsono'
-        }
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
+        },
+        description=f'{click.style("API CALL EV01", fg="red")}: \n'
+                    'Access our powerful events data \n'
+                    'and event derived intelligence'
     )
 
-    # EV03 - Get berth arrival and departure information
-    #        for a specific vessel, berth, terminal or port.
     berth_calls = bind_request(
         api_path='/berth-calls',
         model=BerthCall,
         query_parameters=EV03QueryParams,
         default_parameters={
-            'msgtype': 'simple',
-            'protocol': 'jsono'
-        }
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
+        },
+        description=f'{click.style("API CALL EV01", fg="red")}: \n'
+                    'Get berth arrival and departure information \n'
+                    'for a specific vessel, berth, terminal or port'
     )

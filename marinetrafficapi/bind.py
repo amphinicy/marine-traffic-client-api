@@ -1,10 +1,13 @@
 import requests
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 from marinetrafficapi.debug import Debug
+from marinetrafficapi.reponse import Response
 from marinetrafficapi.formatter import FormatterFactory
 from marinetrafficapi.exceptions import MarineTrafficRequestApiException
-from marinetrafficapi.reponse import Response
+from marinetrafficapi.constants import (RequestConst, ResponseConst,
+                                        ClientConst, TestConst,
+                                        ResponseCode, BoolConst)
 
 if TYPE_CHECKING:
     from marinetrafficapi.client import Client
@@ -16,12 +19,12 @@ def bind_request(**request_data) -> 'callable':
     class ApiRequest(object):
         """Request class. Does the actual API request."""
 
-        model = request_data.get('model')
-        api_path = request_data.get('api_path')
-        method = request_data.get('method', 'GET')
-        query_parameters = request_data.get('query_parameters')
-        default_parameters = request_data.get('default_parameters')
-        fake_response_path = request_data.get('fake_response_path')
+        model = request_data.get(ClientConst.MODEL)
+        api_path = request_data.get(RequestConst.API_PATH)
+        method = request_data.get(RequestConst.METHOD, RequestConst.GET)
+        query_parameters = request_data.get(RequestConst.QUERY_PARAMETERS)
+        default_parameters = request_data.get(RequestConst.DEFAULT_PARAMETERS)
+        fake_response_path = request_data.get(TestConst.FAKE_RESPONSE_PATH)
 
         def __init__(self, client: 'Client', debug: 'Debug',
                      *path_params, **query_params):
@@ -30,7 +33,8 @@ def bind_request(**request_data) -> 'callable':
             self.url = None
             self.debug = debug
             self.client = client
-            self.parameters = {'query': {}, 'path': []}
+            self.parameters = {RequestConst.QUERY: {},
+                               RequestConst.PATH: []}
 
             self._timeout = 5
 
@@ -46,42 +50,42 @@ def bind_request(**request_data) -> 'callable':
 
             # take timeout
             try:
-                self._timeout = int(query_params.get('timeout', self._timeout))
+                self._timeout = int(query_params.get(RequestConst.TIMEOUT,
+                                                     self._timeout))
             except ValueError:
                 pass
             try:
-                del query_params['timeout']
+                del query_params[RequestConst.TIMEOUT]
             except KeyError:
                 pass
 
             # set default API call params
             for key, value in self.default_parameters.items():
-                self.parameters['query'][key] = value  # str(value).encode('utf-8')
+                self.parameters[RequestConst.QUERY][key] = value
+
+            _query_params = self.query_parameters.get_params()
 
             # set API call params defined during the "call" invocation
             for key, value in query_params.items():
                 if value is None:
                     continue
 
-                query_params = self.query_parameters.get_params()
+                if key in _query_params.values():
+                    self.parameters[RequestConst.QUERY][key] = value
 
-                if key in query_params.values():
-                    self.parameters['query'][key] = value  # str(value).encode('utf-8')
-
-                elif key in query_params.keys():
-                    self.parameters['query'][query_params[key]] = \
-                        value  # str(value).encode('utf-8')
+                elif key in _query_params.keys():
+                    self.parameters[RequestConst.QUERY][_query_params[key]] = value
 
             # transform all True and False param to 1 and 0
-            for key, value in self.parameters['query'].items():
+            for key, value in self.parameters[RequestConst.QUERY].items():
                 if value is True:
-                    self.parameters['query'][key] = '1'
+                    self.parameters[RequestConst.QUERY][key] = BoolConst.TRUE
                 if value is False:
-                    self.parameters['query'][key] = '0'
+                    self.parameters[RequestConst.QUERY][key] = BoolConst.FALSE
 
             # set optional url path params
             for value in path_params:
-                self.parameters['path'].append(value.encode('utf-8'))
+                self.parameters[RequestConst.PATH].append(value)
 
         def _prepare_url(self) -> str:
             """
@@ -89,31 +93,27 @@ def bind_request(**request_data) -> 'callable':
             :return: URL
             """
 
-            url_parts = {
-                'protocol': self.client.protocol,
-                'base_url': self.client.base_url,
-                'base_path': self.client.base_path,
-                'api_path': self.api_path,
-                'api_key': self.client.api_key
-            }
-            url = '{protocol}://{base_url}{base_path}{api_path}/{api_key}'\
-                .format(**url_parts)
+            base_url = f'{self.client.protocol}://{self.client.base_url}' \
+                       f'{self.client.base_path}{self.api_path}/{self.client.api_key}'
 
-            url_parts = self.parameters['path']
-            url_parts.insert(0, url)
+            url_parts = '/'.join([part for part in
+                                  self.parameters[RequestConst.PATH]])
 
-            url = '/'.join([part if type(part) == str else
-                            part.decode('utf-8') for part in url_parts])
+            url_query = '/'.join([f'{key}:{value}'
+                                  for key, value in self.parameters[
+                                      RequestConst.QUERY].items()])
 
-            self.debug.ok('url', url)
-            self.debug.ok('query_parameters', self.parameters['query'])
+            if url_parts:
+                final_url = f'{base_url}/{url_parts}/{url_query}'
+            else:
+                final_url = f'{base_url}/{url_query}'
 
-            url = '{}/{}'.format(url, '/'.join(['{}:{}'.format(key, value)
-                                                for key, value in
-                                                self.parameters['query'].items()]))
-            self.debug.ok('final url', url)
+            self.debug.ok('url', f'{base_url}{url_parts}')
+            self.debug.ok(RequestConst.QUERY_PARAMETERS,
+                          self.parameters[RequestConst.QUERY])
+            self.debug.ok('final url', final_url)
 
-            return url
+            return final_url
 
         def _do_request(self, url: str) -> (int, dict):
             """
@@ -124,16 +124,16 @@ def bind_request(**request_data) -> 'callable':
 
             if self.client.fake_response_path:
                 with open(self.client.fake_response_path, 'r') as f:
-                    return 200, f.read()
+                    return ResponseCode.OK, f.read()
 
-            elif self.method == 'GET':
+            elif self.method == RequestConst.GET:
                 response = requests.get(url, timeout=self._timeout)
-                self.debug.ok('response_object', response)
+                self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
                 return response.status_code, response.text
 
             else:
                 # For future POST, PUT, DELETE requests
-                return 404, {}
+                return ResponseCode.NOT_FOUND, {}
 
         def _process_response(self, status_code: int, response: str) -> 'Response':
             """
@@ -143,7 +143,8 @@ def bind_request(**request_data) -> 'callable':
             :return: Response object
             """
 
-            formatter = FormatterFactory(self.parameters['query']['protocol'])\
+            formatter = FormatterFactory(
+                self.parameters[RequestConst.QUERY][RequestConst.PROTOCOL])\
                 .get_formatter()
 
             response = Response(response, status_code, formatter, self)
@@ -152,17 +153,19 @@ def bind_request(**request_data) -> 'callable':
             if 'errors' in error_response:
                 # error responses have status_code 200 instead of 5xx
 
-                self.debug.error('status_code', status_code)
-                self.debug.error('response', error_response)
+                self.debug.error(ResponseConst.STATUS_CODE, status_code)
+                self.debug.error(ResponseConst.RESPONSE, error_response)
 
-                msg = 'Request errors: {}'.format(''.join(
-                    ['code {}: {}'.format(error['code'], error['detail'])
-                     for error in error_response['errors']]))
+                error_codes = ''.join([f'code {error[ResponseConst.CODE]}: '
+                                       f'{error[ResponseConst.DETAIL]}'
+                                       for error in error_response['errors']])
+
+                msg = f'Request errors: {error_codes}'
 
                 raise MarineTrafficRequestApiException(msg)
             else:
-                self.debug.ok('status_code', status_code)
-                self.debug.ok('response', response.raw_data)
+                self.debug.ok(ResponseConst.STATUS_CODE, status_code)
+                self.debug.ok(ResponseConst.RESPONSE, response.raw_data)
 
             return response
 
@@ -176,7 +179,7 @@ def bind_request(**request_data) -> 'callable':
             status_code, response = self._do_request(self.url)
             return self._process_response(status_code, response)
 
-    def call(client, *path_params, **query_params) -> 'Response':
+    def call(client, *path_params, **query_params) -> Union['Response', None]:
         """
         Binded method for API calls
         :path_params: list of path parameters
@@ -184,8 +187,14 @@ def bind_request(**request_data) -> 'callable':
         :return: Return value from ApiRequest.call()
         """
 
+        if 'print_params' in query_params:
+            ApiRequest.query_parameters.print_params()
+            return
+
         with Debug(client=client) as debug:
             request = ApiRequest(client, debug, *path_params, **query_params)
             return request.call()
+
+    call.__doc__ = request_data.get(ClientConst.DESCRIPTION)
 
     return call
