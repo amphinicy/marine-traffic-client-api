@@ -1,6 +1,8 @@
 import click
 
 from marinetrafficapi.bind import bind_request
+from marinetrafficapi.constants import (ClientConst, RequestConst,
+                                        FormatterConst)
 
 from marinetrafficapi.events.\
     EV01_port_calls.models import PortCall
@@ -29,8 +31,8 @@ class Events:
         query_parameters=EV01QueryParams,
         default_parameters={
             'v': '4',
-            'msgtype': 'simple',
-            'protocol': 'jsono'
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
         },
         description=f'{click.style("API CALL EV01", fg="red")}: \n'
                     'Get detailed arrival and departure \n'
@@ -42,8 +44,8 @@ class Events:
         model=VesselEvent,
         query_parameters=EV02QueryParams,
         default_parameters={
-            'msgtype': 'simple',
-            'protocol': 'jsono'
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
         },
         description=f'{click.style("API CALL EV01", fg="red")}: \n'
                     'Access our powerful events data \n'
@@ -55,8 +57,8 @@ class Events:
         model=BerthCall,
         query_parameters=EV03QueryParams,
         default_parameters={
-            'msgtype': 'simple',
-            'protocol': 'jsono'
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
         },
         description=f'{click.style("API CALL EV01", fg="red")}: \n'
                     'Get berth arrival and departure information \n'

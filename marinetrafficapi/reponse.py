@@ -1,6 +1,8 @@
 from typing import Any, Type, List, Union
 
 from marinetrafficapi.formatter import Formatter, Json, Xml, Csv
+from marinetrafficapi.constants import (ClientConst, FormatterConst,
+                                        ResponseConst)
 
 
 class Response:
@@ -16,9 +18,9 @@ class Response:
         self.status_code = status_code
 
         self._response_data = {
-            'to_list': None,
-            'formatted': None,
-            'models': []
+            ResponseConst.TO_LIST: None,
+            FormatterConst.FORMATTED: None,
+            ClientConst.MODELS: []
         }
 
     @property
@@ -30,33 +32,33 @@ class Response:
     @property
     def formatted_data(self) -> Union[Type[Json], Type[Xml],
                                       Type[Csv], None]:
-        """Format data using secected formatter."""
+        """Format data using selected formatter."""
 
-        if self._response_data['formatted'] is None:
-            self._response_data['formatted'] = \
+        if self._response_data[FormatterConst.FORMATTED] is None:
+            self._response_data[FormatterConst.FORMATTED] = \
                 self.formatter.format(self._data)
 
-        return self._response_data['formatted']
+        return self._response_data[FormatterConst.FORMATTED]
 
     @property
     def models(self) -> Union[List[object], None]:
         """Transform raw data into models."""
 
-        if not self._response_data['models']:
+        if not self._response_data[ClientConst.MODELS]:
             formatted_data = self.formatter.format(self._data)
-            self._response_data['models'] = \
+            self._response_data[ClientConst.MODELS] = \
                 self._model.process(
                     self.formatter.to_list(formatted_data))
             
-        return self._response_data['models']
+        return self._response_data[ClientConst.MODELS]
 
     @property
     def to_list(self) -> Union[List[object], None]:
         """Transform data into list."""
 
-        if not self._response_data['to_list']:
+        if not self._response_data[ResponseConst.TO_LIST]:
             formatted_data = self.formatter.format(self._data)
-            self._response_data['to_list'] = \
+            self._response_data[ResponseConst.TO_LIST] = \
                 self.formatter.to_list(formatted_data)
 
-        return self._response_data['to_list']
+        return self._response_data[ResponseConst.TO_LIST]

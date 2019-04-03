@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import Any, Union, List, TYPE_CHECKING, Tuple
 
+from marinetrafficapi.constants import BoolConst, MiscConst
+
 if TYPE_CHECKING:
     from marinetrafficapi.models import Model
 
@@ -83,9 +85,9 @@ class BooleanField(Field):
     def _convert_field_item(self, data: str, **kwargs) -> Union[bool, None]:
         """Actual converting."""
 
-        if data == '1':
+        if data == BoolConst.TRUE:
             return True
-        elif data == '0':
+        elif data == BoolConst.FALSE:
             return False
         else:
             return None
@@ -98,7 +100,7 @@ class DatetimeField(Field):
         """Actual converting."""
 
         try:
-            _format = kwargs.get('format')
+            _format = kwargs.get(MiscConst.FORMAT)
             return datetime.strptime(data, _format)
         except ValueError:
             return data

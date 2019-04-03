@@ -4,6 +4,9 @@ from lxml import etree
 from io import StringIO
 from typing import AnyStr, Any, Dict, Union, Type, List
 
+from marinetrafficapi.constants import (MiscConst, ResponseConst,
+                                        FormatterConst)
+
 
 class Formatter:
     """Main formatter class."""
@@ -58,10 +61,10 @@ class Csv(Formatter):
             # structure from json error response.
 
             csv_data = {
-                'errors': [
+                MiscConst.ERRORS: [
                     {
-                        "code": data[0][0].split('_')[1].split('-')[0],
-                        "detail": data[0][0].split('-')[1]
+                        ResponseConst.CODE: data[0][0].split('_')[1].split('-')[0],
+                        ResponseConst.DETAIL: data[0][0].split('-')[1]
                     }
                 ]
             }
@@ -106,10 +109,10 @@ class Xml(Formatter):
 
                 attribs = list(list(data)[0])[0].attrib
                 xml_data = {
-                    'errors': [
+                    MiscConst.ERRORS: [
                         {
-                            "code": attribs['CODE'],
-                            "detail": attribs['DESCRIPTION']
+                            ResponseConst.CODE: attribs['CODE'],
+                            ResponseConst.DETAIL: attribs['DESCRIPTION']
                         }
                     ]
                 }
@@ -123,10 +126,10 @@ class FormatterFactory:
     """Formatter factory class."""
 
     formatters = {
-        'json': Json,
-        'jsono': Json,
-        'xml': Xml,
-        'csv': Csv
+        FormatterConst.JSON: Json,
+        FormatterConst.JSONO: Json,
+        FormatterConst.XML: Xml,
+        FormatterConst.CSV: Csv
     }
 
     def __init__(self, name: str):

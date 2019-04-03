@@ -447,6 +447,7 @@ For more information visit official documentation: [https://www.marinetraffic.co
 - models are now Model instances, not native type instances.
 - better constants management
 - better string formatting
+- url preparation fixed
 
 ## 0.8.0
 

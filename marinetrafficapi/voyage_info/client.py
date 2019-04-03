@@ -1,6 +1,8 @@
 import click
 
 from marinetrafficapi.bind import bind_request
+from marinetrafficapi.constants import (ClientConst, RequestConst,
+                                        FormatterConst)
 
 from marinetrafficapi.voyage_info.\
     VI03_port_distances_and_routes.models import PortDistanceAndRoute
@@ -18,8 +20,8 @@ class VoyageInfo:
         model=PortDistanceAndRoute,
         query_parameters=VI03QueryParams,
         default_parameters={
-            'msgtype': 'simple',
-            'protocol': 'jsono'
+            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
+            RequestConst.PROTOCOL: FormatterConst.JSONO
         },
         description=f'{click.style("API CALL VI01", fg="red")}: \n'
                     'Get all the available vessel routes and the respective \n'
