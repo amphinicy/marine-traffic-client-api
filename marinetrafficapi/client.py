@@ -2,11 +2,12 @@ import click
 
 from marinetrafficapi.events.client import Events
 from marinetrafficapi.voyage_info.client import VoyageInfo
+from marinetrafficapi.vessel_data.client import VesselData
 from marinetrafficapi.vessels_positions.client import VesselPositions
 from marinetrafficapi.exceptions import MarineTrafficRequestApiException
 
 
-class Client(VesselPositions, VoyageInfo, Events):
+class Client(VesselPositions, VoyageInfo, Events, VesselData):
     """Main API class. Sets all API calls."""
 
     base_url = 'services.marinetraffic.com'
