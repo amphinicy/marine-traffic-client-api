@@ -1,7 +1,13 @@
 # Marine Traffic API Client Python Library
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Marine-Traffic-API.svg)
+
 [![Build Status](https://travis-ci.com/amphinicy/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/amphinicy/marine-traffic-client-api)
+![GitHub issues](https://img.shields.io/github/issues/amphinicy/marine-traffic-client-api.svg)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/amphinicy/marine-traffic-client-api.svg)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/amphinicy/marine-traffic-client-api.svg)
+
 ![GitHub](https://img.shields.io/github/license/amphinicy/marine-traffic-client-api.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/amphinicy/marine-traffic-client-api.svg?color=blue)
 
@@ -23,22 +29,19 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 ## Default params
 
 ```python
-from marinetrafficapi import MarineTrafficApi
-
 response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # default is jsono
                                    msg_type='simple'|'extended',  # default is simple
                                    timeout=10) # default is 5 (5 seconds)
 
-# protocol, msg_type and timeout are call params 
+# protocol and msg_type are call params 
 # that could be used in any api call. 
 # json protocol is not supported by models, for now.
 # extended msg_type returns a lot more data but cost 
 # a lot more api credits as well.
 
 response.raw_data  # raw data from api call (json, csv or xml)
-response.formatted_data  # data formatted in python's native data types
-response.models  # list of model objects representing the data
-response.meta # meta data that in some way describes API response
+response.formatted_data  # data list
+response.models  # list of Client models representing the data
 ```
 
 ## Vessels Positions
@@ -455,13 +458,6 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
-
-## 0.11.0
-
-#### Added:
-- VD02 - Vessel Particulars
-- Formatter support within client api call parameters
-- Response data and metadata support 
 
 ## 0.10.0
 
