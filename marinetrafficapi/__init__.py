@@ -9,4 +9,5 @@ from marinetrafficapi.vessels_positions.client import VesselPositions
 # Exception classes
 from marinetrafficapi.exceptions import (MarineTrafficRequestApiException,
                                          MarineTrafficClientApiException,
-                                         MarineTrafficFormatterException)
+                                         MarineTrafficFormatterException,
+                                         MarineTrafficException)

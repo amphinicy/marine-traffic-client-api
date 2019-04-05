@@ -33,20 +33,22 @@ response = api.__api_call_method__(protocol='json'|'jsono'|'csv'|'xml', # defaul
                                    msg_type='simple'|'extended',  # default is simple
                                    timeout=10) # default is 5 (5 seconds)
 
-# protocol and msg_type are call params 
+# protocol, msg_type and timeout are call params 
 # that could be used in any api call. 
 # json protocol is not supported by models, for now.
 # extended msg_type returns a lot more data but cost 
 # a lot more api credits as well.
 
 response.raw_data  # raw data from api call (json, csv or xml)
-response.formatted_data  # data list
-response.models  # list of Client models representing the data
+response.formatted_data  # data formatted in python's native data types
+response.models  # list of model objects representing the data
+response.meta # meta data that in some way describes API response
 ```
 
 ## Vessels Positions
 
 #### [PS01] Vessel History Track
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps01)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -56,6 +58,9 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 vessel_positions = api.vessel_historical_track(period='daily', 
                                                days=3, 
                                                mmsi=241486000)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('vessel_historical_track')
 
 for position in vessel_positions.models:
 	position.mmsi.value
@@ -71,6 +76,7 @@ for position in vessel_positions.models:
 ```
 
 #### [PS02] Vessel Positions of a Static Fleet
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps02)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -78,6 +84,9 @@ from marinetrafficapi import MarineTrafficApi
 api = MarineTrafficApi(api_key="__your_api_key_here__")
 
 vessels = api.fleet_vessel_positions(time_span=10)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('fleet_vessel_positions')
 
 for vessel in vessels.models:
 	vessel.mmsi.value
@@ -129,15 +138,19 @@ for vessel in vessels.models:
 ```
 
 #### [PS03] Vessel Positions of a Dynamic Fleet
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps03)
 Same as PS02.
 
 #### [PS04] Vessel Positions Within a port
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps04](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps04)
 Same as PS02.
 
 #### [PS05] Vessel Positions in a Predefined Area
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps05](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps05)
 Same as PS02.
 
 #### [PS06] Vessel Positions in a Predefined Area
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps06](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps06)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -150,11 +163,15 @@ vessels = api.fleet_vessel_positions(min_latitude=38.20882,
                                      max_longitude=-4.13721,
                                      time_span=10)
 
+# list all possible params with:
+MarineTrafficApi.print_params_for('fleet_vessel_positions')
+
 for vessel in vessels.models:
 	# same as PS02
 ```
 
 #### [PS07] Single Vessel Positions
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps07](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps07)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -163,6 +180,9 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 
 vessel = api.single_vessel_positions(time_span=20,
                                      mmsi=310627)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('single_vessel_positions')
 
 vessel = vessel.models[0]
 
@@ -207,6 +227,7 @@ vessel.next_port_country.value
 ## Events
 
 #### [EV01] Port Calls
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev01)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -217,6 +238,9 @@ events = api.port_calls(port_id=1,
                         gt_min=4000,
                         dwt_min=9000,
                         timespan=60)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('port_calls')
 
 for event in events.models:
     event.mmsi.value
@@ -238,6 +262,7 @@ for event in events.models:
 ```
 
 #### [EV02] Vessel Events
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev02)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -247,6 +272,9 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 events = api.vessel_events(mmsi=355906000,
                            event_type=19,
                            timespan=160)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('vessel_events')
 
 for event in events.models:
     event.mmsi.value
@@ -258,6 +286,7 @@ for event in events.models:
 ```
 
 #### [EV03] Berth Calls
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev03)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -267,6 +296,9 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 berth_calls = api.berth_calls(dwt_min=2000,
                               dwt_max=70000,
                               timespan=20)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('berth_calls')
 
 for berth_call in berth_calls.models:
     berth_call.ship_id.value
@@ -318,6 +350,7 @@ for berth_call in berth_calls.models:
 ## Vessels Data
 
 #### [VD01] Vessel Photos
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd01)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -326,13 +359,53 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 
 vessel_photos = api.vessel_photos(vessel_id=310627000)
 
+# list all possible params with:
+MarineTrafficApi.print_params_for('vessel_photos')
+
 for vessel_photo in vessel_photos.models:
 	vessel_photo.url.value
+```
+
+#### [VD02] Vessel Particulars
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd02)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+vessel_particulars = api.vessel_particulars(imo=9375783)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('vessel_particulars')
+
+for vessel_particular in vessel_particulars.models:
+    vessel_particular.mmsi.value
+    vessel_particular.imo.value
+    vessel_particular.name.value
+    vessel_particular.build_place.value
+    vessel_particular.build_year.value
+    vessel_particular.breadth_extreme.value
+    vessel_particular.summer_dwt.value
+    vessel_particular.displacement_summer.value
+    vessel_particular.call_sign.value
+    vessel_particular.flag.value
+    vessel_particular.draught.value
+    vessel_particular.overall_length.value
+    vessel_particular.fuel_consumption.value
+    vessel_particular.max_speed.value
+    vessel_particular.condition_speed.value
+    vessel_particular.wet_cargo_capacity.value
+    vessel_particular.owner.value
+    vessel_particular.manager.value
+    vessel_particular.vessel_type.value
+    vessel_particular.manager_owner.value
 ```
 
 ## Voyage Info
 
 #### [VI03] Port Distance and Routes
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03)
 
 ```python
 from marinetrafficapi import MarineTrafficApi
@@ -343,6 +416,9 @@ routes = api.port_distances_and_routes(port_start_id=1,
                                        port_target_id=10, 
                                        include_alternatives=True, 
                                        include_in_land=True)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('port_distances_and_routes')
 
 for route in routes.models:
 	route.distance.value
@@ -403,6 +479,20 @@ pdumpit(VesselPositions, all_=False)
 
 ![Field Descriptions](docs/images/api_calls.png)
 
+## API call parameter list and descriptions
+
+Every API call has it's own parameters.
+
+To list them and to read description for every one of them, use following code:
+
+````python
+from marinetrafficapi import MarineTrafficApi
+
+MarineTrafficApi.print_params_for('vessel_historical_track')
+````
+
+![Print Parameters](docs/images/print_params.png)
+
 ## Response Models Descriptions
 
 There are a lot of model fields and every one of them has it's own description which describes the data comming from the API.
@@ -419,20 +509,6 @@ pdumpit(request.models[0], all_=False)
 ````
 
 ![Field Descriptions](docs/images/field_desc.png)
-
-## API call parameter list and descriptions
-
-Every API call has it's own parameters.
-
-To list them and to read description for every one of them, use following code:
-
-````python
-from marinetrafficapi import MarineTrafficApi
-
-MarineTrafficApi.print_params_for('vessel_historical_track')
-````
-
-![Print Parameters](docs/images/print_params.png)
 
 ## Debugging
 
@@ -458,6 +534,13 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.11.0
+
+#### Added:
+- VD02 - Vessel Particulars
+- Formatter support within client api call parameters
+- Response data and metadata support 
 
 ## 0.10.0
 
