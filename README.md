@@ -453,6 +453,13 @@ For more information visit official documentation: [https://www.marinetraffic.co
 
 # Changelog
 
+## 0.11.0
+
+#### Added:
+- VD02 - Vessel Particulars
+- Formatter support within client api call parameters
+- Response data and metadata support 
+
 ## 0.10.0
 
 #### Added:

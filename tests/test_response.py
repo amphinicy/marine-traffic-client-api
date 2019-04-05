@@ -7,6 +7,8 @@ from marinetrafficapi.client import Client
 class TestResponse(unittest.TestCase):
 
     def setUp(self):
+        self.maxDiff = None
+
         self._api_key = '_api_key_'
         self._base_url = 'https://services.marinetraffic.com/en/api/exportroutes/_api_key_'
         self._url = self._base_url + '/msgtype:extended/protocol:jsono/port_start_id:1/' \
@@ -19,6 +21,10 @@ class TestResponse(unittest.TestCase):
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'tests', 'responses', 'routes_ok.json'
         )
+        self.fake_ok_response_path_json_with_meta = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'tests', 'responses', 'routes_ok_with_meta.json'
+        )
         self.fake_error_response_path_csv = os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'tests', 'responses', 'errors.csv'
@@ -27,6 +33,10 @@ class TestResponse(unittest.TestCase):
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'tests', 'responses', 'routes_ok.csv'
         )
+        self.fake_ok_response_path_csv_with_meta = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'tests', 'responses', 'routes_ok_with_meta.csv'
+        )
         self.fake_error_response_path_xml = os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'tests', 'responses', 'errors.xml'
@@ -34,6 +44,10 @@ class TestResponse(unittest.TestCase):
         self.fake_ok_response_path_xml = os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'tests', 'responses', 'routes_ok.xml'
+        )
+        self.fake_ok_response_path_xml_with_meta = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'tests', 'responses', 'routes_ok_with_meta.xml'
         )
         self._request_params = {
             'port_start_id': 1,
@@ -57,11 +71,27 @@ class TestResponse(unittest.TestCase):
             (122.308, 31.1024),
             (122.093, 31.228)
         ]
+        self._meta_data = {
+            'TOTAL_RESULTS': 1, 'TOTAL_PAGES': 1, 'CURRENT_PAGE': 1
+        }
 
     def test_ok_response_json(self):
         request = Client(
             self._api_key,
             fake_response_path=self.fake_ok_response_path_json)\
+            .port_distances_and_routes(**self._request_params)
+
+        self.assertEqual(request.formatted_data, self._test_response)
+
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
+
+    def test_ok_response_json_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_json_with_meta)\
             .port_distances_and_routes(**self._request_params)
 
         self.assertEqual(request.formatted_data, self._test_response)
@@ -84,6 +114,19 @@ class TestResponse(unittest.TestCase):
         self.assertTrue(request.models[0].suez.value)
         self.assertEqual(request.models[0].final_path.value, self._final_path)
 
+    def test_ok_response_csv_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_csv_with_meta)\
+            .port_distances_and_routes(protocol='csv', **self._request_params)
+
+        self.assertEqual(request.formatted_data, self._test_response)
+
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
+
     def test_ok_response_xml(self):
         request = Client(
             self._api_key,
@@ -96,6 +139,67 @@ class TestResponse(unittest.TestCase):
         self.assertFalse(request.models[0].panama.value)
         self.assertTrue(request.models[0].suez.value)
         self.assertEqual(request.models[0].final_path.value, self._final_path)
+
+    def test_ok_response_xml_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_xml_with_meta)\
+            .port_distances_and_routes(protocol='xml', **self._request_params)
+
+        self.assertEqual(request.formatted_data, self._test_response)
+
+        self.assertEqual(request.models[0].distance.value, 7891)
+        self.assertFalse(request.models[0].panama.value)
+        self.assertTrue(request.models[0].suez.value)
+        self.assertEqual(request.models[0].final_path.value, self._final_path)
+
+    def test_meta_json(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_json)\
+            .port_distances_and_routes(**self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
+
+    def test_meta_json_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_json_with_meta)\
+            .port_distances_and_routes(**self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
+
+    def test_meta_csv(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_csv)\
+            .port_distances_and_routes(protocol='csv', **self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
+
+    def test_meta_csv_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_csv_with_meta)\
+            .port_distances_and_routes(protocol='csv', **self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
+
+    def test_meta_xml(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_xml)\
+            .port_distances_and_routes(protocol='xml', **self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
+
+    def test_meta_xml_with_meta(self):
+        request = Client(
+            self._api_key,
+            fake_response_path=self.fake_ok_response_path_xml_with_meta)\
+            .port_distances_and_routes(protocol='xml', **self._request_params)
+
+        self.assertEqual(request.meta, self._meta_data)
 
     def test_error_response_json(self):
         with self.assertRaises(Exception) as context:
