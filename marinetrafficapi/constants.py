@@ -34,14 +34,18 @@ ResponseConst = namedtuple('ResponseConst',
                                                 'response_object')
 
 ClientConst = namedtuple('ClientConst',
-                         ['MODEL',
+                         ['META',
+                          'MODEL',
                           'SIMPLE',
                           'MODELS',
                           'MSG_TYPE',
-                          'DESCRIPTION'])('model',
+                          'FORMATTER',
+                          'DESCRIPTION'])('meta',
+                                          'model',
                                           'simple',
                                           'models',
                                           'msgtype',
+                                          'formatter',
                                           'description')
 
 FormatterConst = namedtuple('FormatterConst', ['XML',
@@ -61,5 +65,25 @@ ResponseCode = namedtuple('ResponseCode', ['OK', 'NOT_FOUND'])(200, 404)
 BoolConst = namedtuple('BoolConst', ['TRUE', 'FALSE'])('1', '0')
 
 MiscConst = namedtuple('MiscConst', ['ERRORS',
-                                     'FORMAT'])('errors',
-                                                'format')
+                                     'FORMAT',
+                                     'PRINT_PARAMS'])('errors',
+                                                      'format',
+                                                      'print_params')
+
+ResponseDataConst = namedtuple('ResponseDataConst', ['DATA',
+                                                     'META',
+                                                     'CODE',
+                                                     'ERROR',
+                                                     'STATUS',
+                                                     'TOTAL_PAGES',
+                                                     'DESCRIPTION',
+                                                     'CURRENT_PAGE',
+                                                     'TOTAL_RESULTS'])('DATA',
+                                                                       'METADATA',
+                                                                       'CODE',
+                                                                       'ERROR',
+                                                                       'STATUS',
+                                                                       'TOTAL_PAGES',
+                                                                       'DESCRIPTION',
+                                                                       'CURRENT_PAGE',
+                                                                       'TOTAL_RESULTS')

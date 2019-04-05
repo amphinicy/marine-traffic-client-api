@@ -19,7 +19,7 @@ class VD01Response(unittest.TestCase):
             .vessel_photos(vessel_id=310627000)
 
         url = 'https://services.marinetraffic.com/api/exportvesselphoto/_api_key_/' \
-              'msgtype:simple/protocol:xml/vessel_id:310627000'
+              'vessel_id:310627000'
         self.assertEqual(request.api_reguest.url, url)
 
         self.assertEqual(request.models[0].url.value,

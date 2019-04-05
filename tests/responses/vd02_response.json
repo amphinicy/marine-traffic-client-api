@@ -1,0 +1,31 @@
+{  
+   "METADATA":{  
+      "TOTAL_RESULTS":1,
+      "TOTAL_PAGES":1,
+      "CURRENT_PAGE":1
+   },
+   "DATA":[  
+      {  
+         "MMSI":"304932000",
+         "IMO":"9375783",
+         "NAME":"STAPELMOOR",
+         "PLACE_OF_BUILD":"",
+         "BUILD":"2006",
+         "BREADTH_EXTREME":"12.4",
+         "SUMMER_DWT":"2930",
+         "DISPLACEMENT_SUMMER":"0",
+         "CALLSIGN":"V2BU8",
+         "FLAG":"AG",
+         "DRAUGHT":"4.36",
+         "LENGTH_OVERALL":"88.53",
+         "FUEL_CONSUMPTION":"",
+         "SPEED_MAX":"0",
+         "SPEED_SERVICE":"10.5",
+         "LIQUID_OIL":"0",
+         "OWNER":"",
+         "MANAGER":"",
+         "MANAGER_OWNER":"BOJEN REEDEREI",
+         "VESSEL_TYPE":"GENERAL CARGO"
+      }
+   ]
+}

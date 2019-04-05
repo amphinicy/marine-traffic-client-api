@@ -6,7 +6,7 @@ STATUS_OK = 'ok'
 STATUS_ERROR = 'error'
 
 
-class Debug(object):
+class Debug:
 
     def __init__(self, client):
         self.client = client

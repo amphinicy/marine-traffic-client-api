@@ -1,30 +1,37 @@
 import requests
+from abc import ABCMeta
 from typing import TYPE_CHECKING, Union
 
 from marinetrafficapi.debug import Debug
-from marinetrafficapi.reponse import Response
+from marinetrafficapi.response import Response
 from marinetrafficapi.formatter import FormatterFactory
 from marinetrafficapi.exceptions import MarineTrafficRequestApiException
 from marinetrafficapi.constants import (RequestConst, ResponseConst,
                                         ClientConst, TestConst,
-                                        ResponseCode, BoolConst)
+                                        ResponseCode, BoolConst,
+                                        MiscConst)
 
 if TYPE_CHECKING:
     from marinetrafficapi.client import Client
 
 
+class Api(metaclass=ABCMeta):
+    """Abstract API class."""
+
+
 def bind_request(**request_data) -> 'callable':
     """Binds request class to client property, dynamically."""
 
-    class ApiRequest(object):
+    class Request(Api):
         """Request class. Does the actual API request."""
 
         model = request_data.get(ClientConst.MODEL)
         api_path = request_data.get(RequestConst.API_PATH)
+        formatter = request_data.get(ClientConst.FORMATTER)
         method = request_data.get(RequestConst.METHOD, RequestConst.GET)
         query_parameters = request_data.get(RequestConst.QUERY_PARAMETERS)
-        default_parameters = request_data.get(RequestConst.DEFAULT_PARAMETERS)
         fake_response_path = request_data.get(TestConst.FAKE_RESPONSE_PATH)
+        default_parameters = request_data.get(RequestConst.DEFAULT_PARAMETERS, {})
 
         def __init__(self, client: 'Client', debug: 'Debug',
                      *path_params, **query_params):
@@ -143,9 +150,11 @@ def bind_request(**request_data) -> 'callable':
             :return: Response object
             """
 
-            formatter = FormatterFactory(
-                self.parameters[RequestConst.QUERY][RequestConst.PROTOCOL])\
-                .get_formatter()
+            formatter = self.formatter
+            if not formatter:
+                formatter = FormatterFactory(
+                    self.parameters[RequestConst.QUERY][RequestConst.PROTOCOL])\
+                    .get_formatter()
 
             response = Response(response, status_code, formatter, self)
 
@@ -184,15 +193,15 @@ def bind_request(**request_data) -> 'callable':
         Binded method for API calls
         :path_params: list of path parameters
         :query_params: dict of query parameters
-        :return: Return value from ApiRequest.call()
+        :return: Return value from Request.call()
         """
 
-        if 'print_params' in query_params:
-            ApiRequest.query_parameters.print_params()
+        if MiscConst.PRINT_PARAMS in query_params:
+            Request.query_parameters.print_params()
             return
 
         with Debug(client=client) as debug:
-            request = ApiRequest(client, debug, *path_params, **query_params)
+            request = Request(client, debug, *path_params, **query_params)
             return request.call()
 
     call.__doc__ = request_data.get(ClientConst.DESCRIPTION)

@@ -1,26 +1,32 @@
-from typing import Any, Type, List, Union
+from typing import Any, Type, List, Union, TYPE_CHECKING
 
 from marinetrafficapi.formatter import Formatter, Json, Xml, Csv
 from marinetrafficapi.constants import (ClientConst, FormatterConst,
                                         ResponseConst)
 
 
+if TYPE_CHECKING:
+    from marinetrafficapi.bind import Api
+
+
 class Response:
     """Response object returned from API call."""
 
     def __init__(self, data: Any, status_code: int,
-                 formatter: Type[Formatter], api_reguest):
+                 formatter: Type[Formatter],
+                 api_request: Type['Api']):
         self._data = data
-        self._model = api_reguest.model
+        self._model = api_request.model
 
-        self.api_reguest = api_reguest
-        self.formatter = formatter()
+        self.api_reguest = api_request
+        self.formatter = formatter(self)
         self.status_code = status_code
 
         self._response_data = {
             ResponseConst.TO_LIST: None,
             FormatterConst.FORMATTED: None,
-            ClientConst.MODELS: []
+            ClientConst.MODELS: [],
+            ClientConst.META: None
         }
 
     @property
@@ -51,6 +57,16 @@ class Response:
                     self.formatter.to_list(formatted_data))
             
         return self._response_data[ClientConst.MODELS]
+
+    @property
+    def meta(self) -> Union[List[object], None]:
+        """Transform raw data into models."""
+
+        if not self._response_data[ClientConst.META]:
+            self._response_data[ClientConst.META] = \
+                self.formatter.format_meta(self._data)
+
+        return self._response_data[ClientConst.META]
 
     @property
     def to_list(self) -> Union[List[object], None]:
