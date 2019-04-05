@@ -1,13 +1,13 @@
 # Marine Traffic API Client Python Library
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Marine-Traffic-API.svg)
-
 [![Build Status](https://travis-ci.com/amphinicy/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/amphinicy/marine-traffic-client-api)
+
 ![GitHub issues](https://img.shields.io/github/issues/amphinicy/marine-traffic-client-api.svg)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/amphinicy/marine-traffic-client-api.svg)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/amphinicy/marine-traffic-client-api.svg)
 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Marine-Traffic-API.svg)
 ![GitHub](https://img.shields.io/github/license/amphinicy/marine-traffic-client-api.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/amphinicy/marine-traffic-client-api.svg?color=blue)
 
