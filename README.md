@@ -309,6 +309,21 @@ for berth_call in berth_calls.models:
     berth_call.time_at_port.value
 ```
 
+## Vessels Data
+
+#### [VD01] Vessel Photos
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+vessel_photos = api.vessel_photos(vessel_id=310627000)
+
+for vessel_photo in vessel_photos.models:
+	vessel_photo.url.value
+```
+
 ## Voyage Info
 
 #### [VI03] Port Distance and Routes
@@ -437,6 +452,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.10.0
+
+#### Added:
+- VD01 - Vessel Data 
 
 ## 0.9.0
 
