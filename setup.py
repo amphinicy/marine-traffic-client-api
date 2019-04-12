@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.11.0',
+    version='0.11.1',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
@@ -31,7 +31,7 @@ setup(
 
     packages=find_packages(),
     install_requires=[
-        'click~=6.7',
+        'click~=7.0',
         'lxml>=4.3.0',
         'ujson>=1.35',
         'requests~=2.20.0',
