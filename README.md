@@ -535,6 +535,11 @@ For more information visit official documentation: [https://www.marinetraffic.co
 
 # Changelog
 
+## 0.11.1
+
+#### Fixed
+- Click version changed 6.7 -> 7.0
+
 ## 0.11.0
 
 #### Added:
