@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.11.1',
+    version='0.11.2',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
@@ -35,7 +35,7 @@ setup(
         'lxml>=4.3.0',
         'ujson>=1.35',
         'requests~=2.20.0',
-        'dumpit~=0.1.0',
+        'dumpit~=0.4.2',
         'aenum~=2.1.2'
     ],
 
