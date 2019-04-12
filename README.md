@@ -535,6 +535,11 @@ For more information visit official documentation: [https://www.marinetraffic.co
 
 # Changelog
 
+## 0.11.2
+
+#### Fixed
+- Dumpit version changed 0.1.0 -> 0.4.2
+
 ## 0.11.1
 
 #### Fixed
