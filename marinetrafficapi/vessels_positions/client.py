@@ -1,8 +1,7 @@
 import click
 
+from marinetrafficapi import constants
 from marinetrafficapi.bind import bind_request
-from marinetrafficapi.constants import (ClientConst, RequestConst,
-                                        FormatterConst)
 
 from marinetrafficapi.vessels_positions.\
     PS01_vessel_historical_track.models import VesselHistoricalPosition
@@ -30,8 +29,8 @@ class VesselPositions:
         query_parameters=PS01QueryParams,
         default_parameters={
             'v': '2',
-            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
-            RequestConst.PROTOCOL: FormatterConst.JSONO
+            constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
         description=f'{click.style("API CALL PS01", fg="red")}: \n'
                     'Get all historical positions \n'
@@ -44,8 +43,8 @@ class VesselPositions:
         query_parameters=PS02PS06QueryParams,
         default_parameters={
             'v': '8',
-            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
-            RequestConst.PROTOCOL: FormatterConst.JSONO
+            constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
         description=f'{click.style("API CALL PS02", fg="red")}: \n'
                     'Get positional information for a set of predefined vessels \n'
@@ -66,8 +65,8 @@ class VesselPositions:
         query_parameters=PS07QueryParams,
         default_parameters={
             'v': '5',
-            ClientConst.MSG_TYPE: ClientConst.SIMPLE,
-            RequestConst.PROTOCOL: FormatterConst.JSONO
+            constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
         description=f'{click.style("API CALL PS07", fg="red")}: \n'
                     'Get the latest available position or voyage \n'
