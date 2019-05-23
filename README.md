@@ -402,6 +402,34 @@ for vessel_particular in vessel_particulars.models:
     vessel_particular.manager_owner.value
 ```
 
+#### [VD03] Search Vessel
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd03)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+vessel = api.search_vessel(imo=9375783)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('search_vessel')
+
+vessel = vessel.models[0]
+
+vessel.id.value
+vessel.name.value
+vessel.mmsi.value
+vessel.imo.value
+vessel.call_sign.value
+vessel.type_name.value
+vessel.dwt.value
+vessel.flag.value
+vessel.country.value
+vessel.build_year.value
+vessel.details_page_url.value
+```
+
 ## Voyage Info
 
 #### [VI03] Port Distance and Routes
@@ -534,6 +562,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.12.0
+
+#### Added:
+- VD03 - Search Vessel
 
 ## 0.11.2
 

@@ -1,9 +1,8 @@
 import click
 
+from marinetrafficapi import constants
 from marinetrafficapi.formatter import Xml
 from marinetrafficapi.bind import bind_request
-from marinetrafficapi.constants import (ClientConst, RequestConst,
-                                        FormatterConst)
 
 from marinetrafficapi.vessel_data.\
     VD01_vessel_photos.models import VesselPhoto
@@ -14,6 +13,11 @@ from marinetrafficapi.vessel_data.\
     VD02_vessel_particulars.models import VesselParticural
 from marinetrafficapi.vessel_data.\
     VD02_vessel_particulars.query_params import VD02QueryParams
+
+from marinetrafficapi.vessel_data.\
+    VD03_search_vessel.models import SearchVessel
+from marinetrafficapi.vessel_data.\
+    VD03_search_vessel.query_params import VD03SearchVessel
 
 
 class VesselData:
@@ -37,9 +41,20 @@ class VesselData:
         query_parameters=VD02QueryParams,
         default_parameters={
             'v': '3',
-            RequestConst.PROTOCOL: FormatterConst.JSONO
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
         description=f'{click.style("API CALL VD02", fg="red")}: \n'
                     'Get vessel particulars (including \n'
                     'type, dimensions, ownership etc).'
+    )
+
+    search_vessel = bind_request(
+        api_path='/shipsearch',
+        model=SearchVessel,
+        query_parameters=VD03SearchVessel,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
+        },
+        description=f'{click.style("API CALL VD03", fg="red")}: \n'
+                    'Search MarineTraffic database for a vessel.'
     )
