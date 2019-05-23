@@ -432,6 +432,40 @@ vessel.details_page_url.value
 
 ## Voyage Info
 
+#### [VI01] Voyage Forecasts
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi01)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+forecasts = api.voyage_forecasts(mmsi=355906000)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('voyage_forecasts')
+
+for forecast in forecasts.models:
+	forecast.mmsi.value
+    forecast.destination.value
+    forecast.last_port_id.value
+    forecast.last_port.value
+    forecast.last_port_unlocode.value
+    forecast.last_port_time.value
+    forecast.next_port_id.value
+    forecast.next_port_name.value
+    forecast.next_port_unlocode.value
+    forecast.eta.value
+    forecast.eta_calc.value
+    forecast.distance_travelled.value
+    forecast.distance_to_go.value
+    forecast.speed.value
+    forecast.draught.value
+    forecast.draught_max.value
+    forecast.load_status_name.value
+    forecast.route.value
+```
+
 #### [VI03] Port Distance and Routes
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03)
 
@@ -562,6 +596,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.13.0
+
+#### Added:
+- VI01 - Voyage Forecasts
 
 ## 0.12.0
 
