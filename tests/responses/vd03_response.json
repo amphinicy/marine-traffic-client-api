@@ -1,0 +1,15 @@
+[  
+   {  
+      "SHIPNAME":"FOUR SMILE",
+      "MMSI":"247271800",
+      "IMO":"9189146",
+      "SHIP_ID":"280171",
+      "CALLSIGN":"IBPQ",
+      "TYPE_NAME":"Oil Products Tanker",
+      "DWT":"160573",
+      "FLAG":"IT",
+      "COUNTRY":"Italy",
+      "YEAR_BUILT":"2001",
+      "MT_URL":"https:\/\/www.marinetraffic.com\/en\/ais\/details\/ships\/shipid:280171\/mmsi:247271800\/vessel:280171"
+   }
+]
