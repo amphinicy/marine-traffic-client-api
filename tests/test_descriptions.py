@@ -20,7 +20,8 @@ class TestDescriptions(unittest.TestCase):
                                      mmsi=241486000)
 
     def test_model_property(self):
-        desc = 'Maritime Mobile Service Identity - a nine-digit number \n' \
-               'sent in digital form over a radio frequency that identifies \n' \
-               'the vessel\'s transmitter station'
+        desc = "Maritime Mobile Service Identity - \n" \
+               "a nine-digit number sent in digital \n" \
+               "form over a radio frequency that \n" \
+               "identifies the vessel's transmitter station"
         self.assertEqual(self._request.models[0].mmsi.__doc__, desc)
