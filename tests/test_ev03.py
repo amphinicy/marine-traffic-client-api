@@ -1,6 +1,7 @@
 import os
 import unittest
 from datetime import datetime
+from collections import OrderedDict
 
 from marinetrafficapi.client import Client
 
@@ -17,9 +18,9 @@ class EV03Response(unittest.TestCase):
     def test_ok_response_json(self):
         request = Client(self._api_key,
                          fake_response_path=self.fake_ok_response_path_json) \
-            .berth_calls(dwt_min=2000,
-                         dwt_max=70000,
-                         timespan=20)
+            .berth_calls(**OrderedDict([('dwt_min', 2000),
+                                        ('dwt_max', 70000),
+                                        ('timespan', 20)]))
 
         url = 'https://services.marinetraffic.com/api/berth-calls/_api_key_/' \
               'msgtype:simple/protocol:jsono/dwt_min:2000/dwt_max:70000/timespan:20'

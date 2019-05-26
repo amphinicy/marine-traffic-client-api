@@ -1,4 +1,5 @@
 import click
+from collections import OrderedDict
 
 from marinetrafficapi import constants
 from marinetrafficapi.bind import bind_request
@@ -55,10 +56,10 @@ class Events:
         api_path='/berth-calls',
         model=BerthCall,
         query_parameters=EV03QueryParams,
-        default_parameters={
-            constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
-            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
-        },
+        default_parameters=OrderedDict([
+            (constants.ClientConst.MSG_TYPE, constants.ClientConst.SIMPLE),
+            (constants.RequestConst.PROTOCOL, constants.FormatterConst.JSONO)
+        ]),
         description='{}:\nGet berth arrival and departure information \n'
                     'for a specific vessel, berth, terminal or port'
             .format(click.style("API CALL EV01", fg="red"))
