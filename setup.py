@@ -25,18 +25,18 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5, 3.6, 3.7',
     ],
     keywords='marine traffic, api, cruise, distance, port, vessel, track, fleet',
 
     packages=find_packages(),
     install_requires=[
-        'click~=7.0',
+        'click>=7.0',
         'lxml>=4.3.0',
         'ujson>=1.35',
-        'requests~=2.20.0',
-        'dumpit~=0.4.2',
-        'aenum~=2.1.2'
+        'requests>=2.20.0',
+        'dumpit>=0.5.0',
+        'aenum>=2.1.2'
     ],
 
     project_urls={
