@@ -652,6 +652,11 @@ For more information visit official documentation: [https://www.marinetraffic.co
 
 # Changelog
 
+## 0.15.0
+
+#### Fixed:
+- compatibility for older versions of python 3
+
 ## 0.14.0
 
 #### Added:
