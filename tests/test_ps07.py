@@ -20,9 +20,17 @@ class PS07Response(unittest.TestCase):
             .single_vessel_positions(timespan=20,
                                      mmsi=310627000)
 
-        url = 'https://services.marinetraffic.com/api/exportvessel/_api_key_/' \
-              'v:5/msgtype:simple/protocol:jsono/timespan:20/mmsi:310627000'
-        self.assertEqual(request.api_reguest.url, url)
+        query = [tuple(q.split(':')) for q in
+                 sorted(request.api_reguest.url.split(
+                     'https://services.marinetraffic.com/api/exportvessel/_api_key_/'
+                 )[1].split('/'))]
+
+        test_query = [
+            ('mmsi', '310627000'), ('msgtype', 'simple'), ('protocol', 'jsono'),
+            ('timespan', '20'), ('v', '5')
+        ]
+
+        self.assertEqual(query, test_query)
 
         self.assertEqual(request.models[0].mmsi.value, 205623000)
         self.assertEqual(request.models[0].imo.value, 9549645)

@@ -18,6 +18,10 @@ class VI03Response(unittest.TestCase):
                          fake_response_path=self.fake_ok_response_path_json)\
             .port_distances_and_routes()
 
+        url = 'https://services.marinetraffic.com/api/exportroutes/_api_key_/' \
+              'protocol:jsono'
+        self.assertEqual(request.api_reguest.url, url)
+
         self.assertEqual(request.models[0].distance.value, 7891)
         self.assertFalse(request.models[0].panama.value)
         self.assertTrue(request.models[0].suez.value)

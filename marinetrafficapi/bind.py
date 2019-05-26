@@ -1,6 +1,5 @@
 import requests
 from abc import ABCMeta
-from collections import OrderedDict
 from typing import TYPE_CHECKING, Union
 
 from marinetrafficapi.debug import Debug
@@ -41,7 +40,7 @@ def bind_request(**request_data) -> 'callable':
             self.url = None
             self.debug = debug
             self.client = client
-            self.parameters = {RequestConst.QUERY: OrderedDict(),
+            self.parameters = {RequestConst.QUERY: {},
                                RequestConst.PATH: []}
 
             self._timeout = 5

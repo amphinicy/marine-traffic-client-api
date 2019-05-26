@@ -21,9 +21,17 @@ class PS01Response(unittest.TestCase):
                                      days=3,
                                      mmsi=241486000)
 
-        url = 'https://services.marinetraffic.com/api/exportvesseltrack/_api_key_/' \
-              'v:2/msgtype:simple/protocol:jsono/period:daily/days:3/mmsi:241486000'
-        self.assertEqual(request.api_reguest.url, url)
+        query = [tuple(q.split(':')) for q in
+                 sorted(request.api_reguest.url.split(
+                     'https://services.marinetraffic.com/api/exportvesseltrack/_api_key_/'
+                 )[1].split('/'))]
+
+        test_query = [
+            ('days', '3'), ('mmsi', '241486000'), ('msgtype', 'simple'),
+            ('period', 'daily'), ('protocol', 'jsono'), ('v', '2')
+        ]
+
+        self.assertEqual(query, test_query)
 
         self.assertEqual(request.models[0].mmsi.value, 241486000)
         self.assertEqual(request.models[0].status.value, 0)

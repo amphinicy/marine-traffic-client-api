@@ -21,9 +21,16 @@ class EV02Response(unittest.TestCase):
                            event_type=19,
                            timespan=160)
 
-        url = 'https://services.marinetraffic.com/api/vesselevents/_api_key_/' \
-              'msgtype:simple/protocol:jsono/mmsi:355906000/event_type:19/timespan:160'
-        self.assertEqual(request.api_reguest.url, url)
+        query = [tuple(q.split(':')) for q in sorted(request.api_reguest.url.split(
+                'https://services.marinetraffic.com/api/vesselevents/_api_key_/'
+            )[1].split('/'))]
+
+        test_query = [
+            ('event_type', '19'), ('mmsi', '355906000'), ('msgtype', 'simple'),
+            ('protocol', 'jsono'), ('timespan', '160')
+        ]
+
+        self.assertEqual(query, test_query)
 
         self.assertEqual(request.models[0].mmsi.value, 355906000)
         self.assertEqual(request.models[0].ship_name.value, "MSC OSCAR")
