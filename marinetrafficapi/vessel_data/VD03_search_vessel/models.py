@@ -13,20 +13,22 @@ class SearchVessel(Model):
                      desc="The Shipname of the subject vessel")
 
     mmsi = NumberField(index='MMSI',
-                       desc="Maritime Mobile Service Identity - a nine-digit \n"
-                            "number sent in digital form over a radio frequency \n"
-                            "that identifies the vessel's transmitter station")
+                       desc="Maritime Mobile Service Identity - \n"
+                            "a nine-digit number sent in digital \n"
+                            "form over a radio frequency that \n"
+                            "identifies the vessel's transmitter station")
 
     imo = NumberField(index='IMO',
-                      desc="International Maritime Organisation number - a \n"
-                           "seven-digit number that uniquely identifies vessels")
+                      desc="International Maritime Organisation \n"
+                           "number - a seven-digit number that \n"
+                           "uniquely identifies vessels")
 
     build_year = NumberField(index='YEAR_BUILT',
                              desc="The year that the subject vessel was built")
 
     dwt = NumberField(index='DWT',
-                      desc="Deadweight - a measure (in metric tons) of how much \n"
-                           "weight a vessel can safely carry \n"
+                      desc="Deadweight - a measure (in metric tons) \n"
+                           "of how much weight a vessel can safely carry \n"
                            "(excluding the vessel's own weight)")
 
     call_sign = TextField(index='CALLSIGN',

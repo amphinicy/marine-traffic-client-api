@@ -6,8 +6,9 @@ class VesselParticural(Model):
     """Get vessel particulars (including type, dimensions, ownership etc)."""
 
     mmsi = NumberField(index='MMSI',
-                       desc="Maritime Mobile Service Identity - a nine-digit number \n"
-                            "sent in digital form over a radio frequency that identifies \n"
+                       desc="Maritime Mobile Service Identity - \n"
+                            "a nine-digit number sent in digital form \n"
+                            "over a radio frequency that identifies \n"
                             "the vessel's transmitter station")
 
     imo = NumberField(index='IMO',
@@ -24,7 +25,8 @@ class VesselParticural(Model):
                              desc="The year that the subject vessel was built")
 
     breadth_extreme = RealNumberField(index='BREADTH_EXTREME',
-                                      desc="The extreme breadth (in metres) of the subject vessel")
+                                      desc="The extreme breadth (in metres) \n"
+                                           "of the subject vessel")
 
     summer_dwt = NumberField(index='SUMMER_DWT',
                              desc="Deadweight - a measure (in metric tons) \n"
@@ -32,7 +34,8 @@ class VesselParticural(Model):
                                   "(excluding the vessel's own weight)")
 
     displacement_summer = NumberField(index='DISPLACEMENT_SUMMER',
-                                      desc="Displacement - a measure of the vessel's weight")
+                                      desc="Displacement - a measure of \n"
+                                           "the vessel's weight")
 
     call_sign = TextField(index='CALLSIGN',
                           desc="A uniquely designated identifier for \n"
@@ -43,25 +46,28 @@ class VesselParticural(Model):
                           "to AIS transmissions")
 
     draught = RealNumberField(index='DRAUGHT',
-                              desc="The Draught (in metres x10) of the subject vessel \n"
-                                   "according to the AIS transmissions")
+                              desc="The Draught (in metres x10) of the subject \n"
+                                   "vessel according to the AIS transmissions")
 
     overall_length = RealNumberField(index='LENGTH_OVERALL',
-                                     desc="The Overall Length (in metres) of the subject vessel")
+                                     desc="The Overall Length (in metres) \n"
+                                          "of the subject vessel")
 
     fuel_consumption = TextField(index='FUEL_CONSUMPTION',
                                  desc="The Fuel Consumption of the subject vessel")
 
     max_speed = RealNumberField(index='SPEED_MAX',
-                                desc="The Maximum Operational Speed of the subject vessel")
+                                desc="The Maximum Operational Speed \n"
+                                     "of the subject vessel")
 
     condition_speed = RealNumberField(index='SPEED_SERVICE',
-                                      desc="The Speed that the vessel is designed to sail \n"
-                                           "under certain conditions")
+                                      desc="The Speed that the vessel is \n"
+                                           "designed to sail under certain \n"
+                                           "conditions")
 
     wet_cargo_capacity = NumberField(index='LIQUID_OIL',
-                                     desc="The Capacity (in cubic metres) of the wet cargo \n"
-                                          "the vessel can carry")
+                                     desc="The Capacity (in cubic metres) \n"
+                                          "of the wet cargo the vessel can carry")
 
     owner = TextField(index='OWNER',
                       desc="The Owning Company of the subject vessel \n"
@@ -75,5 +81,5 @@ class VesselParticural(Model):
                             desc="The specific type of the subject vessel")
 
     manager_owner = TextField(index='MANAGER_OWNER',
-                              desc="The Owning/Managing Company \n"
-                                   "(null if the Owner is different than the Manager)")
+                              desc="The Owning/Managing Company (null \n"
+                                   "if the Owner is different than the Manager)")
