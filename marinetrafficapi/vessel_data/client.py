@@ -30,9 +30,9 @@ class VesselData:
         model=VesselPhoto,
         formatter=Xml,
         query_parameters=VD01QueryParams,
-        description=f'{click.style("API CALL VD01", fg="red")}: \n'
-                    'Get the most popular photo for a vessel \n'
+        description='{}:\nGet the most popular photo for a vessel \n'
                     'from the MarineTraffic photo database'
+            .format(click.style("API CALL VD01", fg="red"))
     )
 
     vessel_particulars = bind_request(
@@ -43,9 +43,9 @@ class VesselData:
             'v': '3',
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL VD02", fg="red")}: \n'
-                    'Get vessel particulars (including \n'
+        description='{}:\nGet vessel particulars (including \n'
                     'type, dimensions, ownership etc).'
+            .format(click.style("API CALL VD02", fg="red"))
     )
 
     search_vessel = bind_request(
@@ -55,6 +55,6 @@ class VesselData:
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL VD03", fg="red")}: \n'
-                    'Search MarineTraffic database for a vessel.'
+        description='{}:\nSearch MarineTraffic database for a vessel.'
+            .format(click.style("API CALL VD03", fg="red"))
     )

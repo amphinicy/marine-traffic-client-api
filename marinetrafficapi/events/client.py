@@ -33,9 +33,9 @@ class Events:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL EV01", fg="red")}: \n'
-                    'Get detailed arrival and departure \n'
+        description='{}:\nGet detailed arrival and departure \n'
                     'information for a port or vessel'
+            .format(click.style("API CALL EV01", fg="red"))
     )
 
     vessel_events = bind_request(
@@ -46,9 +46,9 @@ class Events:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL EV01", fg="red")}: \n'
-                    'Access our powerful events data \n'
+        description='{}:\nAccess our powerful events data \n'
                     'and event derived intelligence'
+            .format(click.style("API CALL EV01", fg="red"))
     )
 
     berth_calls = bind_request(
@@ -59,7 +59,7 @@ class Events:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL EV01", fg="red")}: \n'
-                    'Get berth arrival and departure information \n'
+        description='{}:\nGet berth arrival and departure information \n'
                     'for a specific vessel, berth, terminal or port'
+            .format(click.style("API CALL EV01", fg="red"))
     )

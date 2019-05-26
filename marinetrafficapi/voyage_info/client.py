@@ -30,9 +30,9 @@ class VoyageInfo:
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL VI01", fg="red")}: \n'
-                    'Get a voyage forecast for a vessel or \n'
+        description='{}:\nGet a voyage forecast for a vessel or \n'
                     'your MarineTraffic fleet'
+            .format(click.style("API CALL VI01", fg="red"))
     )
 
     expected_arrivals = bind_request(
@@ -43,8 +43,8 @@ class VoyageInfo:
             'v': '3',
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL VI02", fg="red")}: \n'
-                    'Get expected arrivals to a specific port or country'
+        description='{}:\nGet expected arrivals to a specific port or country'
+            .format(click.style("API CALL VI02", fg="red"))
     )
 
     port_distances_and_routes = bind_request(
@@ -54,7 +54,7 @@ class VoyageInfo:
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL VI03", fg="red")}: \n'
-                    'Get all the available vessel routes and the respective \n'
-                    'distances from point to port or port to port'
+        description='{}:\nGet all the available vessel routes and the '
+                    'respective distances from point to port or port to port'
+            .format(click.style("API CALL VI03", fg="red"))
     )

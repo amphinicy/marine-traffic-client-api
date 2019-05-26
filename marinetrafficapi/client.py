@@ -31,4 +31,4 @@ class Client(VesselPositions, VoyageInfo, Events, VesselData):
         try:
             getattr(cls, fn_name)(None, print_params=True)
         except AttributeError:
-            click.secho(f'Unknown API method: {fn_name}', fg='red')
+            click.secho('Unknown API method: {}'.format(fn_name), fg='red')

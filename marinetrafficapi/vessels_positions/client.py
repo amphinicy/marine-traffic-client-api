@@ -32,9 +32,9 @@ class VesselPositions:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL PS01", fg="red")}: \n'
-                    'Get all historical positions \n'
+        description='{}: \nGet all historical positions \n'
                     'for one or more vessels over a period of time'
+            .format(click.style("API CALL PS01", fg="red"))
     )
 
     fleet_vessel_positions = bind_request(
@@ -46,17 +46,17 @@ class VesselPositions:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL PS02", fg="red")}: \n'
-                    'Get positional information for a set of predefined vessels \n'
-                    f'{click.style("API CALL PS03", fg="red")}: \n'
-                    'Monitor vessel activity for your MarineTraffic fleet(s)\n'
-                    f'{click.style("API CALL PS04", fg="red")}: \n'
-                    'Monitor vessel activity in one or more ports of your interest\n'
-                    f'{click.style("API CALL PS05", fg="red")}: \n'
-                    'Monitor vessel activity in an area of your interest\n'
-                    f'{click.style("API CALL PS06", fg="red")}: \n'
-                    'Retrieve positions for vessels sailing in an area that \n'
+        description='{}:\nGet positional information for a set of predefined vessels \n'
+                    '{}:\nMonitor vessel activity for your MarineTraffic fleet(s)\n'
+                    '{}:\nMonitor vessel activity in one or more ports of your interest\n'
+                    '{}:\nMonitor vessel activity in an area of your interest\n'
+                    '{}:\nRetrieve positions for vessels sailing in an area that \n'
                     'you define each time you call the service'
+            .format(click.style("API CALL PS02", fg="red"),
+                    click.style("API CALL PS03", fg="red"),
+                    click.style("API CALL PS04", fg="red"),
+                    click.style("API CALL PS05", fg="red"),
+                    click.style("API CALL PS06", fg="red"))
     )
 
     single_vessel_positions = bind_request(
@@ -68,7 +68,7 @@ class VesselPositions:
             constants.ClientConst.MSG_TYPE: constants.ClientConst.SIMPLE,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description=f'{click.style("API CALL PS07", fg="red")}: \n'
-                    'Get the latest available position or voyage \n'
+        description='{}:\nGet the latest available position or voyage \n'
                     'information for a particular vessel'
+            .format(click.style("API CALL PS07", fg="red"))
     )

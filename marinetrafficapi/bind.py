@@ -100,22 +100,24 @@ def bind_request(**request_data) -> 'callable':
             :return: URL
             """
 
-            base_url = f'{self.client.protocol}://{self.client.base_url}' \
-                       f'{self.client.base_path}{self.api_path}/{self.client.api_key}'
+            base_url = '{}://{}{}{}/{}'.format(
+                self.client.protocol, self.client.base_url,
+                self.client.base_path, self.api_path, self.client.api_key
+            )
 
             url_parts = '/'.join([part for part in
                                   self.parameters[RequestConst.PATH]])
 
-            url_query = '/'.join([f'{key}:{value}'
+            url_query = '/'.join(['{}:{}'.format(key, value)
                                   for key, value in self.parameters[
                                       RequestConst.QUERY].items()])
 
             if url_parts:
-                final_url = f'{base_url}/{url_parts}/{url_query}'
+                final_url = '{}/{}/{}'.format(base_url, url_parts, url_query)
             else:
-                final_url = f'{base_url}/{url_query}'
+                final_url = '{}/{}'.format(base_url, url_query)
 
-            self.debug.ok('url', f'{base_url}{url_parts}')
+            self.debug.ok('url', '{}{}'.format(base_url, url_parts))
             self.debug.ok(RequestConst.QUERY_PARAMETERS,
                           self.parameters[RequestConst.QUERY])
             self.debug.ok('final url', final_url)
@@ -165,11 +167,11 @@ def bind_request(**request_data) -> 'callable':
                 self.debug.error(ResponseConst.STATUS_CODE, status_code)
                 self.debug.error(ResponseConst.RESPONSE, error_response)
 
-                error_codes = ''.join([f'code {error[ResponseConst.CODE]}: '
-                                       f'{error[ResponseConst.DETAIL]}'
+                error_codes = ''.join(['code {}: {}'.format(
+                    error[ResponseConst.CODE], error[ResponseConst.DETAIL])
                                        for error in error_response['errors']])
 
-                msg = f'Request errors: {error_codes}'
+                msg = 'Request errors: {}'.format(error_codes)
 
                 raise MarineTrafficRequestApiException(msg)
             else:

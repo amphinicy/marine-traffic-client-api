@@ -35,5 +35,5 @@ class QueryParams(MultiValueEnum):
         for param in cls:
             param.__doc__ = param.values[1]
 
-        click.echo(f'{cls.__name__} params:')
+        click.echo('{} params:'.format(cls.__name__))
         pdumpit(cls, all_=False)
