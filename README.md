@@ -466,6 +466,61 @@ for forecast in forecasts.models:
     forecast.route.value
 ```
 
+#### [VI02] Expected Arrivals
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi02)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+expected_arrivals = api.expected_arrivals(timespan=2,
+                                          country='US',
+                                          dwt_min=10000,
+                                          dwt_max=160000,
+                                          shiptype=7)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('expected_arrivals')
+
+for expected_arrival in expected_arrivals.models:
+	expected_arrival.imo.value
+    expected_arrival.mmsi.value
+    expected_arrival.ship_name.value
+    expected_arrival.type_name.value
+    expected_arrival.ship_type.value
+    expected_arrival.call_sign.value
+    expected_arrival.flag.value
+    expected_arrival.length.value
+    expected_arrival.width.value
+    expected_arrival.draught.value
+    expected_arrival.grt.value
+    expected_arrival.dwt.value
+    expected_arrival.year_built.value
+    expected_arrival.latitude.value
+    expected_arrival.longitude.value
+    expected_arrival.speed.value
+    expected_arrival.course.value
+    expected_arrival.status.value
+    expected_arrival.eta.value
+    expected_arrival.eta_calc.value
+    expected_arrival.eta_updated.value
+    expected_arrival.last_port_id.value
+    expected_arrival.last_port.value
+    expected_arrival.last_port_unlocode.value
+    expected_arrival.last_port_country.value
+    expected_arrival.last_port_time.value
+    expected_arrival.port_id.value
+    expected_arrival.port_unlocode.value
+    expected_arrival.current_port.value
+    expected_arrival.current_port_country.value
+    expected_arrival.next_port_id.value
+    expected_arrival.next_port_unlocode.value
+    expected_arrival.next_port_name.value
+    expected_arrival.next_port_country.value
+    expected_arrival.timestamp.value
+```
+
 #### [VI03] Port Distance and Routes
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03)
 
@@ -596,6 +651,11 @@ debug_data = api.request.debug.show()
 For more information visit official documentation: [https://www.marinetraffic.com/en/ais-api-services/](https://www.marinetraffic.com/en/ais-api-services/)
 
 # Changelog
+
+## 0.14.0
+
+#### Added:
+- VI02 - Expected Arrivals
 
 ## 0.13.0
 
