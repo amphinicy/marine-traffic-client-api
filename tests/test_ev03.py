@@ -21,9 +21,17 @@ class EV03Response(unittest.TestCase):
                          dwt_max=70000,
                          timespan=20)
 
-        url = 'https://services.marinetraffic.com/api/berth-calls/_api_key_/' \
-              'msgtype:simple/protocol:jsono/dwt_min:2000/dwt_max:70000/timespan:20'
-        self.assertEqual(request.api_reguest.url, url)
+        query = [tuple(q.split(':')) for q in
+                 sorted(request.api_reguest.url.split(
+                     'https://services.marinetraffic.com/api/berth-calls/_api_key_/'
+                 )[1].split('/'))]
+
+        test_query = [
+            ('dwt_max', '70000'), ('dwt_min', '2000'), ('msgtype', 'simple'),
+            ('protocol', 'jsono'), ('timespan', '20')
+        ]
+
+        self.assertEqual(query, test_query)
 
         self.assertEqual(request.models[0].ship_id.value, 414650)
         self.assertEqual(request.models[0].mmsi.value, 354530000)

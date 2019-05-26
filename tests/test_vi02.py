@@ -23,10 +23,18 @@ class VI02Response(unittest.TestCase):
                                dwt_max=160000,
                                shiptype=7)
 
-        url = 'https://services.marinetraffic.com/api/expectedarrivals/' \
-              '_api_key_/v:3/protocol:jsono/timespan:2/country:US/' \
-              'dwt_min:10000/dwt_max:160000/shiptype:7'
-        self.assertEqual(request.api_reguest.url, url)
+        query = [tuple(q.split(':')) for q in
+                 sorted(request.api_reguest.url.split(
+                     'https://services.marinetraffic.com/api/expectedarrivals/_api_key_/'
+                 )[1].split('/'))]
+
+        test_query = [
+            ('country', 'US'), ('dwt_max', '160000'), ('dwt_min', '10000'),
+            ('protocol', 'jsono'), ('shiptype', '7'), ('timespan', '2'),
+            ('v', '3')
+        ]
+
+        self.assertEqual(query, test_query)
 
         self.assertEqual(request.models[0].imo.value, 7350325)
         self.assertEqual(request.models[0].mmsi.value, 239308000)
