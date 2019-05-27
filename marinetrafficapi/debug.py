@@ -15,7 +15,7 @@ class Debug:
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         if self.client.debug:
             self.standard_output()
 
@@ -43,7 +43,7 @@ class Debug:
         for key, value in self.recorded_data.items():
 
             value = value['value']
-            if type(value) == object:
+            if isinstance(value, object):
                 value = dir(value)
 
             output_str = '%s: [%s] %s' % (click.style(str(key), fg='green'),

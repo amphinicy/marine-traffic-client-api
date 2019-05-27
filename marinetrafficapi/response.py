@@ -1,4 +1,4 @@
-from typing import Any, Type, List, Union, TYPE_CHECKING
+from typing import Any, Type, List, Union
 
 from marinetrafficapi.formatter import Formatter, Json, Xml, Csv
 from marinetrafficapi.constants import (ClientConst, FormatterConst,
@@ -51,7 +51,7 @@ class Response:
             self._response_data[ClientConst.MODELS] = \
                 self._model.process(
                     self.formatter.to_list(formatted_data))
-            
+
         return self._response_data[ClientConst.MODELS]
 
     @property
