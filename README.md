@@ -12,7 +12,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/amphinicy/marine-traffic-client-api.svg?color=blue)
 
 ## Installation
-Works with python 3.x.
 
 ```
 pip install Marine-Traffic-API

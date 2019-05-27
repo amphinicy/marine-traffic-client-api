@@ -2,8 +2,8 @@ import csv
 import ujson
 from copy import copy
 
-from lxml import etree
 from io import StringIO
+from xml.etree.ElementTree import parse
 from abc import ABCMeta, abstractmethod
 from typing import AnyStr, Any, Dict, Union, Type, List, TYPE_CHECKING
 
@@ -128,7 +128,7 @@ class Csv(Formatter):
         meta_data = self.__format(csv_data)[0]
         return self._meta_data_to_int(meta_data)
 
-    def _default_meta_data(self, data: List) -> List:
+    def _default_meta_data(self, total_results: int) -> List:
         """Create default data set if there aren't one from the response."""
 
         return [
@@ -137,7 +137,7 @@ class Csv(Formatter):
                 ResponseDataConst.TOTAL_PAGES,
                 ResponseDataConst.CURRENT_PAGE
             ],
-            [str(len(data[1:])), 1, 1]
+            [str(total_results), 1, 1]
         ]
 
     def __get_error_response(self, data: List) -> Dict:
@@ -152,7 +152,8 @@ class Csv(Formatter):
             return {
                 MiscConst.ERRORS: [
                     {
-                        ResponseConst.CODE: data[0][0].split('_')[1].split('-')[0],
+                        ResponseConst.CODE:
+                            data[0][0].split('_')[1].split('-')[0],
                         ResponseConst.DETAIL: data[0][0].split('-')[1]
                     }
                 ]
@@ -181,7 +182,7 @@ class Csv(Formatter):
             # Response came only with data part
             if meta:
                 # Return default meta data
-                return self._default_meta_data(data)
+                return self._default_meta_data(len(data[1:]))
             else:
                 # Return data
                 return data
@@ -218,42 +219,48 @@ class Xml(Formatter):
     def _format(self, data: AnyStr) -> Union[List, Dict]:
         """Transform raw data from server into python native type."""
 
-        data = etree.fromstring(data.encode('utf-8'))
+        data = parse(StringIO(data))
 
         xml_data = []
-        child_tag = list(data)[0]
+        child_tag = list(data.getroot().iter())[1]
 
         if child_tag.tag == ResponseDataConst.STATUS:
-            if list(child_tag)[0].tag == ResponseDataConst.ERROR:
+
+            child_tag_element = list(child_tag.iter())[1]
+            if child_tag_element.tag == ResponseDataConst.ERROR:
                 # error message does not follow
                 # same structure as data message.
                 # trying to follow the same error message
                 # structure from json error response.
 
-                attribs = list(child_tag)[0].attrib
+                attribs = child_tag_element.attrib
                 xml_data = {
                     MiscConst.ERRORS: [
                         {
                             ResponseConst.CODE: attribs[ResponseDataConst.CODE],
-                            ResponseConst.DETAIL: attribs[ResponseDataConst.DESCRIPTION]
+                            ResponseConst.DETAIL:
+                                attribs[ResponseDataConst.DESCRIPTION]
                         }
                     ]
                 }
         else:
-            xml_data = [child.attrib for child in data]
+            xml_data = [child.attrib for child in list(data.iter())[1:]]
 
         return xml_data
 
     def _format_meta(self, data: AnyStr) -> Any:
         """Format method in formatter classes."""
 
-        data = etree.fromstring(data.encode('utf-8'))
-        meta_data = data.attrib
+        data = parse(StringIO(data))
+        meta_data = data.getroot().attrib
+
         if not meta_data:
             # Taking formatted data from Response object because
             # it keeps the data cached in memory, rather then
             # directly from this class and format it all over again
-            total_results = len([child.attrib for child in data])
+            total_results = len(
+                [child.attrib for child in list(data.iter())[1:]]
+            )
             meta_data = self._default_meta_data(total_results)
 
         return self._meta_data_to_int(meta_data)
