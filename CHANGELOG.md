@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.0
+
+### Fixed in 0.16.0
+-   lxml replaced with defusexml
+-   various security fixes
+-   code formatting
+
 ## 0.15.0
 
 ### Fixed in 0.15.0

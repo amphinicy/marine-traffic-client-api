@@ -81,7 +81,7 @@ class Json(Formatter):
         """Transform raw data from server into python native type."""
 
         formatted_data = ujson.loads(data)
-        if type(formatted_data) is dict:
+        if isinstance(formatted_data, dict):
             return formatted_data.get(ResponseDataConst.DATA, formatted_data)
         else:
             return formatted_data
