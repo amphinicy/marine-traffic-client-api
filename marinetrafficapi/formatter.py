@@ -3,7 +3,7 @@ import ujson
 from copy import copy
 
 from io import StringIO
-from xml.etree.ElementTree import parse
+from defusedxml.ElementTree import parse
 from abc import ABCMeta, abstractmethod
 from typing import AnyStr, Any, Dict, Union, Type, List
 
