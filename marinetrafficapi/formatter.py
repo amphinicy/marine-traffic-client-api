@@ -5,20 +5,16 @@ from copy import copy
 from io import StringIO
 from xml.etree.ElementTree import parse
 from abc import ABCMeta, abstractmethod
-from typing import AnyStr, Any, Dict, Union, Type, List, TYPE_CHECKING
+from typing import AnyStr, Any, Dict, Union, Type, List
 
 from marinetrafficapi.constants import (MiscConst, ResponseConst,
                                         FormatterConst, ResponseDataConst)
 
 
-if TYPE_CHECKING:
-    from marinetrafficapi.response import Response
-
-
 class Formatter(metaclass=ABCMeta):
     """Abstract formatter class."""
 
-    def __init__(self, response: Type['Response']):
+    def __init__(self, response):
         self._response = response
 
     @abstractmethod

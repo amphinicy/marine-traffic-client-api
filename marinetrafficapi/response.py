@@ -5,16 +5,12 @@ from marinetrafficapi.constants import (ClientConst, FormatterConst,
                                         ResponseConst)
 
 
-if TYPE_CHECKING:
-    from marinetrafficapi.bind import Api
-
-
 class Response:
     """Response object returned from API call."""
 
     def __init__(self, data: Any, status_code: int,
                  formatter: Type[Formatter],
-                 api_request: Type['Api']):
+                 api_request):
         self._data = data
         self._model = api_request.model
 

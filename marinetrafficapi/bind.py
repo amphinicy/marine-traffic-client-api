@@ -1,6 +1,6 @@
 import requests
 from abc import ABCMeta
-from typing import TYPE_CHECKING, Union
+from typing import Union
 
 from marinetrafficapi.debug import Debug
 from marinetrafficapi.response import Response
@@ -10,9 +10,6 @@ from marinetrafficapi.constants import (RequestConst, ResponseConst,
                                         ClientConst, TestConst,
                                         ResponseCode, BoolConst,
                                         MiscConst)
-
-if TYPE_CHECKING:
-    from marinetrafficapi.client import Client
 
 
 class Api(metaclass=ABCMeta):
@@ -33,7 +30,7 @@ def bind_request(**request_data) -> 'callable':
         fake_response_path = request_data.get(TestConst.FAKE_RESPONSE_PATH)
         default_parameters = request_data.get(RequestConst.DEFAULT_PARAMETERS, {})
 
-        def __init__(self, client: 'Client', debug: 'Debug',
+        def __init__(self, client, debug: 'Debug',
                      *path_params, **query_params):
             client.request = self
 
