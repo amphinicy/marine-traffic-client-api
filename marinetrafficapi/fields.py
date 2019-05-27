@@ -1,10 +1,7 @@
 from datetime import datetime
-from typing import Any, Union, List, TYPE_CHECKING, Tuple
+from typing import Any, Union, List, Tuple
 
 from marinetrafficapi.constants import BoolConst, MiscConst
-
-if TYPE_CHECKING:
-    from marinetrafficapi.models import Model
 
 
 class Field:
@@ -18,7 +15,7 @@ class Field:
         self.__doc__ = desc
         self.value = None
 
-    def convert_item(self, model: 'Model') -> None:
+    def convert_item(self, model) -> None:
         """Convert item to desired item type"""
 
         try:

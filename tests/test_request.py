@@ -29,18 +29,6 @@ class TestRequest(unittest.TestCase):
             fake_response_path=self.fake_ok_response_path)\
             .port_distances_and_routes(*['foo', 'bar'], **self._request_params)
 
-        parameters = {
-            'query': {
-                'protocol': 'jsono',
-                'port_start_id': 1,
-                'port_target_id': 10,
-                'includealternatives': '1',
-                'includeinland': '0'
-            },
-            'path': ['foo', 'bar']
-        }
-
-        #self.assertEqual(request.api_reguest.parameters, parameters)
         self.assertEqual(request.api_reguest._timeout, 10)
 
     def test_prepare_url(self):

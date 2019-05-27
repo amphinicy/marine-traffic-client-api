@@ -2,23 +2,19 @@ import csv
 import ujson
 from copy import copy
 
-from lxml import etree
 from io import StringIO
+from defusedxml.ElementTree import parse
 from abc import ABCMeta, abstractmethod
-from typing import AnyStr, Any, Dict, Union, Type, List, TYPE_CHECKING
+from typing import AnyStr, Any, Dict, Union, Type, List
 
 from marinetrafficapi.constants import (MiscConst, ResponseConst,
                                         FormatterConst, ResponseDataConst)
 
 
-if TYPE_CHECKING:
-    from marinetrafficapi.response import Response
-
-
 class Formatter(metaclass=ABCMeta):
     """Abstract formatter class."""
 
-    def __init__(self, response: Type['Response']):
+    def __init__(self, response):
         self._response = response
 
     @abstractmethod
@@ -43,7 +39,8 @@ class Formatter(metaclass=ABCMeta):
 
         return self._format_meta(data)
 
-    def _to_list(self, data: AnyStr) -> List:
+    @staticmethod
+    def _to_list(data: AnyStr) -> List:
         """To list method in formatter classes."""
 
         return data
@@ -51,9 +48,10 @@ class Formatter(metaclass=ABCMeta):
     def to_list(self, data: AnyStr) -> List:
         """Main to list method."""
 
-        return self._to_list(data)
+        return self.__class__._to_list(data)
 
-    def _default_meta_data(self, total_results: int) -> Dict:
+    @staticmethod
+    def _default_meta_data(total_results: int) -> Dict:
         """Create default data set if there aren't one from the response."""
 
         return {
@@ -62,7 +60,8 @@ class Formatter(metaclass=ABCMeta):
             ResponseDataConst.CURRENT_PAGE: 1
         }
 
-    def _meta_data_to_int(self, meta_data: Dict) -> Dict:
+    @staticmethod
+    def _meta_data_to_int(meta_data: Dict) -> Dict:
         """Cast all data to int."""
 
         return {
@@ -82,7 +81,7 @@ class Json(Formatter):
         """Transform raw data from server into python native type."""
 
         formatted_data = ujson.loads(data)
-        if type(formatted_data) is dict:
+        if isinstance(formatted_data, dict):
             return formatted_data.get(ResponseDataConst.DATA, formatted_data)
         else:
             return formatted_data
@@ -91,10 +90,10 @@ class Json(Formatter):
         """Transform raw data from server into python native type."""
 
         formatted_data = ujson.loads(data)
-        if type(formatted_data) is dict:
+        if isinstance(formatted_data, dict):
             return formatted_data.get(ResponseDataConst.META, {})
         else:
-            return self._default_meta_data(len(formatted_data))
+            return self.__class__._default_meta_data(len(formatted_data))
 
 
 class Csv(Formatter):
@@ -106,15 +105,15 @@ class Csv(Formatter):
         io_data = StringIO(data)
         data = list(csv.reader(io_data))
 
-        # Check for error reasponse
-        error_response = self.__get_error_response(data)
+        # Check for error response
+        error_response = self.__class__.__get_error_response(data)
         if error_response:
             return error_response
 
         # Check if the response came with meta data
         csv_data = self.__get_data_or_meta(data)
 
-        return self.__format(csv_data)
+        return self.__class__.__format(csv_data)
 
     def _format_meta(self, data: AnyStr) -> Any:
         """Format method in formatter classes."""
@@ -125,10 +124,11 @@ class Csv(Formatter):
         # Check if the response came with meta data
         csv_data = self.__get_data_or_meta(data, meta=True)
 
-        meta_data = self.__format(csv_data)[0]
-        return self._meta_data_to_int(meta_data)
+        meta_data = self.__class__.__format(csv_data)[0]
+        return self.__class__._meta_data_to_int(meta_data)
 
-    def _default_meta_data(self, data: List) -> List:
+    @staticmethod
+    def _default_meta_data(total_results: int) -> List:
         """Create default data set if there aren't one from the response."""
 
         return [
@@ -137,10 +137,11 @@ class Csv(Formatter):
                 ResponseDataConst.TOTAL_PAGES,
                 ResponseDataConst.CURRENT_PAGE
             ],
-            [str(len(data[1:])), 1, 1]
+            [str(total_results), 1, 1]
         ]
 
-    def __get_error_response(self, data: List) -> Dict:
+    @staticmethod
+    def __get_error_response(data: List) -> Dict:
         """Extracts error part from response."""
 
         if data[0][0].startswith(ResponseDataConst.ERROR):
@@ -152,7 +153,8 @@ class Csv(Formatter):
             return {
                 MiscConst.ERRORS: [
                     {
-                        ResponseConst.CODE: data[0][0].split('_')[1].split('-')[0],
+                        ResponseConst.CODE:
+                            data[0][0].split('_')[1].split('-')[0],
                         ResponseConst.DETAIL: data[0][0].split('-')[1]
                     }
                 ]
@@ -181,12 +183,13 @@ class Csv(Formatter):
             # Response came only with data part
             if meta:
                 # Return default meta data
-                return self._default_meta_data(data)
+                return self.__class__._default_meta_data(len(data[1:]))
             else:
                 # Return data
                 return data
 
-    def __format(self, data: List) -> List:
+    @staticmethod
+    def __format(data: List) -> List:
         """Transform list of lists into a list of dicts."""
 
         csv_data = []
@@ -218,45 +221,51 @@ class Xml(Formatter):
     def _format(self, data: AnyStr) -> Union[List, Dict]:
         """Transform raw data from server into python native type."""
 
-        data = etree.fromstring(data.encode('utf-8'))
+        data = parse(StringIO(data))
 
         xml_data = []
-        child_tag = list(data)[0]
+        child_tag = list(data.getroot().iter())[1]
 
         if child_tag.tag == ResponseDataConst.STATUS:
-            if list(child_tag)[0].tag == ResponseDataConst.ERROR:
+
+            child_tag_element = list(child_tag.iter())[1]
+            if child_tag_element.tag == ResponseDataConst.ERROR:
                 # error message does not follow
                 # same structure as data message.
                 # trying to follow the same error message
                 # structure from json error response.
 
-                attribs = list(child_tag)[0].attrib
+                attribs = child_tag_element.attrib
                 xml_data = {
                     MiscConst.ERRORS: [
                         {
                             ResponseConst.CODE: attribs[ResponseDataConst.CODE],
-                            ResponseConst.DETAIL: attribs[ResponseDataConst.DESCRIPTION]
+                            ResponseConst.DETAIL:
+                                attribs[ResponseDataConst.DESCRIPTION]
                         }
                     ]
                 }
         else:
-            xml_data = [child.attrib for child in data]
+            xml_data = [child.attrib for child in list(data.iter())[1:]]
 
         return xml_data
 
     def _format_meta(self, data: AnyStr) -> Any:
         """Format method in formatter classes."""
 
-        data = etree.fromstring(data.encode('utf-8'))
-        meta_data = data.attrib
+        data = parse(StringIO(data))
+        meta_data = data.getroot().attrib
+
         if not meta_data:
             # Taking formatted data from Response object because
             # it keeps the data cached in memory, rather then
             # directly from this class and format it all over again
-            total_results = len([child.attrib for child in data])
-            meta_data = self._default_meta_data(total_results)
+            total_results = len(
+                [child.attrib for child in list(data.iter())[1:]]
+            )
+            meta_data = self.__class__._default_meta_data(total_results)
 
-        return self._meta_data_to_int(meta_data)
+        return self.__class__._meta_data_to_int(meta_data)
 
 
 class FormatterFactory:
