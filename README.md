@@ -13,7 +13,7 @@
 
 ## Installation
 
-```
+```bash
 pip install Marine-Traffic-API
 ```
 
@@ -46,7 +46,7 @@ response.meta # meta data that in some way describes API response
 
 ## Vessels Positions
 
-### [PS01] Vessel History Track
+### (PS01) Vessel History Track
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps01)
 
 ```python
@@ -74,7 +74,7 @@ for position in vessel_positions.models:
 	position.wind_angle.value
 ```
 
-### [PS02] Vessel Positions of a Static Fleet
+### (PS02) Vessel Positions of a Static Fleet
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps02)
 
 ```python
@@ -136,19 +136,19 @@ for vessel in vessels.models:
 	vessel.max_speed.value
 ```
 
-### [PS03] Vessel Positions of a Dynamic Fleet
+### (PS03) Vessel Positions of a Dynamic Fleet
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps03)
 Same as PS02.
 
-### [PS04] Vessel Positions Within a port
+### (PS04) Vessel Positions Within a port
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps04](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps04)
 Same as PS02.
 
-### [PS05] Vessel Positions in a Predefined Area
+### (PS05) Vessel Positions in a Predefined Area
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps05](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps05)
 Same as PS02.
 
-### [PS06] Vessel Positions in a Predefined Area
+### (PS06) Vessel Positions in a Predefined Area
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps06](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps06)
 
 ```python
@@ -169,7 +169,7 @@ for vessel in vessels.models:
 	# same as PS02
 ```
 
-### [PS07] Single Vessel Positions
+### (PS07) Single Vessel Positions
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps07](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ps07)
 
 ```python
@@ -225,7 +225,7 @@ vessel.next_port_country.value
 
 ## Events
 
-### [EV01] Port Calls
+### (EV01) Port Calls
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev01)
 
 ```python
@@ -260,7 +260,7 @@ for event in events.models:
     event.elapsed_noanch.value
 ```
 
-### [EV02] Vessel Events
+### (EV02) Vessel Events
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev02)
 
 ```python
@@ -284,7 +284,7 @@ for event in events.models:
     event.event_content.value
 ```
 
-### [EV03] Berth Calls
+### (EV03) Berth Calls
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:ev03)
 
 ```python
@@ -348,7 +348,7 @@ for berth_call in berth_calls.models:
 
 ## Vessels Data
 
-### [VD01] Vessel Photos
+### (VD01) Vessel Photos
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd01)
 
 ```python
@@ -365,7 +365,7 @@ for vessel_photo in vessel_photos.models:
 	vessel_photo.url.value
 ```
 
-### [VD02] Vessel Particulars
+### (VD02) Vessel Particulars
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd02)
 
 ```python
@@ -401,7 +401,7 @@ for vessel_particular in vessel_particulars.models:
     vessel_particular.manager_owner.value
 ```
 
-### [VD03] Search Vessel
+### (VD03) Search Vessel
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vd03)
 
 ```python
@@ -431,7 +431,7 @@ vessel.details_page_url.value
 
 ## Voyage Info
 
-### [VI01] Voyage Forecasts
+### (VI01) Voyage Forecasts
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi01](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi01)
 
 ```python
@@ -465,7 +465,7 @@ for forecast in forecasts.models:
     forecast.route.value
 ```
 
-### [VI02] Expected Arrivals
+### (VI02) Expected Arrivals
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi02](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi02)
 
 ```python
@@ -520,7 +520,7 @@ for expected_arrival in expected_arrivals.models:
     expected_arrival.timestamp.value
 ```
 
-### [VI03] Port Distance and Routes
+### (VI03) Port Distance and Routes
 [https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi03)
 
 ```python
