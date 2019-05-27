@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/Marine-Traffic-API.svg)](https://badge.fury.io/py/Marine-Traffic-API)
 [![Build Status](https://travis-ci.com/amphinicy/marine-traffic-client-api.svg?branch=master)](https://travis-ci.com/amphinicy/marine-traffic-client-api)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ebbc8d85223418799e8add54a2119d7)](https://www.codacy.com/app/Amphinicy/marine-traffic-client-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=amphinicy/marine-traffic-client-api&amp;utm_campaign=Badge_Grade)
 
 ![GitHub issues](https://img.shields.io/github/issues/amphinicy/marine-traffic-client-api.svg)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/amphinicy/marine-traffic-client-api.svg)
