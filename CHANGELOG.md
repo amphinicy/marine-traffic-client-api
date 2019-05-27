@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.17.0
+
+### Added in 0.17.0
+-   VI04 - Predictive Destinations
+
 ## 0.16.0
 
 ### Fixed in 0.16.0

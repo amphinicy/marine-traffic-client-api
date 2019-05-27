@@ -544,6 +544,57 @@ for route in routes.models:
 	route.final_path.value
 ```
 
+### (VI04) Predictive Destinations
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi04](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi04)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+destinations = api.predictive_destinations(imo=8105088,
+                                           fromportid=1)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('predictive_destinations')
+
+for destination in destinations.models:
+    destination.imo.value
+    destination.ship_id.value
+    destination.mmsi.value
+    destination.ship_id.value
+    destination.ship_class.value
+    destination.manager.value
+    destination.owner.value
+    destination.from_port_id.value
+    destination.from_port.value
+    destination.next_port_1_id.value
+    destination.next_port_1.value
+    destination.next_port_1_prob.value
+    destination.next_area_1.value
+    destination.next_area_1_prob.value
+    destination.next_port_2_id.value
+    destination.next_port_2.value
+    destination.next_port_2_prob.value
+    destination.next_area_2.value
+    destination.next_area_2_prob.value
+    destination.next_port_3_id.value
+    destination.next_port_3.value
+    destination.next_port_3_prob.value
+    destination.next_area_3.value
+    destination.next_area_3_prob.value
+    destination.next_port_4_id.value
+    destination.next_port_4.value
+    destination.next_port_4_prob.value
+    destination.next_area_4.value
+    destination.next_area_4_prob.value
+    destination.next_port_5_id.value
+    destination.next_port_5.value
+    destination.next_port_5_prob.value
+    destination.next_area_5.value
+    destination.next_area_5_prob.value
+```
+
 ## Exception Handling
 
 ```python

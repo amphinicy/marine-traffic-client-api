@@ -18,6 +18,11 @@ from marinetrafficapi.voyage_info.\
 from marinetrafficapi.voyage_info.\
     VI03_port_distances_and_routes.query_params import VI03QueryParams
 
+from marinetrafficapi.voyage_info.\
+    VI04_predictive_destinations.models import PredictiveDestinations
+from marinetrafficapi.voyage_info.\
+    VI04_predictive_destinations.query_params import VI04QueryParams
+
 
 class VoyageInfo:
     """Retrieve forecasted information for any vessel.
@@ -54,7 +59,19 @@ class VoyageInfo:
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
         },
-        description='{}:\nGet all the available vessel routes and the '
+        description='{}:\nGet all the available vessel routes and the \n'
                     'respective distances from point to port or port to port'
             .format(click.style("API CALL VI03", fg="red"))
+    )
+
+    predictive_destinations = bind_request(
+        api_path='/predictive-destination-areas',
+        model=PredictiveDestinations,
+        query_parameters=VI04QueryParams,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
+        },
+        description='{}:\nReceive a prediction of the likely \n'
+                    'destination of a vessel or fleet of vessels'
+            .format(click.style("API CALL VI04", fg="red"))
     )
