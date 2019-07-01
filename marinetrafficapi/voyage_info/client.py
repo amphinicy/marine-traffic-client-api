@@ -28,6 +28,11 @@ from marinetrafficapi.voyage_info.\
 from marinetrafficapi.voyage_info.\
     VI05_predictive_arrivals.query_params import VI05QueryParams
 
+from marinetrafficapi.voyage_info.\
+    VI06_port_congestion.models import PortCongestion
+from marinetrafficapi.voyage_info.\
+    VI06_port_congestion.query_params import VI06QueryParams
+
 
 class VoyageInfo:
     """Retrieve forecasted information for any vessel.
@@ -91,4 +96,16 @@ class VoyageInfo:
         description='{}:\nReceive a prediction of the vessels \n'
                     'likely to arrive to a specific port'
             .format(click.style("API CALL VI05", fg="red"))
+    )
+
+    port_congestion = bind_request(
+        api_path='/port-congestion',
+        model=PortCongestion,
+        query_parameters=VI06QueryParams,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
+        },
+        description='{}:\nReceive the Port Congestion \n'
+                    'for a specific period of time'
+            .format(click.style("API CALL VI06", fg="red"))
     )
