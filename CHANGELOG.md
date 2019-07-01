@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.18.0
+
+### Added in 0.18.0
+-   VI05 - Predictive Arrivals
+
 ## 0.17.0
 
 ### Added in 0.17.0

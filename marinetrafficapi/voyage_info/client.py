@@ -23,6 +23,11 @@ from marinetrafficapi.voyage_info.\
 from marinetrafficapi.voyage_info.\
     VI04_predictive_destinations.query_params import VI04QueryParams
 
+from marinetrafficapi.voyage_info.\
+    VI05_predictive_arrivals.models import PredictiveArrivals
+from marinetrafficapi.voyage_info.\
+    VI05_predictive_arrivals.query_params import VI05QueryParams
+
 
 class VoyageInfo:
     """Retrieve forecasted information for any vessel.
@@ -74,4 +79,16 @@ class VoyageInfo:
         description='{}:\nReceive a prediction of the likely \n'
                     'destination of a vessel or fleet of vessels'
             .format(click.style("API CALL VI04", fg="red"))
+    )
+
+    predictive_arrivals = bind_request(
+        api_path='/predictive-arrivals',
+        model=PredictiveArrivals,
+        query_parameters=VI05QueryParams,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
+        },
+        description='{}:\nReceive a prediction of the vessels \n'
+                    'likely to arrive to a specific port'
+            .format(click.style("API CALL VI05", fg="red"))
     )

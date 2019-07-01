@@ -595,6 +595,35 @@ for destination in destinations.models:
     destination.next_area_5_prob.value
 ```
 
+### (VI05) Predictive Arrivals
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi05](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi05)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+arrivals = api.predictive_arrivals(port_id=51)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('predictive_arrivals')
+
+for arrival in arrivals.models:
+    arrival.imo.value
+    arrival.ship_id.value
+    arrival.mmsi.value
+    arrival.ship_class.value
+    arrival.ship_name.value
+    arrival.market.value
+    arrival.from_port_id.value
+    arrival.from_port.value
+    arrival.next_port_id.value
+    arrival.next_port.value
+    arrival.next_area.value
+    arrival.next_port_prob.value
+    arrival.next_area_prob.value
+```
+
 ## Exception Handling
 
 ```python
