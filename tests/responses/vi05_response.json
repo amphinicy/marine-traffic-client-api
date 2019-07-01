@@ -1,0 +1,32 @@
+[
+   {
+      "IMO":"8817564",
+      "SHIP_ID":"213546",
+      "MMSI":"240708000",
+      "SHIPNAME":"AEGEAN III",
+      "SHIPCLASS":"HANDYSIZE",
+      "MARKET":"WET BULK",
+      "FROM_PORT_ID":"5",
+      "FROM_PORT":"ELEFSIS",
+      "NEXT_PORT_ID":"51",
+      "NEXT_PORT":"PATRA",
+      "NEXT_AREA":"EMED",
+      "NEXT_PORT_PROB":"0.786",
+      "NEXT_AREA_PROB":"1.000"
+   },
+   {
+      "IMO":"9314466",
+      "SHIP_ID":"213945",
+      "MMSI":"240871000",
+      "SHIPNAME":"AEGEAN BREEZE I",
+      "SHIPCLASS":"HANDYSIZE",
+      "MARKET":"WET BULK",
+      "FROM_PORT_ID":"5",
+      "FROM_PORT":"ELEFSIS",
+      "NEXT_PORT_ID":"51",
+      "NEXT_PORT":"PATRA",
+      "NEXT_AREA":"EMED",
+      "NEXT_PORT_PROB":"0.556",
+      "NEXT_AREA_PROB":"1.000"
+   }
+]
