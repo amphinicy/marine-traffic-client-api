@@ -624,6 +624,41 @@ for arrival in arrivals.models:
     arrival.next_area_prob.value
 ```
 
+### (VI06) Predictive Arrivals
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi06](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi06)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+
+ports = api.port_congestion(year=2018,
+                            market='wet bulk',
+                            ship_class='handysize',
+                            week=15,
+                            port_id=1)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('port_congestion')
+
+for port in ports.models:
+    port.port_id.value
+    port.year.value 
+    port.week.value
+    port.market.value
+    port.ship_class.value
+    port.time_anch.value
+    port.time_port.value
+    port.vessels.value
+    port.calls.value
+    port.time_anch_stdev.value
+    port.time_anch_diff.value
+    port.time_anch_diff_perc.value
+    port.time_port_stdev.value
+    port.time_port_diff.value
+    port.time_port_diff_perc.value
+```
+
 ## Exception Handling
 
 ```python

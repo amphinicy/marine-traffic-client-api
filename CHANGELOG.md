@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.0
+
+### Added in 0.19.0
+-   VI06 - Port Congestion
+
 ## 0.18.0
 
 ### Added in 0.18.0

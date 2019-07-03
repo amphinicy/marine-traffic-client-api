@@ -5,57 +5,65 @@ from marinetrafficapi.fields import NumberField, TextField, RealNumberField
 class PortCongestion(Model):
     """Receive the Port Congestion for a specific period of time"""
 
-    mmsi = NumberField(index='MMSI',
-                       desc="Maritime Mobile Service Identity - a \n"
-                            "nine-digit number sent in digital form \n"
-                            "over a radio frequency that identifies \n"
-                            "the vessel's transmitter station")
+    port_id = NumberField(index='PORT_ID',
+                          desc="A uniquely assigned ID by \n"
+                               "MarineTraffic for the Current Port")
 
-    imo = NumberField(index='IMO',
-                      desc="International Maritime Organisation number - a \n"
-                           "seven-digit number that uniquely \n"
-                           "identifies vessels")
+    year = NumberField(index='YEAR',
+                       desc="Year of week the data are referring to")
 
-    ship_id = NumberField(index='SHIP_ID',
-                          desc="A uniquely assigned ID by MarineTraffic \n"
-                               "for the subject vessel")
-
-    ship_name = TextField(index='SHIPNAME',
-                          desc="The Shipname of the subject vessel")
-
-    ship_class = TextField(index='SHIPCLASS',
-                           desc="The class of the subject vessel \n"
-                                "based on vessel type and size")
+    week = NumberField(index='WEEK',
+                       desc="Week of year the data are referring to")
 
     market = TextField(index='MARKET',
                        desc="The commercial market segment \n"
                             "the subject vessel belongs to")
 
-    from_port_id = NumberField(index='FROM_PORT_ID',
-                               desc="A uniquely assigned ID by \n"
-                                    "MarineTraffic for the port that \n"
-                                    "was used as origin to retrieve \n"
-                                    "possible destinations")
+    ship_class = TextField(index='SHIPCLASS',
+                           desc="The class of the subject vessel \n"
+                                "based on vessel type and size")
 
-    from_port = TextField(index='FROM_PORT',
-                          desc="The port that was used as origin \n"
-                               "to retrieve possible destinations")
+    time_anch = RealNumberField(index='TIME_ANCH',
+                                desc="The median number of days spent \n"
+                                     "at anchorage the previous week")
 
-    next_port_id = NumberField(index='NEXT_PORT_ID',
-                               desc="A uniquely assigned ID by \n"
-                                    "MarineTraffic for the Next Port")
+    time_port = RealNumberField(index='TIME_PORT',
+                                desc="The median number of days spent at \n"
+                                     "port by the selected market/shipclass")
 
-    next_port = TextField(index='NEXT_PORT',
-                          desc="The target port used to \n"
-                               "predict arrivals of vessels")
+    vessels = NumberField(index='VESSELS',
+                          desc="Number of vessels that were \n"
+                               "used in the median calculations")
 
-    next_area = TextField(index='NEXT_AREA',
-                          desc="The area where the target port belongs to")
+    calls = NumberField(index='CALLS',
+                        desc="Number of individual calls that \n"
+                             "were used in the median calculations \n"
+                             "(e.g. if the same vessel has called \n"
+                             "twice within the same week, it will \n"
+                             "count twice in CALLS and once in VESSELS")
 
-    next_port_prob = RealNumberField(index='NEXT_PORT_PROB',
-                                     desc="The probability of visiting \n"
-                                          "the target port")
+    time_anch_stdev = RealNumberField(index='TIME_ANCH_STDEV',
+                                      desc="The week-to-week standard deviation \n"
+                                           "in days spent at anchorage")
 
-    next_area_prob = RealNumberField(index='NEXT_AREA_PROB',
-                                     desc="The probability of visiting the \n"
-                                          "area where the target port is")
+    time_anch_diff = RealNumberField(index='TIME_ANCH_DIFF',
+                                     desc="The week-to-week difference of \n"
+                                          "number of days spent at anchorage")
+
+    time_anch_diff_perc = RealNumberField(index='TIME_ANCH_DIFF_PERC',
+                                          desc="The week-to-week difference of \n"
+                                               "number of days spent at \n"
+                                               "anchorage as a percentage")
+
+    time_port_stdev = RealNumberField(index='TIME_PORT_STDEV',
+                                      desc="The week-to-week standard \n"
+                                           "deviation in days spent at port")
+
+    time_port_diff = RealNumberField(index='TIME_PORT_DIFF',
+                                     desc="The week-to-week difference \n"
+                                          "of number of days spent at port")
+
+    time_port_diff_perc = RealNumberField(index='TIME_PORT_DIFF_PERC',
+                                          desc="The week-to-week difference \n"
+                                               "of number of days spent at \n"
+                                               "port as a percentage")
