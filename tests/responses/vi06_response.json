@@ -1,0 +1,19 @@
+[
+   {
+      "PORT_ID":"1",
+      "YEAR":"2018",
+      "WEEK":"15",
+      "MARKET":"WET BULK",
+      "SHIPCLASS":"HANDYSIZE",
+      "TIME_ANCH":"0.3",
+      "TIME_PORT":"0.7",
+      "VESSELS":"17",
+      "CALLS":"33",
+      "TIME_ANCH_STDEV":"1.1",
+      "TIME_ANCH_DIFF":"0.1",
+      "TIME_ANCH_DIFF_PERC":"50.0",
+      "TIME_PORT_STDEV":"9.0",
+      "TIME_PORT_DIFF":"0.0",
+      "TIME_PORT_DIFF_PERC":"0.0"
+   }
+]
