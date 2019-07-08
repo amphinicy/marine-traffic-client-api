@@ -33,6 +33,11 @@ from marinetrafficapi.voyage_info.\
 from marinetrafficapi.voyage_info.\
     VI06_port_congestion.query_params import VI06QueryParams
 
+from marinetrafficapi.voyage_info.\
+    VI07_eta_to_port.models import EtaToPort
+from marinetrafficapi.voyage_info.\
+    VI07_eta_to_port.query_params import VI07QueryParams
+
 
 class VoyageInfo:
     """Retrieve forecasted information for any vessel.
@@ -108,4 +113,16 @@ class VoyageInfo:
         description='{}:\nReceive the Port Congestion \n'
                     'for a specific period of time'
             .format(click.style("API CALL VI06", fg="red"))
+    )
+
+    eta_to_port = bind_request(
+        api_path='/etatoport',
+        model=EtaToPort,
+        query_parameters=VI07QueryParams,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSONO
+        },
+        description='{}:\nGet ETA and voyage information for a \n'
+                    'vessel of your choice, to any port you define'
+            .format(click.style("API CALL VI07", fg="red"))
     )

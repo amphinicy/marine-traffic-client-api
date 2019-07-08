@@ -659,6 +659,43 @@ for port in ports.models:
     port.time_port_diff_perc.value
 ```
 
+### (VI07) ETA To Port
+[https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi06](https://www.marinetraffic.com/en/ais-api-services/documentation/api-service:vi06)
+
+```python
+from marinetrafficapi import MarineTrafficApi
+
+api = MarineTrafficApi(api_key="__your_api_key_here__")
+etas = api.eta_to_port(portid=2036,
+                       shipid=292,
+                       speed_calc=18.8)
+
+# list all possible params with:
+MarineTrafficApi.print_params_for('eta_to_port')
+
+for eta in etas.models:
+    eta.ship_id.value
+    eta.mmsi.value
+    eta.imo.value
+    eta.last_port_id.value
+    eta.last_port.value
+    eta.last_port_unlocode.value
+    eta.last_port_time.value
+    eta.next_port_name.value
+    eta.next_port_unlocode.value
+    eta.eta_calc.value
+    eta.distance_travelled.value
+    eta.distance_to_go.value
+    eta.speed.value
+    eta.draught.value
+    eta.draught_max.value
+    eta.load_status_name.value
+    eta.route.value
+    eta.etd_calc.value
+    eta.time_anch.value 
+    eta.time_port.value 
+```
+
 ## Exception Handling
 
 ```python
