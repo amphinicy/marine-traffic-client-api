@@ -1,6 +1,6 @@
 from marinetrafficapi.models import Model
 from marinetrafficapi.fields import NumberField, TextField, DatetimeField, \
-    LinestringField, RealNumberField
+    RealNumberField
 
 
 class EtaToPort(Model):
