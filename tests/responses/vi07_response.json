@@ -1,0 +1,24 @@
+[
+   {
+       "SHIP_ID": "292",
+       "MMSI": "228313800",
+       "IMO": "9450600",
+       "LAST_PORT_ID": "166",
+       "LAST_PORT": "CAPE TOWN",
+       "LAST_PORT_UNLOCODE": "ZACPT",
+       "LAST_PORT_TIME": "2018-12-08 08:13:01",
+       "NEXT_PORT_NAME": "ROTTERDAM",
+       "NEXT_PORT_UNLOCODE": "NLRTM",
+       "ETA_CALC": "2018-12-26 11:48:02",
+       "DISTANCE_TRAVELLED": "200",
+       "DISTANCE_TO_GO": "100",
+       "SPEED_CALC": "50",
+       "DRAUGHT": "1234",
+       "DRAUGHT_MAX": "4321",
+       "LOAD_STATUS_NAME": "test1",
+       "ROUTE": "test2",
+       "ETD_CALC": "2018-12-26 11:48:02",
+       "TIME_ANCH": "10.10",
+       "TIME_PORT": "20.20"
+   }
+]

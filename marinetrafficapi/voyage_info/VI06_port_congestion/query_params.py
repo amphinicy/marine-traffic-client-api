@@ -2,7 +2,7 @@ from marinetrafficapi.query_params import QueryParams
 
 
 class VI06QueryParams(QueryParams):
-    """Query params params for VI05 API call."""
+    """Query params params for VI06 API call."""
 
     port_id = 'portid', 'The MarineTraffic ID of the port you wish \n' \
                         'to monitor (found on the URL of the respective \n' \
