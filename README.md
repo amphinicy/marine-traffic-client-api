@@ -739,11 +739,13 @@ from dumpit import pdumpit
 
 from marinetrafficapi import Events
 from marinetrafficapi import VoyageInfo
+from marinetrafficapi import VesselData
 from marinetrafficapi import VesselPositions
 
-pdumpit(Events, all_=False)
-pdumpit(VoyageInfo, all_=False)
-pdumpit(VesselPositions, all_=False)
+pdumpit(Events)
+pdumpit(VoyageInfo)
+pdumpit(VesselData)
+pdumpit(VesselPositions)
 ```
 
 ![Field Descriptions](docs/images/api_calls.png)
@@ -774,7 +776,7 @@ api = MarineTrafficApi(api_key="__your_api_key_here__")
 
 request = api.vessel_historical_track(period='daily', days=3, mmsi=241486000)
 
-pdumpit(request.models[0], all_=False)
+pdumpit(request.models[0])
 ````
 
 ![Field Descriptions](docs/images/field_desc.png)
