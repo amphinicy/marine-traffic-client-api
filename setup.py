@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Marine Traffic API',
-    version='0.20.0',
+    version='0.20.1',
 
     description='Marine Traffic Client Api',
     long_description=readme(),
@@ -28,7 +28,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        #'Programming Language :: Python :: 3.8',
     ],
     keywords='marine traffic, api, cruise, distance, port, vessel, track, fleet',
 
@@ -38,7 +38,7 @@ setup(
         'lxml>=4.3.0',
         'ujson>=1.35',
         'requests>=2.20.0',
-        'dumpit>=0.5.0',
+        'dumpit>=0.6.0',
         'aenum>=2.1.2',
         'defusedxml>=0.6.0',
     ],

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.1
+
+### Fixed in 0.20.1
+-   Various bug fixes
+-   dumpit version 0.6.0
+
 ## 0.20.0
 
 ### Added in 0.20.0
