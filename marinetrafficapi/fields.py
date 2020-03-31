@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Any, Union, List, Tuple
-
+import time
+import sys
 from marinetrafficapi.constants import BoolConst, MiscConst
 
 
@@ -110,8 +111,13 @@ class LinestringField(Field):
         """Actual converting."""
 
         coordinates = []
-        for coordinate in data[12:-1].split(','):
-            coordinates.append(
-                tuple(map(float, coordinate.strip().split(' '))))
+        if len(data):
+            for coordinate in data[12:-1].split(','):
+                try:
+                    coordinates.append(
+                        tuple(map(float, coordinate.strip().split(' '))))
+                except Exception as e:
+                    raise ValueError
+                
 
         return coordinates
