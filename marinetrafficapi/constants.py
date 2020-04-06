@@ -60,7 +60,7 @@ FormatterConst = namedtuple('FormatterConst', ['XML',
 
 TestConst = namedtuple('TestConst', ['FAKE_RESPONSE_PATH'])('fake_response_path')
 
-ResponseCode = namedtuple('ResponseCode', ['OK', 'NOT_FOUND'])(200, 404)
+ResponseCode = namedtuple('ResponseCode', ['OK', 'NOT_FOUND', 'TIMED_OUT'])(200, 404, 408)
 
 BoolConst = namedtuple('BoolConst', ['TRUE', 'FALSE'])('1', '0')
 

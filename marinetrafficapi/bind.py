@@ -40,7 +40,7 @@ def bind_request(**request_data) -> 'callable':
             self.parameters = {RequestConst.QUERY: {},
                                RequestConst.PATH: []}
 
-            self._timeout = 5
+            self._timeout = 10
 
             self._set_parameters(*path_params, **query_params)
 
@@ -133,9 +133,13 @@ def bind_request(**request_data) -> 'callable':
                     return ResponseCode.OK, f.read()
 
             elif self.method == RequestConst.GET:
-                response = requests.get(url, timeout=self._timeout)
-                self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
-                return response.status_code, response.text
+                try:
+                    response = requests.get(url, timeout=self._timeout)
+                    self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+                    return response.status_code, response.text
+                except requests.exceptions.ReadTimeout as e:
+                    return ResponseCode.TIMED_OUT, ''
+                    
 
             else:
                 # For future POST, PUT, DELETE requests
