@@ -117,7 +117,6 @@ class LinestringField(Field):
                     coordinates.append(
                         tuple(map(float, coordinate.strip().split(' '))))
                 except Exception as e:
-                    raise ValueError
-                
+                    raise ValueError         
 
         return coordinates

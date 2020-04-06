@@ -80,21 +80,26 @@ class Json(Formatter):
     def _format(self, data: AnyStr) -> Dict:
         """Transform raw data from server into python native type."""
 
-        formatted_data = ujson.loads(data)
-        if isinstance(formatted_data, dict):
-            return formatted_data.get(ResponseDataConst.DATA, formatted_data)
+        if len(data):
+            formatted_data = ujson.loads(data)
+            if isinstance(formatted_data, dict):
+                return formatted_data.get(ResponseDataConst.DATA, formatted_data)
+            else:
+                return formatted_data
         else:
-            return formatted_data
+            return {}
 
     def _format_meta(self, data: AnyStr) -> Dict:
         """Transform raw data from server into python native type."""
 
-        formatted_data = ujson.loads(data)
-        if isinstance(formatted_data, dict):
-            return formatted_data.get(ResponseDataConst.META, {})
+        if len(data):
+            formatted_data = ujson.loads(data)
+            if isinstance(formatted_data, dict):
+                return formatted_data.get(ResponseDataConst.META, {})
+            else:
+                return self.__class__._default_meta_data(len(formatted_data))
         else:
             return self.__class__._default_meta_data(len(formatted_data))
-
 
 class Csv(Formatter):
     """CSV data formatter class."""
